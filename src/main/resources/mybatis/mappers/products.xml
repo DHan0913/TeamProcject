@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="products">
 
+    <!-- Select all products -->
+    <select id="selectAllProducts" resultType="ProductVo">
+        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
+               content, status, img
+        FROM products
+    </select>
 
+    <!-- Select products by name -->
+    <select id="selectProductsByName" parameterType="string" resultType="ProductVo">
+        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
+               content, status, img
+        FROM products
+        WHERE productname LIKE '%' || #{value} || '%'
+    </select>
 
-</mapper>	
+    <!-- Select products by genre -->
+    <select id="selectProductsByGenre" parameterType="string" resultType="ProductVo">
+        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
+               content, status, img
+        FROM products
+        WHERE genre = #{value}
+    </select>
+
+    <!-- Rent a product -->
+    <update id="rentProduct">
+        UPDATE products
+        SET status = '대여중'
+        WHERE product_no = #{productNo}
+    </update>
+
+    <!-- Return a product -->
+    <update id="returnProduct">
+        UPDATE products
+        SET status = '대여가능'
+        WHERE product_no = #{productNo}
+    </update>
+
+</mapper>

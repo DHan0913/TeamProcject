@@ -38,20 +38,19 @@
 		<property name="implicitCachingEnabled" value="true" />
 	</bean>
 
-	<!-- MyBatis SqlSessionFactoryBean 설정, MyBatis SqlSessionTemplate 설정 
+	<!-- MyBatis SqlSessionFactoryBean 설정, MyBatis SqlSessionTemplate 설정 -->
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="oracleDatasource" />
 		<property name="configLocation"
 			value="classpath:/mybatis/configuration.xml" />
-		<property name="mapperLocations"
-			value="classpath:/mybatis/mappers/*.xml" />
+
 	</bean>
 
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-	-->
+
 
 </beans>
