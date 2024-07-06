@@ -23,7 +23,7 @@
             <div class="list-container">
                 <table border="1" width="100%">
                     <tr>
-                        <th>상품번호test</th>
+                        <th>상품번호</th>
                         <th>상품이름</th>
                         <th>장르</th>
                         <th>출시일</th>
