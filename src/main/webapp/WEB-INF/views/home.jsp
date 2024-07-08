@@ -14,6 +14,10 @@
         <div id="search-bar">
             <c:url var="searchUrl" value="/products/search" />
             <form action="${searchUrl}" method="GET">
+                <select name="filter">
+                    <option value="productName">상품이름</option>
+                    <option value="genre">장르</option>
+                </select>
                 <input type="text" name="keyword" placeholder="검색">
                 <button type="submit">검색</button>
             </form>

@@ -17,5 +17,13 @@ public class ProductServiceImpl implements ProductService {
         return productDao.selectAllProducts();
     }
 
-    // 기타 필요한 메서드 구현
+    @Override
+    public List<ProductVo> searchProductsByName(String keyword) {
+        return productDao.selectProductsByName(keyword);
+    }
+
+    @Override
+    public List<ProductVo> searchProductsByGenre(String keyword) {
+        return productDao.selectProductsByGenre(keyword);
+    }
 }

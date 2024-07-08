@@ -33,8 +33,8 @@
 		class="oracle.jdbc.pool.OracleDataSource">
 		<property name="URL"
 			value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="user" value="himedia" />
-		<property name="password" value="himedia" />
+		<property name="user" value="hr" />
+		<property name="password" value="hr" />
 		<property name="implicitCachingEnabled" value="true" />
 	</bean>
 

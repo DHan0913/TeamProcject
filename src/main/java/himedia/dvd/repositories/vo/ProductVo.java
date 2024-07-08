@@ -1,19 +1,17 @@
 package himedia.dvd.repositories.vo;
 
 public class ProductVo {
-    private Long productNo;      // 상품 번호
-    private String productName;  // 상품 이름
-    private String genre;        // 상품 장르
-    private String releaseDate;  // 상품 등록일
-    private String content;      // 상품 설명
-    private String status;       // 대여 가능 여부
-    private String img;          // 상품 이미지 URL
+    private Long productNo;
+    private String productName;
+    private String genre;
+    private String releaseDate;
+    private String content;
+    private String status;
+    private String img;
 
     public ProductVo() {
-        // 기본 생성자
     }
 
-    // 상품 등록용 생성자
     public ProductVo(String productName, String genre, String releaseDate, String content, String status, String img) {
         this.productName = productName;
         this.genre = genre;
