@@ -18,6 +18,17 @@ public class ProductDaoImpl implements ProductDao {
         List<ProductVo> list = sqlSession.selectList("products.selectAllProducts");
         return list;
     }
+    // 제품등록
+    @Override
+    public int insert(ProductVo productVo) {
+    	int insertedCount = sqlSession.insert("products.insertProduct", productVo);
+    	return insertedCount;
+    }
+    
+    @Override
+    public int insertProduct(ProductVo productVo) {
+        return sqlSession.insert("products.insertProduct", productVo);
+    }
 
     // 상세정보
     @Override
@@ -36,4 +47,5 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductVo> selectProductsByGenre(String genre) {
         return sqlSession.selectList("products.selectProductsByGenre", genre);
     }
+
 }

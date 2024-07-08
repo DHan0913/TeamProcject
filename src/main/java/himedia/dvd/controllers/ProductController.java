@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,5 +24,22 @@ public class ProductController {
         ProductVo product = productService.getProductdetail(productNo);
         model.addAttribute("product", product);
         return "products/productdetail"; 
+    }
+    
+    @GetMapping("/addproduct")
+    public String showAddProductForm(Model model) {
+        model.addAttribute("productVo", new ProductVo()); 
+        return "products/addproduct"; 
+    }
+
+    @PostMapping("/addproduct")
+    public String addProduct(@ModelAttribute("productVo") ProductVo productVo, Model model) {
+        boolean added = productService.add(productVo); 
+        if (added) {
+            return "redirect:/home";
+        } else {
+            model.addAttribute("error");
+            return "products/addproduct"; 
+        }
     }
 }

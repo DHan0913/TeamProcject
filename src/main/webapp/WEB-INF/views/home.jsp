@@ -10,7 +10,9 @@
     <div id="container">
         <!-- 헤더 포함 -->
         <c:import url="/WEB-INF/views/includes/header.jsp" />
-        
+
+        </div>
+
         <div id="content">
             <div class="list-container">
                 <table border="1" width="100%">
@@ -24,13 +26,12 @@
                         <tr>
                             <td>${product.productNo}</td>
                             <td><a href="${pageContext.request.contextPath}/products/detail?productNo=${product.productNo}">${product.productName}</a></td>
-                            <td>${product.productName}</td>
                             <td>${product.genre}</td>
                             <td>${product.releaseDate}</td>
                         </tr>
                     </c:forEach>
                     <tr>
-                    	<td colspan="6"><a href="<c:url value="products/addproduct"/>">상품등록</a></td>
+                       <td colspan="6"><a href="<c:url value="products/addproduct"/>">상품등록</a></td>
                     </tr>
                 </table>
             </div>

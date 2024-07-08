@@ -2,17 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="products">
+	<mapper namespace="products">
     <select id="selectAllProducts" resultType="ProductVo">
         SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
                content, status, img
         FROM products
     </select>
     
+    
+    <!-- 추가 -->
+     <insert id="insertProduct" parameterType="ProductVo">
+        INSERT INTO products (productname, genre, release_date, content, status, img)
+        VALUES (#{productName}, #{genre}, #{releaseDate}, #{content}, #{status}, #{img})
+    </insert>
+    
     <!-- Select product by product number -->
     <select id="getProductdetail" parameterType="long" resultType="ProductVo">
         SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
-               content, status, img
+               content, status,img
         FROM products
         WHERE product_no = #{productNo}
     </select>

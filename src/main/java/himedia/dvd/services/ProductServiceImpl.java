@@ -17,6 +17,11 @@ public class ProductServiceImpl implements ProductService {
         List<ProductVo> list = productDao.selectAllProducts();
         return list;
     }
+	@Override
+	public boolean add(ProductVo productVo) {
+		int insertedCount = productDao.insertProduct(productVo);
+        return insertedCount == 1;
+	}
 
     @Override
     public ProductVo getProductdetail(Long productNo) {
@@ -33,4 +38,5 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductVo> searchProductsByGenre(String keyword) {
         return productDao.selectProductsByGenre(keyword);
     }
+
 }
