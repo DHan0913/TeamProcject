@@ -25,8 +25,7 @@ public class MainController {
     }
 
     @GetMapping("/products/search")
-    public String search(@RequestParam(value = "filter", required = false, defaultValue = "productName") String filter,
-                         @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword, Model model) {
+    public String search(@RequestParam("filter") String filter, @RequestParam("keyword") String keyword, Model model) {
         List<ProductVo> products;
         if ("productName".equals(filter)) {
             products = productService.searchProductsByName(keyword);
@@ -37,3 +36,4 @@ public class MainController {
         return "home";
     }
 }
+
