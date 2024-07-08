@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import himedia.dvd.repositories.vo.UpdateVo;
+import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.UpdateService;
 import jakarta.validation.Valid;
 
@@ -23,14 +23,14 @@ public class UpdateController {
 	
 	// 회원정보 수정 
 	@GetMapping({"/update"})
-	public String update(@ModelAttribute UpdateVo updateVo) {
+	public String update(@ModelAttribute UserVo vo) {
 		return "updateusers/update";
 	}
 	
 	// 회원정보 수정 액션
 	@PostMapping("/update")
-	public String update(@ModelAttribute @Valid UpdateVo updateVo, BindingResult result, Model model) {
-		System.out.println("회원정보 수정 폼: " + updateVo);
+	public String update(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
+		System.out.println("회원정보 수정 폼: " + vo);
 		
 		if(result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -40,12 +40,12 @@ public class UpdateController {
 			model.addAllAttributes(result.getModel());
 			return "updateusers/update";
 		}
-		boolean success = updateService.update(updateVo);
+		boolean success = UpdateService.getUser(vo);
 		if(success) {
 			System.out.println("회원 정보 수정 완료");
 			return "redirect:/updateusers/updatesuccess";
 		} else {
-			System.err.println("회원 정보수정을 하지 못했습니다.");
+			System.err.println("회원 정보 수정에 실패했습니다.");
 			return "redirect:/views/home";
 		}
 	} 
