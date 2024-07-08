@@ -93,7 +93,7 @@ public class UserVo {
 
 	@Override
 	public String toString() {
-		return "UserVo [user_no=" + userNo + ", username=" + username + ", birth=" + birth + ", email=" + email
+		return "UserVo [userNo=" + userNo + ", username=" + username + ", birth=" + birth + ", email=" + email
 				+ ", password=" + password + ", regdate=" + regdate + "]";
 	}
 

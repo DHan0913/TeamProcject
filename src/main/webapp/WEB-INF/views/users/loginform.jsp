@@ -12,7 +12,7 @@
 	<form id="login-form" 
 		name="loginform" 
 		method="POST" 
-		action="login">
+		action="<c:url value="/users/login" />">
 		
 		<label class="block-label" for="email">이메일</label> 
 		<input id="email" name="email" type="text" value=""><br> 
