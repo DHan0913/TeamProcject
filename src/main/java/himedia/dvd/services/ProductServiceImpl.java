@@ -14,13 +14,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductVo> getAllProducts() {
-    	List<ProductVo> list = productDao.selectAllProducts();
+        List<ProductVo> list = productDao.selectAllProducts();
         return list;
     }
 
-	@Override
-	public ProductVo getProductdetail(Long productNo) {
-		ProductVo productVo = productDao.getProductdetail(productNo);
-		return productVo;
-	}
+    @Override
+    public ProductVo getProductdetail(Long productNo) {
+        ProductVo productVo = productDao.getProductdetail(productNo);
+        return productVo;
+    }
+
+    @Override
+    public List<ProductVo> searchProductsByName(String keyword) {
+        return productDao.selectProductsByName(keyword);
+    }
+
+    @Override
+    public List<ProductVo> searchProductsByGenre(String keyword) {
+        return productDao.selectProductsByGenre(keyword);
+    }
 }

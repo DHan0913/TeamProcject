@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="products">
 
-    <!-- Select all products -->
+<mapper namespace="products">
     <select id="selectAllProducts" resultType="ProductVo">
-    SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
-           status
-    FROM products
-	</select>
-	
-	<!-- Select product by product number -->
-	<select id="getProductdetail" parameterType="long" resultType="ProductVo">
-	    SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
-	           status
-	    FROM products
-	    WHERE product_no = #{productNo}
-	</select>
-	
-	
-<!--     Select products by genre
+        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
+               content, status, img
+        FROM products
+    </select>
+    
+    <!-- Select product by product number -->
+    <select id="getProductdetail" parameterType="long" resultType="ProductVo">
+        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
+               content, status, img
+        FROM products
+        WHERE product_no = #{productNo}
+    </select>
+    
+    <select id="selectProductsByName" parameterType="string" resultType="ProductVo">
+        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
+               content, status, img
+        FROM products
+        WHERE LOWER(productname) LIKE '%' || LOWER(#{value}) || '%'
+    </select>
+
     <select id="selectProductsByGenre" parameterType="string" resultType="ProductVo">
         SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
                content, status, img
         FROM products
-        WHERE genre = #{value}
+        WHERE LOWER(genre) LIKE '%' || LOWER(#{value}) || '%'
     </select>
 
-    Rent a product
+    <!-- Rent a product -->
     <update id="rentProduct">
         UPDATE products
         SET status = '대여중'
         WHERE product_no = #{productNo}
     </update>
 
-    Return a product
+    <!-- Return a product -->
     <update id="returnProduct">
         UPDATE products
         SET status = '대여가능'
         WHERE product_no = #{productNo}
-    </update> -->
-
+    </update>
 </mapper>

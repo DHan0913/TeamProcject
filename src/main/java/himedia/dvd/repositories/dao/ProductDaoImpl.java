@@ -15,14 +15,25 @@ public class ProductDaoImpl implements ProductDao {
     // 리스트 출력
     @Override
     public List<ProductVo> selectAllProducts() {
-    	List<ProductVo> list = sqlSession.selectList("products.selectAllProducts");
-    	return list;
+        List<ProductVo> list = sqlSession.selectList("products.selectAllProducts");
+        return list;
     }
-    
-    // 상세정보
-	@Override
-	public ProductVo getProductdetail(Long productNo) {
-		return sqlSession.selectOne("products.getProductdetail", productNo);
-	}
 
+    // 상세정보
+    @Override
+    public ProductVo getProductdetail(Long productNo) {
+        return sqlSession.selectOne("products.getProductdetail", productNo);
+    }
+
+    // 이름으로 제품 검색
+    @Override
+    public List<ProductVo> selectProductsByName(String name) {
+        return sqlSession.selectList("products.selectProductsByName", name);
+    }
+
+    // 장르로 제품 검색
+    @Override
+    public List<ProductVo> selectProductsByGenre(String genre) {
+        return sqlSession.selectList("products.selectProductsByGenre", genre);
+    }
 }
