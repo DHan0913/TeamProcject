@@ -20,7 +20,7 @@
 			</div>
 			<ul>
 				<li><a href='<c:url value="/users/logout" />'>로그아웃</a></li>
-				<li>${authUser.name }님환영합니다</li>
+				<li>${authUser.username }님환영합니다</li>
 			</ul>
 		</c:when>
 		<c:otherwise>
