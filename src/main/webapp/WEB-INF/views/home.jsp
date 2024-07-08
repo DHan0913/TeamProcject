@@ -10,8 +10,7 @@
     <div id="container">
         <!-- 헤더 포함 -->
         <c:import url="/WEB-INF/views/includes/header.jsp" />
-
-
+        
         <div id="content">
             <div class="list-container">
                 <table border="1" width="100%">
@@ -19,7 +18,7 @@
                         <th>상품번호</th>
                         <th>상품이름</th>
                         <th>장르</th>
-                        <th>출시일.</th>
+                        <th>출시일</th>
                     </tr>
                     <c:forEach var="product" items="${products}">
                         <tr>

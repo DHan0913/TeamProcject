@@ -11,26 +11,34 @@
 	<h1>DVD</h1>
 	<c:choose>
 		<c:when test="${not empty authUser }">
-			<div id="search-bar">
-				<c:url var="searchUrl" value="/products/search" />
-				<form action="${searchUrl}" method="GET">
-					<input type="text" name="keyword" placeholder="검색">
-					<button type="submit">검색</button>
-				</form>
-			</div>
+		<div id="search-bar">
+            <c:url var="searchUrl" value="/products/search" />
+            <form action="${searchUrl}" method="GET">
+                <select name="filter">
+                    <option value="productName">상품이름</option>
+                    <option value="genre">장르</option>
+                </select>
+                <input type="text" name="keyword" placeholder="검색">
+                <button type="submit">검색</button>
+            </form>
+        </div>
 			<ul>
 				<li><a href='<c:url value="/users/logout" />'>로그아웃</a></li>
 				<li>${authUser.username }님환영합니다</li>
 			</ul>
 		</c:when>
 		<c:otherwise>
-			<div id="search-bar">
-				<c:url var="searchUrl" value="/products/search" />
-				<form action="${searchUrl}" method="GET">
-					<input type="text" name="keyword" placeholder="검색">
-					<button type="submit">검색</button>
-				</form>
-			</div>
+	<div id="search-bar">
+            <c:url var="searchUrl" value="/products/search" />
+            <form action="${searchUrl}" method="GET">
+                <select name="filter">
+                    <option value="productName">상품이름</option>
+                    <option value="genre">장르</option>
+                </select>
+                <input type="text" name="keyword" placeholder="검색">
+                <button type="submit">검색</button>
+            </form>
+        </div>
 			<div class="button">
 				<button onclick="location.href='<c:url value="/users/login" />'">로그인</button>
 				<button onclick="location.href='<c:url value="/users/join" />'">회원가입</button>
