@@ -23,4 +23,16 @@ public class ProductController {
         model.addAttribute("product", product);
         return "products/productdetail"; 
     }
+
+    @GetMapping("/add")
+    public String showAddProductForm(Model model) {
+        model.addAttribute("productVo", new ProductVo());
+        return "products/addproduct";
+    }
+
+//    @PostMapping("/add")
+//    public String addProduct(@ModelAttribute ProductVo productVo) {
+//        productService.addProduct(productVo);
+//        return "redirect:/products";
+//    }
 }

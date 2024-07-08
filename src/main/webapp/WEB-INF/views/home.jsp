@@ -30,7 +30,7 @@
                         </tr>
                     </c:forEach>
                     <tr>
-                    	<td colspan="6"><a href="<c:url value="products/addproduct"/>">상품등록</a></td>
+                    	<td colspan="6"><a href="<c:url value="products/add"/>">상품등록</a></td>
                     </tr>
                 </table>
             </div>
