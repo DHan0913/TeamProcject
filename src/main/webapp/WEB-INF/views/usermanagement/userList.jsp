@@ -1,35 +1,31 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>User List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 관리</title>
 </head>
 <body>
-    <h1>User List</h1>
-    <table border="1">
-        <thead>
+    <c:import url="/WEB-INF/views/includes/header2.jsp"/>
+    <c:import url="/WEB-INF/views/includes/navigation2.jsp"/>
+    <main>
+        <h2>사용자 목록</h2>
+        <table border="1">
             <tr>
-                <th>User No</th>
-                <th>Username</th>
-                <th>Birth</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Reg Date</th>
+                <th>번호</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>생년월일</th>
+                <th>역할</th>
+                <th>가입일</th>
+                <th>작업</th>
             </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="user" items="${users}">
-                <tr>
-                    <td>${user.userNo}</td>
-                    <td>${user.username}</td>
-                    <td>${user.birth}</td>
-                    <td>${user.email}</td>
-                    <td>${user.password}</td>
-                    <td>${user.regdate}</td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+            <!-- 사용자 목록이 여기에 표시됩니다 -->
+        </table>
+    </main>
+    <c:import url="/WEB-INF/views/includes/footer2.jsp"/>
 </body>
 </html>
