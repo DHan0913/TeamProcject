@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="himedia.dvd.repositories.mappers.UserMapper">
+
+    <!-- INSERT (회원 가입) -->
+    <insert id="insert" parameterType="himedia.dvd.repositories.vo.UserVo">
+        <selectKey keyProperty="userNo" resultType="long" order="BEFORE">
+            SELECT user_no_seq.nextval FROM dual
+        </selectKey>
+        INSERT INTO users (user_no, username, birth, email, password, regdate)
+        VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password}, #{regdate})
+    </insert>
+
+    <!-- SELECT (이메일로 사용자 정보 조회) -->
+    <select id="selectUserByEmail" parameterType="string" resultType="himedia.dvd.repositories.vo.UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate
+        FROM users
+        WHERE email=#{value}
+    </select>
+
+    <!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
+    <select id="selectUserByEmailAndPassword" parameterType="map" resultType="himedia.dvd.repositories.vo.UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate
+        FROM users
+        WHERE email=#{email} AND password=#{password}
+    </select>
+
+    <!-- UPDATE (사용자 정보 수정) -->
+    <update id="updateUser" parameterType="himedia.dvd.repositories.vo.UserVo">
+        UPDATE users
+        SET username=#{username}, birth=#{birth}, email=#{email}, password=#{password}, regdate=#{regdate}
+        WHERE user_no=#{userNo}
+    </update>
+
+    <!-- DELETE (사용자 정보 삭제) -->
+    <delete id="deleteUser" parameterType="long">
+        DELETE FROM users
+        WHERE user_no=#{value}
+    </delete>
+
+</mapper>
