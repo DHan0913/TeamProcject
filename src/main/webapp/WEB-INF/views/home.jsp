@@ -11,12 +11,6 @@
         <!-- 헤더 포함 -->
         <c:import url="/WEB-INF/views/includes/header.jsp" />
 
-        <div id="search-bar">
-            <c:url var="searchUrl" value="/products/search" />
-            <form action="${searchUrl}" method="GET">
-                <input type="text" name="keyword" placeholder="검색">
-                <button type="submit">검색</button>
-            </form>
         </div>
 
         <div id="content">
