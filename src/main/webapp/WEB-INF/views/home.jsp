@@ -26,7 +26,7 @@
                         <th>상품번호</th>
                         <th>상품이름</th>
                         <th>장르</th>
-                        <th>출시일</th>
+                        <th>출시일.</th>
                     </tr>
                     <c:forEach var="product" items="${products}">
                         <tr>
