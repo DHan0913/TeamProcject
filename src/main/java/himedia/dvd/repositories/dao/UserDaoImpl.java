@@ -7,7 +7,7 @@ import himedia.dvd.repositories.vo.UserVo;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository
+@Repository("userDao")
 public class UserDaoImpl implements UserDao {
 
     @Autowired
@@ -20,7 +20,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserVo selectUserByEmail(String email) {
-        return sqlSession.selectOne("users.selectUserByEmail", email);
+    	UserVo vo = sqlSession.selectOne("users.selectUserByEmail", email); 
+        return vo;
     }
 
     @Override

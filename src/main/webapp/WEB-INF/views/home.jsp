@@ -11,17 +11,6 @@
         <!-- 헤더 포함 -->
         <c:import url="/WEB-INF/views/includes/header.jsp" />
 
-        <div id="search-bar">
-            <c:url var="searchUrl" value="/products/search" />
-            <form action="${searchUrl}" method="GET">
-                <select name="filter">
-                    <option value="productName">상품이름</option>
-                    <option value="genre">장르</option>
-                </select>
-                <input type="text" name="keyword" placeholder="검색">
-                <button type="submit">검색</button>
-            </form>
-        </div>
 
         <div id="content">
             <div class="list-container">
@@ -30,7 +19,7 @@
                         <th>상품번호</th>
                         <th>상품이름</th>
                         <th>장르</th>
-                        <th>출시일</th>
+                        <th>출시일.</th>
                     </tr>
                     <c:forEach var="product" items="${products}">
                         <tr>
