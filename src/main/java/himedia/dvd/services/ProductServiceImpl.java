@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import himedia.dvd.repositories.dao.ProductDao;
 import himedia.dvd.repositories.vo.ProductVo;
 
-@Service
+@Service("productService")
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -14,7 +14,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductVo> getAllProducts() {
-        return productDao.selectAllProducts();
+        List<ProductVo> list = productDao.selectAllProducts();
+        return list;
+    }
+
+    @Override
+    public ProductVo getProductdetail(Long productNo) {
+        ProductVo productVo = productDao.getProductdetail(productNo);
+        return productVo;
     }
 
     @Override
