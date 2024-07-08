@@ -70,33 +70,41 @@ public class UserController {
 	public String loginForm() {
 		return "users/loginform";
 	}
+	
+
 
 	// 로그인 액션
-	@PostMapping("/login")
-	public String loginAction(
-			@RequestParam(value="email",
-						required=false,
-						defaultValue="") String email,
-			@RequestParam(value="password",
-						required=false,
-						defaultValue="") String password,
-			HttpSession session) {
-		System.out.println("email:" + email);
-		System.out.println("password:" + password);
-		
-		if(email.length() == 0 || password.length() == 0) {
-			System.out.println("email 혹은 password가 입력되지 않음");
-			return "redirect:/users/login";
-		}
-		
-		UserVo authUser = userService.login(email, password);
-		
-		if (authUser != null) {
-			session.setAttribute("authUser", authUser);
-			return "redirect:/";
-		} else {
-			return "redirect:/users/login";
-		}
+    @PostMapping("/login")
+    public String loginAction(
+            @RequestParam(value="email", required=false, defaultValue="") String email,
+            @RequestParam(value="password", required=false, defaultValue="") String password,
+            HttpSession session) {
+        System.out.println("email:" + email);
+        System.out.println("password:" + password);
+        
+        if(email.length() == 0 || password.length() == 0) {
+            System.out.println("email 혹은 password가 입력되지 않음");
+            return "redirect:/users/login";
+        }
+        
+        UserVo authUser = userService.login(email, password);
+        
+        if (authUser != null) {
+            if (authUser.getRole() == 1) {
+                session.setAttribute("authAdmin", authUser);
+                return "redirect:/users/admin";
+            } else {
+                session.setAttribute("authUser", authUser);
+                return "redirect:/";
+            }
+        } else {
+            return "redirect:/users/login";
+        }
+    }
+	// 관리자용 페이지
+	@GetMapping("/admin")
+	public String adminHome() {
+		return "home2";
 	}
 	
 	//	로그아웃

@@ -21,7 +21,7 @@
 
     <!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
     <select id="selectUserByEmailAndPassword" parameterType="map" resultType="UserVo">
-        SELECT user_no as userNo, username, birth, email, password, regdate
+        SELECT user_no as userNo, username, birth, email, password, regdate, role
         FROM users
         WHERE email=#{email} AND password=#{password}
     </select>

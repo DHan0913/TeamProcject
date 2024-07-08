@@ -25,21 +25,18 @@ public class ProductController {
         model.addAttribute("product", product);
         return "products/productdetail"; 
     }
-    
-    @GetMapping("/addproduct")
+
+    @GetMapping("/add")
     public String showAddProductForm(Model model) {
-        model.addAttribute("productVo", new ProductVo()); 
-        return "products/addproduct"; 
+        model.addAttribute("productVo", new ProductVo());
+        return "products/addproduct";
     }
 
-    @PostMapping("/addproduct")
-    public String addProduct(@ModelAttribute("productVo") ProductVo productVo, Model model) {
-        boolean added = productService.add(productVo); 
-        if (added) {
-            return "redirect:/home";
-        } else {
-            model.addAttribute("error");
-            return "products/addproduct"; 
-        }
-    }
+//    @PostMapping("/add")
+//    public String addProduct(@ModelAttribute ProductVo productVo) {
+//        productService.addProduct(productVo);
+//        return "redirect:/products";
+//    }
+
+    
 }

@@ -4,31 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 등록 페이지</title>
 </head>
 <body>
-    <div id="container">
-        <!-- Include header -->
-        <c:import url="/WEB-INF/views/includes/header.jsp" />
 
-        <h2>상품 등록</h2>
-        <form action="<c:url value='/products/addproduct'/>" method="POST">
-            <label for="productName">제품이름:</label><br>
-            <input type="text" id="productName" name="productName" required><br>
+    <h1>상품 등록</h1>
+    <form action="/products/add" method="post">
+        <label for="productName">상품명:</label>
+        <input type="text" id="productName" name="productName" required>
+        <br>
+        <label for="genre">장르:</label>
+        <input type="text" id="genre" name="genre" required>
+        <br>
+        <label for="releaseDate">출시일:</label>
+        <input type="date" id="releaseDate" name="releaseDate" required>
+        <br>
+        <label for="content">내용:</label>
+        <textarea id="content" name="content" required></textarea>
+        <br>
+        <label for="status">상태:</label>
+        <input type="text" id="status" name="status" required>
+        <br>
+        <label for="img">이미지:</label>
+        <input type="text" id="img" name="img" required>
+        <br>
+        <button type="submit">등록</button>
+    </form>
 
-            <label for="genre">장르:</label><br>
-            <input type="text" id="genre" name="genre" required><br>
-
-            <label for="content">줄거리:</label><br>
-            <textarea id="content" name="content" rows="4" required></textarea><br>
-
-            <label for="status">대여여부:</label><br>
-            <input type="text" id="status" name="status" required><br>
-
-            <!-- You can add more fields as needed -->
-
-            <button type="submit">등록</button>
-        </form>
-    </div>
 </body>
 </html>

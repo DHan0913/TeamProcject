@@ -14,10 +14,11 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/aop 
        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
 	<!-- 어노테이션 기반 기능을 활성화 -->
 	<context:annotation-config />
+
 	<!-- 컴포넌트 스캐닝 -->
-	<!-- base-package의 하위 패키지를 대상으로 컴포넌트 스캔 Bean으로 등록 -->
 	<context:component-scan
 		base-package="himedia.dvd.controllers">
 		<context:include-filter type="annotation"
@@ -55,6 +56,13 @@
 		<property name="order" value="1" />
 	</bean>
 
+	<!-- 인터셉터 설정 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/users/admin/**" />
+			<bean class="himedia.dvd.interceptors.AdminInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- MessageSource : 반드시 bean id를 messageSource로 설정해야 한다 -->
 	<bean id="messageSource"
@@ -70,5 +78,4 @@
 	<!-- Resource Mapping -->
 	<mvc:resources mapping="/upload-images/**"
 		location="file:c:/uploads/" />
-
 </beans>
