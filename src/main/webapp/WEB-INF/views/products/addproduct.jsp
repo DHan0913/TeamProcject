@@ -7,6 +7,7 @@
 <title>상품 등록 페이지</title>
 </head>
 <body>
+
     <h1>상품 등록</h1>
     <form action="/products/add" method="post">
         <label for="productName">상품명:</label>
@@ -29,5 +30,6 @@
         <br>
         <button type="submit">등록</button>
     </form>
+
 </body>
 </html>

@@ -6,6 +6,7 @@ import himedia.dvd.repositories.vo.ProductVo;
 public interface ProductService {
     List<ProductVo> getAllProducts();
     ProductVo getProductdetail(Long productNo);
+    public boolean add(ProductVo productVo);
     List<ProductVo> searchProductsByName(String keyword);
     List<ProductVo> searchProductsByGenre(String keyword);
 }
