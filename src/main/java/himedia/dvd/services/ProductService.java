@@ -4,5 +4,6 @@ import java.util.List;
 import himedia.dvd.repositories.vo.ProductVo;
 
 public interface ProductService {
-    List<ProductVo> getAllProducts();
+    public List<ProductVo> getAllProducts();
+	public ProductVo getProductdetail(Long productNo);
 }

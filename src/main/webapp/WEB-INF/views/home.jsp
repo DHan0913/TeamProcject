@@ -31,11 +31,15 @@
                     <c:forEach var="product" items="${products}">
                         <tr>
                             <td>${product.productNo}</td>
+                            <td><a href="${pageContext.request.contextPath}/products/detail?productNo=${product.productNo}">${product.productName}</a></td>
                             <td>${product.productName}</td>
                             <td>${product.genre}</td>
                             <td>${product.releaseDate}</td>
                         </tr>
                     </c:forEach>
+                    <tr>
+                    	<td colspan="6"><a href="<c:url value="products/addproduct"/>">상품등록</a></td>
+                    </tr>
                 </table>
             </div>
         </div>

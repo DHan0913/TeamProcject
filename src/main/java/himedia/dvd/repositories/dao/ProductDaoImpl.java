@@ -6,16 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import himedia.dvd.repositories.vo.ProductVo;
 
-@Repository
+@Repository("productDao")
 public class ProductDaoImpl implements ProductDao {
 
     @Autowired
     private SqlSession sqlSession;
 
+    // 리스트 출력
     @Override
     public List<ProductVo> selectAllProducts() {
-        return sqlSession.selectList("products.selectAllProducts");
+    	List<ProductVo> list = sqlSession.selectList("products.selectAllProducts");
+    	return list;
     }
+    
+    // 상세정보
+	@Override
+	public ProductVo getProductdetail(Long productNo) {
+		return sqlSession.selectOne("products.getProductdetail", productNo);
+	}
 
-    // 기타 필요한 메서드 구현
 }
