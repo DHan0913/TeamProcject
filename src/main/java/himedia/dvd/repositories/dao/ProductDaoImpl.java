@@ -17,5 +17,13 @@ public class ProductDaoImpl implements ProductDao {
         return sqlSession.selectList("products.selectAllProducts");
     }
 
-    // 기타 필요한 메서드 구현
+    @Override
+    public List<ProductVo> selectProductsByName(String name) {
+        return sqlSession.selectList("products.selectProductsByName", name);
+    }
+
+    @Override
+    public List<ProductVo> selectProductsByGenre(String genre) {
+        return sqlSession.selectList("products.selectProductsByGenre", genre);
+    }
 }

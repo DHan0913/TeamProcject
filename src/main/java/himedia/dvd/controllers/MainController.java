@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.services.ProductService;
@@ -18,10 +19,20 @@ public class MainController {
 
     @GetMapping({ "/", "/main" })
     public String main(Model model) {
-        // 여기서 제품 목록을 조회하고 모델에 추가
         List<ProductVo> products = productService.getAllProducts();
         model.addAttribute("products", products);
+        return "home";
+    }
 
-        return "home"; // home.jsp로 이동
+    @GetMapping("/products/search")
+    public String search(@RequestParam("filter") String filter, @RequestParam("keyword") String keyword, Model model) {
+        List<ProductVo> products;
+        if ("productName".equals(filter)) {
+            products = productService.searchProductsByName(keyword);
+        } else {
+            products = productService.searchProductsByGenre(keyword);
+        }
+        model.addAttribute("products", products);
+        return "home";
     }
 }
