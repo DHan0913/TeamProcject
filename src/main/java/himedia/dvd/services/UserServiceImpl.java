@@ -20,6 +20,13 @@ public class UserServiceImpl implements UserService {
         }
         return userDao.insert(vo) == 1;
     }
+    
+    @Override
+    public UserVo login(String email) {
+    	UserVo userVo = userDao.selectUserByEmail(email);
+    	System.out.println("Service UserVo:" + userVo);
+    	return userVo;
+    }
 
     @Override
     public UserVo login(String email, String password) {

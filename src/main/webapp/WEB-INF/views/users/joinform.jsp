@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>DVD 회원 가입</title>
+<script src="<c:url value="/javascript/user.js" />"></script>
 </head>
 <body>
 	<h1>회원 가입</h1>
@@ -23,7 +24,11 @@
 		<input name="password_confirm" type="password" placeholder="비밀번호를 입력하십시오" value=""><br>
 
 		<label class="block-label">이메일</label> 
-		<input name="email" type="email" placeholder="이메일을 입력하십시오" value=""><br>
+		<input name="email" type="email" placeholder="이메일을 입력하십시오">
+		<input type="button" id="check-email"
+			data-target="<c:url value="/users/checkEmail" />"
+			value="이메일 중복체크" /><br>	
+		<input type="hidden" name="emailCheck" value="n" />
 
 		<label class="block-label">생년월일</label>
 		<input name="birth" type="text" placeholder="8자리로 입력하십시오" value=""><br>
