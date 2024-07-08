@@ -31,9 +31,7 @@
 			<label class="block-label">생년월일</label>
 			<input name="birth" type="birth" placeholder="8자리로 입력하십시오" value=""><br>
 
-			<label class="block-label">휴대전화번호</label> 
-			<input name="phone" type="phone" placeholder="번호를 입력하십시오" value=""><br>
-
+			
 			<label for="agree">약관동의</label>
 			<input type="checkbox" id="agree" name="agree" value="n" /><br>
 
