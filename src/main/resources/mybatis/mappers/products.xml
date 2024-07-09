@@ -12,8 +12,12 @@
     
     <!-- 추가 -->
      <insert id="insertProduct" parameterType="ProductVo">
-        INSERT INTO products (productname, genre, release_date, content, status, img)
-        VALUES (#{productName}, #{genre}, #{releaseDate}, #{content}, #{status}, #{img})
+      	<selectKey keyProperty="productNo" resultType="long"
+			order="BEFORE">
+			SELECT product_no_seq.nextval FROM dual
+		</selectKey>
+        INSERT INTO products (product_no ,productname, genre, release_date, content, status, img)
+        VALUES (#{productNo} ,#{productName}, #{genre}, #{releaseDate}, #{content}, #{status}, #{img})
     </insert>
     
     <!-- Select product by product number -->

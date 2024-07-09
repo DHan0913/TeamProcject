@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import himedia.dvd.repositories.vo.ProductVo;
@@ -32,15 +34,16 @@ public class AdminController {
 		return "admin/home";
 	}
 
-	// 상품추가
+	// 상품추가 페이지
 	@GetMapping("/add")
-	public String getGoodsRegister(HttpSession session) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			return "redirect:/";
-		}
-		logger.info("product add");
+	public String getGoodsRegister() {
 		return "admin/products/addproduct";
+	}
+
+	@PostMapping("/add")
+	public String addProduct(@ModelAttribute ProductVo productVo) {
+		productService.add(productVo);
+		return "redirect:/admin/productlist";
 	}
 
 	// 상품 리스트
@@ -55,6 +58,7 @@ public class AdminController {
 		logger.info("productlist");
 		return "admin/products/productlist";
 	}
+
 
 	@GetMapping("/users")
 	public String main(Model model) {

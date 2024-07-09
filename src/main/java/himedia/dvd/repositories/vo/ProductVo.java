@@ -1,11 +1,14 @@
 package himedia.dvd.repositories.vo;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class ProductVo {
     private Long productNo;      // 상품 번호
     private String productName;  // 상품 이름
     private String genre;        // 상품 장르
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;    // 상품 등록일
     private String content;      // 상품 설명
     private String status;       // 대여 가능 여부
