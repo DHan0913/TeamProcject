@@ -5,7 +5,7 @@ import java.sql.Date;
 public class UserVo {
 	private Long userNo; // 고유 번호
 	private String username; // 이름
-	private Long birth; // 생일
+	private String birth; // 생일
 	private String email; // 이메일
 	private String password; // 비번
 	private Date regdate; // 가입날짜
@@ -16,7 +16,7 @@ public class UserVo {
 
 	}
 
-	public UserVo(Long userNo, String username, Long birth, String email, String password, Date regdate, int role) {
+	public UserVo(Long userNo, String username, String birth, String email, String password, Date regdate, int role) {
 		super();
 		this.userNo = userNo;
 		this.username = username;
@@ -28,7 +28,7 @@ public class UserVo {
 	}
 
 	// 회원가입에 필요한 생성자
-	public UserVo(String username, String email, Long birth, String password) {
+	public UserVo(String username, String email, String birth, String password) {
 		this.username = username;
 		this.email = email;
 		this.birth = birth;
@@ -51,11 +51,11 @@ public class UserVo {
 		this.username = username;
 	}
 
-	public Long getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Long birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
