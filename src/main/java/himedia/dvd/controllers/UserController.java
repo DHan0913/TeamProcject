@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,11 +23,31 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @RequestMapping("/users")
+
+
 @Controller
 public class UserController {
 	@Autowired
 	private UserService userService;
-
+//	
+//	 @Value("${Length.userVo.name}")
+//	 private String nameLnth;
+//	 
+//	 @Value("${NotEmpty.userVo.name}")
+//	 private String nameEmty;
+//	 
+//	 @Value("${NotEmpty.userVo.password}")
+//	 private String pwLnth;
+//	 
+//	 @Value("${NotEmpty.userVo.password}")
+//	 private String pwEmty;
+//	 
+//	 @Value("${NotEmpty.userVo.email}")
+//	 private String emailEmty;
+//	 
+//	 @Value("${Email.userVo.email}")
+//	 private String emailFail;
+	 
 	// 가입 폼
 	@GetMapping({ "", "/", "/join" })
 	public String join(@ModelAttribute UserVo userVo) {

@@ -74,6 +74,14 @@
 		<property name="basenames" value="messages/messages_ko" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:messages/messages_ko.properties</value>
+            </list>
+        </property>
+    </bean>
 
 	<!-- MultipartResolver -->
 	<bean id="multipartResolver"

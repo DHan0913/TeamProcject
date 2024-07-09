@@ -11,10 +11,25 @@
 	<div id="container">
 		<!-- 헤더 포함 -->
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
-
+		<div id="search-bar">
+            <c:url var="searchUrl" value="/products/search" />
+            <form action="${searchUrl}" method="GET">
+                <input type="text" name="keyword" placeholder="검색">
+                <button type="submit">검색</button>
+            </form>
+        </div>
 	</div>
 
 	<div id="content">
+		<div class="button" style="float:left;">
+			<button onclick="goGenre('A')">공포</button>
+			<button onclick="goGenre('B')">드라마</button>
+			<button onclick="goGenre('C')">스릴러</button>
+			<button onclick="goGenre('D')">코미디</button>
+			<button onclick="goGenre('E')">로맨스</button>
+			<button onclick="goGenre('F')">액션</button>
+			<button onclick="goGenre('G')">SF</button>
+		</div>
 		<div class="list-container">
 			<table border="1" width="100%">
 				<tr>
@@ -43,4 +58,10 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	function goGenre(type){
+		alert(type);
+	}
+
+</script>
 </html>
