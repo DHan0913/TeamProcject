@@ -26,7 +26,8 @@
         <input type="text" id="status" name="status" required>
         <br>
         <label for="img">이미지:</label>
-        <input type="text" id="img" name="img" required>
+      	<input type="file" name="img">
+
         <br>
         <button type="submit">등록</button>
     </form>

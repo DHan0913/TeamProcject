@@ -31,7 +31,7 @@
 		<input type="hidden" name="emailCheck" value="n" />
 
 		<label class="block-label">생년월일</label>
-		<input name="birth" type="text" placeholder="8자리로 입력하십시오" value=""><br>
+	  	<input name="birth" type="date" id="birthInput"><br>
 
 		<label for="agree">약관동의</label>
 		<input type="checkbox" id="agree" name="agree" value="n" /><br>
