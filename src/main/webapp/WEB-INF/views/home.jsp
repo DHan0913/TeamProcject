@@ -33,9 +33,11 @@
 					</tr>
 				</c:forEach>
 				<tr>
-					<c:if test="${authUser.role == 1}">
-						<p>관리자 화면으로 가기</p>
-					</c:if>
+					<c:if test="${authUser.role == 1 }">
+                    <li>
+                        <button onclick="location.href='<c:url value="/admin/home" />'">관리자 화면</button>
+                    </li>
+                </c:if>
 
 
 
