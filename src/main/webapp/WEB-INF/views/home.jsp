@@ -38,12 +38,6 @@
                         <button onclick="location.href='<c:url value="/admin/home" />'">관리자 화면</button>
                     </li>
                 </c:if>
-
-
-
-					<td colspan="6"><a href="<c:url value="products/add"/>">상품등록</a></td>
-
-
 				</tr>
 			</table>
 		</div>
