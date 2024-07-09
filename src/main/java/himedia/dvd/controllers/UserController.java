@@ -104,7 +104,7 @@ public class UserController {
 	// 관리자용 페이지
 	@GetMapping("/admin")
 	public String adminHome() {
-		return "home2";
+		return "admin/home";
 	}
 	
 	//	로그아웃
