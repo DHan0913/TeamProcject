@@ -7,9 +7,12 @@
 <title>상품 등록 페이지</title>
 </head>
 <body>
-
+<div id="container">
+		<!-- 헤더 포함 -->
+		<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+	</div>
     <h1>상품 등록</h1>
-    <form action="/products/add" method="post">
+    <form action="/admin/add" method="post">
         <label for="productName">상품명:</label>
         <input type="text" id="productName" name="productName" required>
         <br>
@@ -26,11 +29,9 @@
         <input type="text" id="status" name="status" required>
         <br>
         <label for="img">이미지:</label>
-      	<input type="file" name="img">
-
+        <input type="text" id="img" name="img" required>
         <br>
         <button type="submit">등록</button>
     </form>
-
 </body>
 </html>
