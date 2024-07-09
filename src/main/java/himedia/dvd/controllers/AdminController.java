@@ -16,7 +16,7 @@ public class AdminController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
-	 @GetMapping("/home")
+	 @GetMapping({"/home", "/"})
 	    public String getHome(Model model) {
 	        logger.info("admin home");
 	        return "admin/home";  
