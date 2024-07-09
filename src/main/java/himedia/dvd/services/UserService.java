@@ -10,5 +10,5 @@ public interface UserService {
     
     boolean isAuthenticated(HttpServletRequest request); // 인증 체크 메서드
     
-    boolean login(UserVo vo);	// 회원정보 수정
+    boolean updateuser(UserVo vo);	// 회원정보 수정
 }

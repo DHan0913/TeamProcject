@@ -46,8 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public boolean login(UserVo vo) {
-		// TODO Auto-generated method stub
+	public boolean updateuser(UserVo vo) {
 		return false;
 	}
     

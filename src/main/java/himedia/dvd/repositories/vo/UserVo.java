@@ -34,6 +34,14 @@ public class UserVo {
 		this.birth = birth;
 		this.password = password;
 	}
+	
+	// 회원정보수정에 필요한 생성자
+	public UserVo(String birth, String email) {
+		super();
+		this.birth = birth;
+		this.email = email;
+	}
+
 
 	public Long getUserNo() {
 		return userNo;
