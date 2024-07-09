@@ -44,4 +44,12 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+	@Override
+	public boolean login(UserVo vo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+    
+    
 }

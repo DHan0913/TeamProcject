@@ -9,4 +9,6 @@ public interface UserService {
     UserVo login(String email, String password); // 로그인
     
     boolean isAuthenticated(HttpServletRequest request); // 인증 체크 메서드
+    
+    boolean login(UserVo vo);	// 회원정보 수정
 }
