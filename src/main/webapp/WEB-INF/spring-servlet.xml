@@ -56,13 +56,17 @@
 		<property name="order" value="1" />
 	</bean>
 
-	<!-- 인터셉터 설정 -->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/users/admin/**" />
-			<bean class="himedia.dvd.interceptors.AdminInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
+	   <!-- 인터셉터 설정 -->
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/users/admin/**" />
+         <bean class="himedia.dvd.interceptors.AdminInterceptor" />
+      </mvc:interceptor>
+         <mvc:interceptor>
+         <mvc:mapping path="/admin/**" />
+         <bean class="himedia.dvd.interceptors.AdminInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
 
 	<!-- MessageSource : 반드시 bean id를 messageSource로 설정해야 한다 -->
 	<bean id="messageSource"

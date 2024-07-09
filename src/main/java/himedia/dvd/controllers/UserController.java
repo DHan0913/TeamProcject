@@ -93,7 +93,7 @@ public class UserController {
             if (authUser.getRole() == 1) {
                 session.setAttribute("authAdmin", authUser);
                 session.setAttribute("authUser", authUser);
-                return "redirect:/users/admin";
+                return "redirect:/admin/home"; 
             } else {
                 session.setAttribute("authUser", authUser);
                 return "redirect:/";

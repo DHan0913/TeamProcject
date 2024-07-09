@@ -9,7 +9,6 @@
         FROM products
     </select>
     
-    
     <!-- 추가 -->
      <insert id="insertProduct" parameterType="ProductVo">
         INSERT INTO products (productname, genre, release_date, content, status, img)
