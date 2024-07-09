@@ -16,7 +16,7 @@
 			<ul>
 				<!-- 로그인 안한 사용자 -->
 				<!-- 가입링크, 로그인 폼 링크 -->
-				<li><a href='<c:url value="" />'>유저관리</a></li>
+				<li><a href='<c:url value="/admin/users" />'>유저관리</a></li>
 				<li><a href='<c:url value="/admin/productlist" />'>상품관리</a></li>
 				<li><a href='<c:url value="" />'>대여관리</a></li>
 				<li><a href='<c:url value="/" />'>유저화면으로 가기</a></li>

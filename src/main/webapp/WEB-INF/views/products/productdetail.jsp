@@ -31,7 +31,7 @@
         </tr>
         
            <tr>
-            <th>대여가능여부</th>
+            <th>상품사진</th>
             <td><img src="<c:url value='/upload-images/123.jpg' />" /></td>
         </tr>
         

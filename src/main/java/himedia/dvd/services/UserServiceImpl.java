@@ -1,11 +1,14 @@
 package himedia.dvd.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
 import himedia.dvd.repositories.dao.UserDao;
 import himedia.dvd.repositories.vo.UserVo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,12 +23,12 @@ public class UserServiceImpl implements UserService {
         }
         return userDao.insert(vo) == 1;
     }
-    
+
     @Override
     public UserVo login(String email) {
-    	UserVo userVo = userDao.selectUserByEmail(email);
-    	System.out.println("Service UserVo:" + userVo);
-    	return userVo;
+        UserVo userVo = userDao.selectUserByEmail(email);
+        System.out.println("Service UserVo:" + userVo);
+        return userVo;
     }
 
     @Override
@@ -45,10 +48,16 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-	@Override
-	public boolean updateuser(UserVo vo) {
-		return false;
-	}
-    
-    
+    @Override
+    public boolean updateUser(UserVo vo) {
+        // updateUser 메서드 구현 필요
+        // userDao.update(vo) 등의 로직이 필요합니다.
+        return false;
+    }
+
+    @Override
+    public List<UserVo> getAllUsers() {
+        List<UserVo> list = userDao.selectAllUsers();
+        return list;
+    }
 }
