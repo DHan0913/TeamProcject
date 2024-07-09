@@ -9,8 +9,7 @@
     <title>사용자 관리</title>
 </head>
 <body>
-    <c:import url="/WEB-INF/views/includes/header2.jsp"/>
-    <c:import url="/WEB-INF/views/includes/navigation2.jsp"/>
+    <c:import url="/WEB-INF/views/admin/includes/header.jsp"/>
     <main>
         <h2>사용자 목록</h2>
         <table border="1">
@@ -26,6 +25,6 @@
             <!-- 사용자 목록이 여기에 표시됩니다 -->
         </table>
     </main>
-    <c:import url="/WEB-INF/views/includes/footer2.jsp"/>
+    <c:import url="/WEB-INF/views/admin/includes/footer2.jsp"/>
 </body>
 </html>

@@ -14,6 +14,7 @@
 			<ul>
 				<c:if test="${authUser != null }">
 				<li>${authUser.username }님환영합니다</li>
+				<li><a href='<c:url value="/users/logout" />'>종료</a></li>
 				</c:if>
 			</ul>
 		</c:when>
