@@ -134,5 +134,15 @@ public class UserController {
 		
 		return json;
 	
-}
+	}
+	
+	@GetMapping("/updateform")
+	public String updateForm() {
+		return "updateuser/updateform";
+	}
+	
+	@PostMapping("/updateform")
+	public String updateUser(UserVo vo) {
+		return "redirect:/updatesuccess";
+	}
 }
