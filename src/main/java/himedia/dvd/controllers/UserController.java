@@ -29,24 +29,7 @@ import jakarta.validation.Valid;
 public class UserController {
 	@Autowired
 	private UserService userService;
-//	
-//	 @Value("${Length.userVo.name}")
-//	 private String nameLnth;
-//	 
-//	 @Value("${NotEmpty.userVo.name}")
-//	 private String nameEmty;
-//	 
-//	 @Value("${NotEmpty.userVo.password}")
-//	 private String pwLnth;
-//	 
-//	 @Value("${NotEmpty.userVo.password}")
-//	 private String pwEmty;
-//	 
-//	 @Value("${NotEmpty.userVo.email}")
-//	 private String emailEmty;
-//	 
-//	 @Value("${Email.userVo.email}")
-//	 private String emailFail;
+
 	 
 	// 가입 폼
 	@GetMapping({ "", "/", "/join" })
@@ -58,7 +41,17 @@ public class UserController {
 	@PostMapping("/join")
 	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 		System.out.println("회원 가입 폼: " + userVo);
+		
+		// 비밀번호와 비밀번호 확인 검증
+        if (!userVo.getPassword().equals(userVo.getPasswordConfirm())) {
+            result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
+        }
 
+     // 약관 동의 확인 로직 추가
+        if (userVo.getAgree() == null || !userVo.getAgree()) {
+            result.rejectValue("agree", "agree.required");
+        }
+        
 		// 검증 결과 확인
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
