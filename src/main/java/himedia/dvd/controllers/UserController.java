@@ -1,6 +1,5 @@
 package himedia.dvd.controllers;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,59 +156,38 @@ public class UserController {
 	
 	}
 	
-	@GetMapping("/{no}")
-	public String view(@PathVariable("no") Long no, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		
-		return "updateuser/updateform";
-	}
+	/*
+	 * @GetMapping("/{userNo}") public String view(@PathVariable("userNo") Long no,
+	 * Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+	 * UserVo authUser = (UserVo)session.getAttribute("authUser");
+	 * 
+	 * return "updateuser/updateform"; }
+	 */
 	
 	// 회원정보 수정 폼
-	@GetMapping("/updateform")
-	public String updateForm() {
+	@GetMapping("/{userNo}/updateform")
+	public String updateForm(@PathVariable("userNo") Long userNo, Model model) {
+		UserVo userVo = userService.getUpdate(userNo);
+		model.addAttribute("user", userVo);
 		return "updateuser/updateform";
 	}
 	
 	// 회원정보 수정 액션
-//	@PostMapping("/updateform")
-//	public String updateUser(UserVo vo, Model model) {
-//		model.addAttribute("user", vo);
-//		userService.updateUser(vo);
-//		return "redirect:/";
-//	}
-	
 	@PostMapping("/updateform")
-	public String updateUser(@ModelAttribute @Valid UserVo userVo,
-			BindingResult result, Principal principal,
-			Model model) {
-		System.out.println("회원 정보 수정 폼: " + userVo);
-
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors(); //	바인딩 오류 리스트
-			for (ObjectError e: list) {
-				System.err.println("Error:" + e);
-			}
-			model.addAllAttributes(result.getModel());
-
-			return "users/updateform";
-		}
-		boolean success = userService.update(userVo);
-		if (success) { 
-			System.out.println("회원 가입 성공");
-			return "redirect:/users/updatesuccess";
-		} else {
-			//	다시 가입 폼으로
-			System.err.println("회원 가입 실패");
+	public String updateUserAction(@ModelAttribute UserVo vo) {
+		boolean success = userService.getUpdate(vo);
+		if(success) {
 			return "redirect:/users/home";
+		} else {
+			return "redirect:/users/";
 		}
 	}
-	
 	
 	// 회원 수정 완료 폼
-	@RequestMapping("/updatesucess")
-	public String updateSuccess() {
-		return "users/updatesuccess";
-	}
+//	@RequestMapping("/updatesucess")
+//	public String updateSuccess() {
+//		return "users/updatesuccess";
+//	}
 	
 	
 	

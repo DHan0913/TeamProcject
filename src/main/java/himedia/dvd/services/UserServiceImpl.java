@@ -55,9 +55,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean update(UserVo vo) {
-		int updatedCount = userDao.update(vo);
-		return updatedCount == 1;
+	public UserVo getUpdate(Long userNo) {
+		return userDao.getUpdate(userNo);
 	}
-    
+
+	@Override
+	public boolean getupdate(UserVo uservo) {
+		nt updateCount = userDao.update(uservo);
+		return updateCount == 1;
+	}
+
+	
+
+	
+
+
+
 }

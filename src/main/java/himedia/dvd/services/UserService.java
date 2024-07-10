@@ -12,5 +12,6 @@ public interface UserService {
     List<UserVo> getAllUsers();
     boolean isAuthenticated(HttpServletRequest request); // 인증 체크 메서드
 
-    boolean update(UserVo vo);	// 회원정보 수정
+    UserVo getUpdate(Long updateNo);	// 회원정보 수정
+    boolean update(UserVo uservo);
 }

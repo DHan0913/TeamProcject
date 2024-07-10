@@ -12,10 +12,11 @@
 <body>
 	<h1>회원 정보 수정</h1>
 	<form id="update-form" name="updateForm" method="POST" action="<c:url value='/users/updateform' />">
-		<input type="hidden" id="name" value="${principal.user.userName }" />
+		
+		<input type="hidden" id="name" value="${authUser.username }" />
 		<div class="form-group">
-			<label class="block-label" for="name">이름</label>
-			<input type="text" name="name" value="${principal.user.name }" readonly/>
+			<label class="block-label" for="username">이름</label>
+			<input type="text" name="name" value="${authUser.username }" readonly/>
 		</div>
 		<div class="form-group">
 		<label class="block-label">이메일</label> 
@@ -23,10 +24,10 @@
 			<input type="button" id="check-email" data-target="<c:url value="/users/checkEmail" />" value="이메일 중복체크" /><br>	
 			<input type="hidden" name="emailCheck" value="n" />
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label class="block-label">생년월일</label>
 		  	<input name="birth" type="date" id="birthInput"><br>
-		</div>
+		</div> -->
 
 		<button>수정완료</button>
 		<input type="submit" value="취소" />
