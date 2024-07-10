@@ -27,6 +27,23 @@
         FROM products
         WHERE product_no = #{productNo}
     </select>
+    	<!-- 삭제 -->
+	    <delete id="deleteProduct" parameterType="long">
+	    DELETE FROM products
+	    WHERE product_no = #{productNo}
+		</delete>
+		
+		<!-- 수정 -->
+		<update id="modifyProduct" parameterType="ProductVo">
+		    UPDATE products
+		    SET 
+		    productname = #{productName},
+		    genre = #{genre},
+		    content = #{content}
+		    WHERE product_no = #{productNo}
+		</update>
+
+
     
     <select id="selectProductsByName" parameterType="string" resultType="ProductVo">
         SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,

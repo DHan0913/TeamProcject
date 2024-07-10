@@ -30,6 +30,10 @@
 							href="${pageContext.request.contextPath}/products/detail?productNo=${product.productNo}">${product.productName}</a></td>
 						<td>${product.genre}</td>
 						<td>${product.releaseDate}</td>
+						<td>
+						<a href="<c:url value="/admin/${product.productNo }/modify" />">수정</a>
+						<a href="<c:url value="/admin/${product.productNo }/delete" />">삭제</a>
+						</td>
 					</tr>
 				</c:forEach>
 				    <tr>

@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import himedia.dvd.repositories.vo.ProductVo;
 
 @Repository("productDao")
@@ -47,5 +48,19 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductVo> selectProductsByGenre(String genre) {
         return sqlSession.selectList("products.selectProductsByGenre", genre);
     }
-
+    
+    //상품삭제
+    @Override
+    public int delete(Long productNo) {
+        return sqlSession.delete("products.deleteProduct", productNo);
+    }
+    
+	@Override
+	public int modify(ProductVo productVo) {
+		 return sqlSession.update("products.modifyProduct", productVo);
+	}
+	@Override
+	public ProductVo modifyproduct(Long productNo) {
+		return sqlSession.selectOne("products.modifyProduct", productNo);
+	}
 }

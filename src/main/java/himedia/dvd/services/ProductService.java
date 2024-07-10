@@ -9,4 +9,7 @@ public interface ProductService {
     public boolean add(ProductVo productVo);
     List<ProductVo> searchProductsByName(String keyword);
     List<ProductVo> searchProductsByGenre(String keyword);
+	boolean deleteProduct(Long productNo);
+	ProductVo modifyProduct(Long productNo);
+	boolean modify(ProductVo productVo);
 }

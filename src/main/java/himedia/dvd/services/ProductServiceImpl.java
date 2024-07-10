@@ -38,5 +38,20 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductVo> searchProductsByGenre(String keyword) {
         return productDao.selectProductsByGenre(keyword);
     }
+    
+	@Override
+	public boolean deleteProduct(Long productNo) {
+		int deletedCount = productDao.delete(productNo);
+		return deletedCount == 1;
+	}
+	@Override
+	public ProductVo modifyProduct(Long productNo) {
+		return productDao.modifyproduct(productNo);
+	}
+	@Override
+	public boolean modify(ProductVo productVo) {
+		int modifyCount = productDao.modify(productVo);
+		return modifyCount ==1;
+	}
 
 }

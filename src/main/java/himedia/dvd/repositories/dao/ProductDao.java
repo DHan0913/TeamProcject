@@ -10,4 +10,8 @@ public interface ProductDao {
     ProductVo getProductdetail(Long productNo);
     List<ProductVo> selectProductsByName(String name);
     List<ProductVo> selectProductsByGenre(String genre);
+	int delete(Long productNo);
+	int modify(ProductVo productVo);
+	ProductVo modifyproduct(Long productNo);
+    
 }

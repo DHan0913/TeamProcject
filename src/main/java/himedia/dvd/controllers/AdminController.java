@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -49,16 +50,11 @@ public class AdminController {
 	// 상품 리스트
 	@GetMapping("/productlist")
 	public String getProductList(HttpSession session, Model model) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			return "redirect:/";
-		}
 		List<ProductVo> products = productService.getAllProducts();
 		model.addAttribute("products", products);
 		logger.info("productlist");
 		return "admin/products/productlist";
 	}
-
 
 	@GetMapping("/users")
 	public String main(Model model) {
@@ -68,4 +64,34 @@ public class AdminController {
 
 		return "admin/users/userList"; // home.jsp로 이동
 	}
+	 @GetMapping("/{productNo}/delete")
+	    public String deleteProduct(@PathVariable("productNo") Long productNo, Model model) {
+	        boolean deleted = productService.deleteProduct(productNo);
+
+	        if (deleted) {
+	            model.addAttribute("successMessage", "Product deleted successfully");
+	        } else {
+	            model.addAttribute("errorMessage", "Failed to delete product");
+	        }
+
+	        return "redirect:/admin/productlist"; 
+	    }
+
+	 @GetMapping("/{productNo}/modify")
+	 public String modifyForm(@PathVariable("productNo") Long productNo , Model model) {
+	     ProductVo productVo = productService.getProductdetail(productNo);
+	     model.addAttribute("productVo" , productVo);
+	     return "admin/products/modify"; 
+	 }
+
+	 
+	 @PostMapping("/modify")
+	 public String modifyAction(@ModelAttribute ProductVo updatedVo) {
+		 boolean success = productService.modify(updatedVo);
+		   if (success) {
+		        return "redirect:/admin/productlist"; 
+		    } else {
+		        return "redirect:/admin"; 
+		    }
+		}
 }
