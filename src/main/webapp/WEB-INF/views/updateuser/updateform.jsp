@@ -11,51 +11,28 @@
 </head>
 <body>
 	<h1>회원 정보 수정</h1>
-	<form id="update-form" name="updateForm" method="POST" action="<c:url value='/updateuser/updateform' />">
+	<form id="update-form" name="updateForm" method="POST" action="<c:url value='/users/updateform' />">
 		
-		<label class="block-label" for="name">이름</label>
-		<input id="name" name="username" type="text" readonly><br>
-
+		<input type="hidden" id="name" value="${authUser.username }" />
+		<div class="form-group">
+			<label class="block-label" for="username">이름</label>
+			<input type="text" name="name" value="${authUser.username }" readonly/>
+		</div>
+		<div class="form-group">
 		<label class="block-label">이메일</label> 
-		<input name="email" type="email" placeholder="이메일을 입력하십시오">
-		<input type="button" id="check-email" data-target="<c:url value="/users/checkEmail" />"value="이메일 중복체크" /><br>	
-		<input type="hidden" name="emailCheck" value="n" />
+			<input name="email" type="email" placeholder="이메일을 입력하십시오">
+			<input type="button" id="check-email" data-target="<c:url value="/users/checkEmail" />" value="이메일 중복체크" /><br>	
+			<input type="hidden" name="emailCheck" value="n" />
+		</div>
+		<!-- <div class="form-group">
+			<label class="block-label">생년월일</label>
+		  	<input name="birth" type="date" id="birthInput"><br>
+		</div> -->
 
-		<label class="block-label">생년월일</label>
-		<div class="bir_yy">
-			<span class="ps_box">
-				<input type="text" class="form-control" id="yy" placeholder="ex)0000년" maxlength="4" name="mb_yy">
-			</span>
-		</div>
-		<div class="bir_mm">
-			<span class="ps_box focus">
-				<select class="form-select" id="mm" name="mb_mm">
-					<option>월</option>
-					<option value="01">1</option>
-					<option value="02">2</option>
-					<option value="03">3</option>
-					<option value="04">4</option>
-					<option value="05">5</option>
-					<option value="06">6</option>
-					<option value="07">7</option>
-					<option value="08">8</option>
-					<option value="09">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-				</select>
-			</span>
-		</div>
-		<div class="bir_dd">
-			<span class="ps_box">
-				<input type="text" class="form-control" id="dd" placeholder="일" maxlength="2" name="mb_dd">
-			</span>
-		</div>
-
-		<input type="submit" value="수정완료" />
-		<a href="<c:url value="/home" />">취소</a>
+		<button>수정완료</button>
+		<input type="submit" value="취소" />
 
 	</form>
-    <
+    
 </body>
 </html>

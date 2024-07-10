@@ -20,6 +20,13 @@
 		FROM users
 		ORDER BY user_no ASC
 	</select>
+	
+	<select id="selectUsers" parameterType="long" resultType="UserVo">
+		SELECT user_no AS userNo,
+		username, birth, email, regdate, role
+		FROM users
+		WHERE user_no=#{userNo}
+	</select>
 
 	<select id="selectUserByEmail" parameterType="string"
 		resultType="UserVo">
@@ -42,9 +49,8 @@
 	<update id="updateUser" parameterType="UserVo">
 		UPDATE users
 		SET
-		username=#{username}, birth=#{birth}, email=#{email},
-		password=#{password}, regdate=#{regdate}
-		WHERE user_no=#{userNo}
+		birth=#{birth}, email=#{email},
+		WHERE username=#{username}
 	</update>
 
 	<!-- DELETE (사용자 정보 삭제) -->

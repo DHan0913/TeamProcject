@@ -5,17 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.UserService;
@@ -23,8 +24,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @RequestMapping("/users")
-
-
 @Controller
 public class UserController {
 	@Autowired
@@ -150,13 +149,41 @@ public class UserController {
 	
 	}
 	
-	@GetMapping("/updateform")
-	public String updateForm() {
+	/*
+	 * @GetMapping("/{userNo}") public String view(@PathVariable("userNo") Long no,
+	 * Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+	 * UserVo authUser = (UserVo)session.getAttribute("authUser");
+	 * 
+	 * return "updateuser/updateform"; }
+	 */
+	
+	// 회원정보 수정 폼
+	@GetMapping("/{userNo}/updateform")
+	public String updateForm(@PathVariable("userNo") Long userNo, Model model) {
+		UserVo userVo = userService.getUpdate(userNo);
+		model.addAttribute("user", userVo);
 		return "updateuser/updateform";
 	}
 	
+	// 회원정보 수정 액션
 	@PostMapping("/updateform")
-	public String updateUser(UserVo vo) {
-		return "redirect:/updatesuccess";
+	public String updateUserAction(@ModelAttribute UserVo vo) {
+		boolean success = userService.getUpdate(vo);
+		if(success) {
+			return "redirect:/users/home";
+		} else {
+			return "redirect:/users/";
+		}
 	}
+	
+	// 회원 수정 완료 폼
+//	@RequestMapping("/updatesucess")
+//	public String updateSuccess() {
+//		return "users/updatesuccess";
+//	}
+	
+	
+	
+	
+
 }

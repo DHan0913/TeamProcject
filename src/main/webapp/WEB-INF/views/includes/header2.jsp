@@ -13,6 +13,7 @@
 		<c:when test="${not empty authUser }">
 			<ul>
 				<li><a href='<c:url value="/users/logout" />'>로그아웃</a></li>
+				<li><a hred='<c:url value="/updateuser/updateform" />'>MY PAGE</a>
 				<li>${authUser.username }님환영합니다</li>
 			</ul>
 		</c:when>
