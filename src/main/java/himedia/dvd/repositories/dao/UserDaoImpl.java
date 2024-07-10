@@ -40,9 +40,13 @@ public class UserDaoImpl implements UserDao {
         params.put("password", password);
         return sqlSession.selectOne("users.selectUserByEmailAndPassword", params);
     }
-
 	@Override
-	public UserVo updateUser(UserVo vo) {
-		return null;
+	public int update(UserVo vo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+	
+    
+
+	
 }

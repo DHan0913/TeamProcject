@@ -1,21 +1,23 @@
 package himedia.dvd.controllers;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.UserService;
@@ -23,8 +25,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @RequestMapping("/users")
-
-
 @Controller
 public class UserController {
 	@Autowired
@@ -157,13 +157,62 @@ public class UserController {
 	
 	}
 	
+	@GetMapping("/{no}")
+	public String view(@PathVariable("no") Long no, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		
+		return "updateuser/updateform";
+	}
+	
+	// 회원정보 수정 폼
 	@GetMapping("/updateform")
 	public String updateForm() {
 		return "updateuser/updateform";
 	}
 	
+	// 회원정보 수정 액션
+//	@PostMapping("/updateform")
+//	public String updateUser(UserVo vo, Model model) {
+//		model.addAttribute("user", vo);
+//		userService.updateUser(vo);
+//		return "redirect:/";
+//	}
+	
 	@PostMapping("/updateform")
-	public String updateUser(UserVo vo) {
-		return "redirect:/updatesuccess";
+	public String updateUser(@ModelAttribute @Valid UserVo userVo,
+			BindingResult result, Principal principal,
+			Model model) {
+		System.out.println("회원 정보 수정 폼: " + userVo);
+
+		if (result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors(); //	바인딩 오류 리스트
+			for (ObjectError e: list) {
+				System.err.println("Error:" + e);
+			}
+			model.addAllAttributes(result.getModel());
+
+			return "users/updateform";
+		}
+		boolean success = userService.update(userVo);
+		if (success) { 
+			System.out.println("회원 가입 성공");
+			return "redirect:/users/updatesuccess";
+		} else {
+			//	다시 가입 폼으로
+			System.err.println("회원 가입 실패");
+			return "redirect:/users/home";
+		}
 	}
+	
+	
+	// 회원 수정 완료 폼
+	@RequestMapping("/updatesucess")
+	public String updateSuccess() {
+		return "users/updatesuccess";
+	}
+	
+	
+	
+	
+
 }

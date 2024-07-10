@@ -11,23 +11,27 @@
 </head>
 <body>
 	<h1>회원 정보 수정</h1>
-	<form id="update-form" name="updateForm" method="POST" action="<c:url value='/updateuser/updateform' />">
-		
-		<label class="block-label" for="name">이름</label>
-		<input id="name" name="username" type="text" readonly><br>
-
+	<form id="update-form" name="updateForm" method="POST" action="<c:url value='/users/updateform' />">
+		<input type="hidden" id="name" value="${principal.user.userName }" />
+		<div class="form-group">
+			<label class="block-label" for="name">이름</label>
+			<input type="text" name="name" value="${principal.user.name }" readonly/>
+		</div>
+		<div class="form-group">
 		<label class="block-label">이메일</label> 
-		<input name="email" type="email" placeholder="이메일을 입력하십시오">
-		<input type="button" id="check-email" data-target="<c:url value="/users/checkEmail" />"value="이메일 중복체크" /><br>	
-		<input type="hidden" name="emailCheck" value="n" />
+			<input name="email" type="email" placeholder="이메일을 입력하십시오">
+			<input type="button" id="check-email" data-target="<c:url value="/users/checkEmail" />" value="이메일 중복체크" /><br>	
+			<input type="hidden" name="emailCheck" value="n" />
+		</div>
+		<div class="form-group">
+			<label class="block-label">생년월일</label>
+		  	<input name="birth" type="date" id="birthInput"><br>
+		</div>
 
-		<label class="block-label">생년월일</label>
-	  	<input name="birth" type="date" id="birthInput"><br>
-
-		<input type="submit" value="수정완료" />
-		<a href="<c:url value="/home" />">취소</a>
+		<button>수정완료</button>
+		<input type="submit" value="취소" />
 
 	</form>
-    <
+    
 </body>
 </html>

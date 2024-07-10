@@ -10,5 +10,5 @@ public interface UserDao {
     UserVo selectUserByEmail(String email);	//	중복 이메일	
     UserVo selectUserByEmailAndPassword(String email, String password);	//	로그인용
     
-    UserVo updateUser(UserVo vo); 	// 회원정보수정
+    int update(UserVo vo); 	// 회원정보수정
 }

@@ -49,15 +49,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(UserVo vo) {
-        // updateUser 메서드 구현 필요
-        // userDao.update(vo) 등의 로직이 필요합니다.
-        return false;
-    }
+	public List<UserVo> getAllUsers() {
+		List<UserVo> list = userDao.selectAllUsers();
+		return list;
+	}
 
-    @Override
-    public List<UserVo> getAllUsers() {
-        List<UserVo> list = userDao.selectAllUsers();
-        return list;
-    }
+	@Override
+	public boolean update(UserVo vo) {
+		int updatedCount = userDao.update(vo);
+		return updatedCount == 1;
+	}
+    
 }
