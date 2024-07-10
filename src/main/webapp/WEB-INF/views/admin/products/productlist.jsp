@@ -37,7 +37,10 @@
 					</tr>
 				</c:forEach>
 				    <tr>
-                    	<td colspan="6"><a href="<c:url value="/admin/add"/>">상품등록</a></td>
+                    	<td colspan="6"><a href="<c:url value="/admin/add"/>">상품등록</a>
+                    	<a href="<c:url value="/admin/home"/>">홈</a>
+                    	</td>
+                    	
                     </tr>
 			</table>
 		</div>

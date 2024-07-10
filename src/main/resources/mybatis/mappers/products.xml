@@ -39,7 +39,8 @@
 		    SET 
 		    productname = #{productName},
 		    genre = #{genre},
-		    content = #{content}
+		    content = #{content},
+		    img =#{img}
 		    WHERE product_no = #{productNo}
 		</update>
 

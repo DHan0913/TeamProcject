@@ -18,6 +18,8 @@
                 <td><input type="text" name="genre" value="${productVo.genre }"></td>
                 <td>내용</td>
                 <td><textarea id="content" name="content">${productVo.content }</textarea></td>
+                <td>이미지</td>
+                <td><input type="text" name="img" value="${productVo.img }"></td>
             </tr>
             <tr>
                 <td colspan="6">
