@@ -8,8 +8,7 @@ public class ProductVo {
     private Long productNo;      // 상품 번호
     private String productName;  // 상품 이름
     private String genre;        // 상품 장르
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date releaseDate;    // 상품 등록일
+    private String releaseDate;    // 상품 등록일
     private String content;      // 상품 설명
     private String status;       // 대여 가능 여부
     private String img;          // 상품 이미지 URL
@@ -18,7 +17,7 @@ public class ProductVo {
     }
 
     // 상품 등록용 생성자
-    public ProductVo(String productName, String genre, Date releaseDate, String content, String status, String img) {
+    public ProductVo(String productName, String genre, String releaseDate, String content, String status, String img) {
         this.productName = productName;
         this.genre = genre;
         this.releaseDate = releaseDate;
@@ -28,7 +27,7 @@ public class ProductVo {
     }
 
     // 리스트 출력용 생성자
-    public ProductVo(Long productNo, String productName, String genre, Date releaseDate, String status) {
+    public ProductVo(Long productNo, String productName, String genre, String releaseDate, String status) {
         this.productNo = productNo;
         this.productName = productName;
         this.genre = genre;
@@ -37,7 +36,7 @@ public class ProductVo {
     }
 
     // 상세정보 출력용 생성자
-    public ProductVo(Long productNo, String productName, String genre, Date releaseDate, String content, String status) {
+    public ProductVo(Long productNo, String productName, String genre, String releaseDate, String content, String status) {
         this.productNo = productNo;
         this.productName = productName;
         this.genre = genre;
@@ -70,11 +69,11 @@ public class ProductVo {
         this.genre = genre;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
