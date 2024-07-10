@@ -19,12 +19,6 @@ public class ProductDaoImpl implements ProductDao {
         List<ProductVo> list = sqlSession.selectList("products.selectAllProducts");
         return list;
     }
-    // 제품등록
-    @Override
-    public int insert(ProductVo productVo) {
-    	int insertedCount = sqlSession.insert("products.insertProduct", productVo);
-    	return insertedCount;
-    }
     
     @Override
     public int insertProduct(ProductVo productVo) {
