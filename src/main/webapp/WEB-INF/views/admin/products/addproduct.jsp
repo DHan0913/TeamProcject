@@ -26,6 +26,7 @@
 			for="img">이미지:</label> <input type="text" id="img" name="img"
 			required> <br>
 		<button type="submit">등록</button>
+		<a href="<c:url value="/admin/productlist"/>">취소</a>
 	</form>
 </body>
 </html>

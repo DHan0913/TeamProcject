@@ -30,10 +30,17 @@
 							href="${pageContext.request.contextPath}/products/detail?productNo=${product.productNo}">${product.productName}</a></td>
 						<td>${product.genre}</td>
 						<td>${product.releaseDate}</td>
+						<td>
+						<a href="<c:url value="/admin/${product.productNo }/modify" />">수정</a>
+						<a href="<c:url value="/admin/${product.productNo }/delete" />">삭제</a>
+						</td>
 					</tr>
 				</c:forEach>
 				    <tr>
-                    	<td colspan="6"><a href="<c:url value="/admin/add"/>">상품등록</a></td>
+                    	<td colspan="6"><a href="<c:url value="/admin/add"/>">상품등록</a>
+                    	<a href="<c:url value="/admin/home"/>">홈</a>
+                    	</td>
+                    	
                     </tr>
 			</table>
 		</div>

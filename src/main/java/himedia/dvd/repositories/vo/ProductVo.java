@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ProductVo {
     private Long productNo;      // 상품 번호
     private String productName;  // 상품 이름
-    private String genre;        // 상품 장르
+    private String genre;         // 상품 장르
     private String releaseDate;    // 상품 등록일
     private String content;      // 상품 설명
     private String status;       // 대여 가능 여부
@@ -44,6 +44,8 @@ public class ProductVo {
         this.content = content;
         this.status = status;
     }
+    
+    //수정용 
 
     public Long getProductNo() {
         return productNo;
