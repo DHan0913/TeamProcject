@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>DVD 회원 정보 수정</title>
+<script src="<c:url value="/javascript/user.js" />"></script>
 </head>
 <body>
 	<h1>회원 정보 수정</h1>

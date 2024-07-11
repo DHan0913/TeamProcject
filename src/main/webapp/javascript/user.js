@@ -20,7 +20,7 @@ function checkEmail(event) {
 	.then(json => {
 		console.log(json);
 		//	중복 여부
-		if (json.exist) {
+		if (json.exists) {
 			alert('이미 사용중인 이메일입니다.')
 			throw new Error('중복된 이메일입니다.');
 		} else {
