@@ -55,19 +55,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVo getUpdate(Long userNo) {
-		return userDao.getUpdate(userNo);
+	public UserVo getUserByEmail(String email) {
+		return userDao.selectUserByEmail(email);
 	}
 
 	@Override
-	public boolean getupdate(UserVo uservo) {
-		nt updateCount = userDao.update(uservo);
-		return updateCount == 1;
+	public boolean updateUser(UserVo vo) {
+		return userDao.update(vo);
 	}
 
-	
+	@Override
+	public boolean deleteUser(UserVo vo) {
+		return userDao.delete(vo);
+	}
 
-	
+
 
 
 
