@@ -2,6 +2,7 @@ package himedia.dvd.controllers;
 
 import java.util.List;
 
+import org.apache.catalina.tribes.membership.Membership;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
+import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +32,8 @@ public class AdminController {
 	private ProductService productService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private MembershipService membershipService;
 
 	@GetMapping("/home")
 	public String getHome(Model model) {
@@ -49,7 +55,7 @@ public class AdminController {
 
 	// 상품 리스트
 	@GetMapping("/productlist")
-	public String getProductList(HttpSession session, Model model) {
+	public String getProductList(Model model) {
 		List<ProductVo> products = productService.getAllProducts();
 		model.addAttribute("products", products);
 		logger.info("productlist");
@@ -88,6 +94,31 @@ public class AdminController {
 	 @PostMapping("/modify")
 	 public String modifyAction(@ModelAttribute ProductVo updatedVo) {
 		 boolean success = productService.modify(updatedVo);
+		   if (success) {
+		        return "redirect:/admin/productlist"; 
+		    } else {
+		        return "redirect:/admin"; 
+		    }
+		}
+	 //멤버쉽 페이지 이동
+	 @GetMapping("/membership")
+	 public String getmembership(Model model) {
+		 List<MembershipVo> memberships = membershipService.getAllmembers(); 
+		 model.addAttribute("memberships", memberships);
+		 return "admin/membership/membership";
+	 }
+	
+	 // 멤버쉽 수정페이지 이동
+	 @GetMapping("/membershipmodify/{id}")
+	   public String memberModifyForm(@PathVariable("id") int id, Model model) {
+	   Membership membership = membershipService.getMembershipById(id);
+	   model.addAttribute("membership", membership);
+	   return "admin/membership/membershipmodify";
+	    }
+	 
+	 @PostMapping("/membershipmodify")
+	  public String saveMembership(@ModelAttribute MembershipVo membershipVo) {
+		 boolean success = membershipService.membershipmodify(membershipVo);
 		   if (success) {
 		        return "redirect:/admin/productlist"; 
 		    } else {

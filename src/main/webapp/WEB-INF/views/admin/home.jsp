@@ -20,6 +20,7 @@
 				<li><a href='<c:url value="/admin/productlist" />'>상품관리</a></li>
 				<li><a href='<c:url value="" />'>대여관리</a></li>
 				<li><a href='<c:url value="/" />'>유저화면으로 가기</a></li>
+				<li><a href='<c:url value="/admin/membership" />'>멤버쉽 관리</li>
 			</ul>
 
 		</div>

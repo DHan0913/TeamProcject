@@ -10,9 +10,8 @@ import himedia.dvd.repositories.vo.UserVo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserDao userDao;
 
@@ -33,7 +32,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVo login(String email, String password) {
-        return userDao.selectUserByEmailAndPassword(email, password);
+        UserVo userVo = userDao.selectUserByEmailAndPassword(email, password);
+        return userVo;
     }
 
     @Override

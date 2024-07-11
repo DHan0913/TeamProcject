@@ -65,5 +65,5 @@
 		WHERE
 		user_no=#{value}
 	</delete>
-
+	
 </mapper>
