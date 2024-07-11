@@ -50,10 +50,5 @@ public class UserDaoImpl implements UserDao {
 		int count = sqlSession.delete("users.deleteUser", user);
 		return count == 1;
 	}
-    
-
-
-    
-
 	
 }

@@ -10,7 +10,7 @@ function checkEmail(event) {
 		alert("이메일을 입력하세요!");
 		return;
 	}
-
+   
 	//	fetch
 	console.log(`${target}?email=${email}`);
 	fetch(`${target}?email=${email}`)
