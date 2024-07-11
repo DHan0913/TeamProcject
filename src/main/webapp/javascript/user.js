@@ -2,7 +2,6 @@ function checkEmail(event) {
 	//	이벤트 발생 객체 
 	const obj = event.target;	//	button#check-email
 	const target = obj.getAttribute("data-target");	//	API 호출 위치
-	console.log(target);
 	const frm = obj.form;	//	폼 
 
 	const email = frm.email.value.trim();
@@ -15,8 +14,7 @@ function checkEmail(event) {
 	//	fetch
 	console.log(`${target}?email=${email}`);
 	fetch(`${target}?email=${email}`)
-	.then(response => {
-		console.log(response);
+	.then(response => {;
 		return response.json();
 	})
 	.then(json => {
