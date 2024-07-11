@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>DVD 회원 가입</title>
+<script src="<c:url value="/javascript/user.js" />"></script>
 <style>
 .error {
 	color: red;

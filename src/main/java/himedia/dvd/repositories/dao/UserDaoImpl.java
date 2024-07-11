@@ -12,11 +12,9 @@ import himedia.dvd.repositories.vo.UserVo;
 
 @Repository("userDao")
 public class UserDaoImpl implements UserDao {
-
     @Autowired
     private SqlSession sqlSession;
 
-    
     @Override
     public List<UserVo> selectAllUsers() {
         List<UserVo> list = sqlSession.selectList("users.selectAllUsers");
