@@ -40,18 +40,21 @@ public class UserDaoImpl implements UserDao {
         params.put("password", password);
         return sqlSession.selectOne("users.selectUserByEmailAndPassword", params);
     }
-	
-	@Override
-	public int update(UserVo uservo) {
-		return sqlSession.update("updateuser.getUpdate", uservo);
-	}
-	
     
 	@Override
-	public UserVo getUpdate(Long updateNo) {
-		return sqlSession.selectOne("updateuser.getUpdate", updateNo);
+	public boolean update(UserVo user) {
+		int count = sqlSession.update("users.updateUser", user);
+		return count == 1;
 	}
 	
+	@Override
+	public boolean delete(UserVo user) {
+		int count = sqlSession.delete("users.deleteUser", user);
+		return count == 1;
+	}
+    
+
+
     
 
 	

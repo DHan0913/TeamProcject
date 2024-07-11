@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.UserService;
@@ -158,32 +157,41 @@ public class UserController {
 	 */
 	
 	// 회원정보 수정 폼
-	@GetMapping("/{userNo}/updateform")
-	public String updateForm(@PathVariable("userNo") Long userNo, Model model) {
-		UserVo userVo = userService.getUpdate(userNo);
-		model.addAttribute("user", userVo);
-		return "updateuser/updateform";
+	@GetMapping("{email}/updateform")
+	public String updateForm(@PathVariable("email")String email, Model model) {
+		model.addAttribute("email",email);
+	    return "users/updateform";
 	}
 	
-	// 회원정보 수정 액션
+//	 회원정보 수정 액션
 	@PostMapping("/updateform")
-	public String updateUserAction(@ModelAttribute UserVo vo) {
-		boolean success = userService.getUpdate(vo);
+	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for(ObjectError e : list) {
+				System.err.println("Error" + e);
+			} model.addAllAttributes(result.getModel());
+			return "users/updateform";
+		}
+		boolean success = userService.updateUser(vo);
 		if(success) {
-			return "redirect:/users/home";
+			return "redirect:/users/login";
 		} else {
-			return "redirect:/users/";
+			return "redirect:/users/updateform";
 		}
 	}
-	
+
 	// 회원 수정 완료 폼
-//	@RequestMapping("/updatesucess")
-//	public String updateSuccess() {
-//		return "users/updatesuccess";
-//	}
-	
-	
-	
-	
+	@GetMapping("/updatesuccess")
+	public String updateSuccess() {
+		return "users/updatesuccess";
+	}
+
+	// 회원 상세정보 폼
+	@GetMapping("/{email}/userinfo")
+	public String userInfo(@PathVariable("email")String email, Model model) {
+		model.addAttribute("email", email);
+		return "users/userinfo";
+	}
 
 }

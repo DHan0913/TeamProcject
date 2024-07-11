@@ -48,10 +48,16 @@
 	<!-- UPDATE (사용자 정보 수정) -->
 	<update id="updateUser" parameterType="UserVo">
 		UPDATE users
-		SET
-		birth=#{birth}, email=#{email},
-		WHERE username=#{username}
+		SET  
+		email=#{email},
+		password=#{password}
+		WHERE user_no = #{userNo}
 	</update>
+	
+	<select id="getUpdate" parameterType="long" resultType="UserVo">
+		SELECT user_no AS userNo,
+		username, birth, email, password, regdate, role FROM users WHERE user_no = #{updateNo, jdbcType=NUMERIC}
+	</select>
 
 	<!-- DELETE (사용자 정보 삭제) -->
 	<delete id="deleteUser" parameterType="long">
