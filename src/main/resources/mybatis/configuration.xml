@@ -10,10 +10,12 @@
 	<typeAliases>
 		<typeAlias type="himedia.dvd.repositories.vo.UserVo" alias="UserVo" />
 		<typeAlias type="himedia.dvd.repositories.vo.ProductVo" alias="ProductVo" />
+		<typeAlias type="himedia.dvd.repositories.vo.MembershipVo" alias="MembershipVo" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/users.xml" />
 		<mapper resource="mybatis/mappers/products.xml" />
+		<mapper resource="mybatis/mappers/membership.xml" />
 	</mappers>
 </configuration>
