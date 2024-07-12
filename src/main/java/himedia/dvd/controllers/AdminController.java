@@ -53,14 +53,6 @@ public class AdminController {
 		return "redirect:/admin/productlist";
 	}
 
-	// 상품 리스트
-	@GetMapping("/productlist")
-	public String getProductList(Model model) {
-		List<ProductVo> products = productService.getAllProducts();
-		model.addAttribute("products", products);
-		logger.info("productlist");
-		return "admin/products/productlist";
-	}
 
 	@GetMapping("/users")
 	public String main(Model model) {
@@ -82,6 +74,15 @@ public class AdminController {
 
 	        return "redirect:/admin/productlist"; 
 	    }
+
+	 // 상품 리스트
+	 @GetMapping("/productlist")
+	 public String getProductList(Model model) {
+		 List<ProductVo> products = productService.getAllProducts();
+		 model.addAttribute("products", products);
+		 logger.info("productlist");
+		 return "admin/products/productlist";
+	 }
 
 	 @GetMapping("/{productNo}/modify")
 	 public String modifyForm(@PathVariable("productNo") Long productNo , Model model) {
