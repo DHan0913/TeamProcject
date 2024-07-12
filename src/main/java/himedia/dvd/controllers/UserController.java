@@ -28,7 +28,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	 
 	// 가입 폼
 	@GetMapping({ "", "/", "/join" })
 	public String join(@ModelAttribute UserVo userVo) {
@@ -39,17 +38,17 @@ public class UserController {
 	@PostMapping("/join")
 	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 		System.out.println("회원 가입 폼: " + userVo);
-		
-		// 비밀번호와 비밀번호 확인 검증
-        if (!userVo.getPassword().equals(userVo.getPasswordConfirm())) {
-            result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
-        }
 
-     // 약관 동의 확인 로직 추가
-        if (userVo.getAgree() == null || !userVo.getAgree()) {
-            result.rejectValue("agree", "agree.required");
-        }
-        
+		// 비밀번호와 비밀번호 확인 검증
+		if (!userVo.getPassword().equals(userVo.getPasswordConfirm())) {
+			result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
+		}
+
+		// 약관 동의 확인 로직 추가
+		if (userVo.getAgree() == null || !userVo.getAgree()) {
+			result.rejectValue("agree", "agree.required");
+		}
+
 		// 검증 결과 확인
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -82,10 +81,8 @@ public class UserController {
 	public String loginForm() {
 		return "users/loginform";
 	}
-	
 
 
-	// 로그인 액션
     @PostMapping("/login")
     public String loginAction(
             @RequestParam(value="email", required=false, defaultValue="") String email,
@@ -121,40 +118,39 @@ public class UserController {
         }
     }
     
+
 	// 관리자용 페이지
 	@GetMapping("/admin")
 	public String adminHome() {
 		return "admin/home";
 	}
-	
-	//	로그아웃
+
+	// 로그아웃
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("authUser");
 		session.invalidate();
-		
+
 		return "redirect:/";
 	}
-	
-	//	중복 이메일 체크
-	@ResponseBody	//	-> MessageConverter 사용
+
+	// 중복 이메일 체크
+	@ResponseBody // -> MessageConverter 사용
 	@RequestMapping("/checkEmail")
-	public Object checkEmail(@RequestParam(value="email", 
-										required=true,
-										defaultValue="") String email) {
+	public Object checkEmail(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
 		UserVo vo = userService.login(email);
-		boolean exists = vo != null ? true: false;
-		
+		boolean exists = vo != null ? true : false;
+
 		System.out.println("Controller UserVo: " + vo);
-		
+
 		Map<String, Object> json = new HashMap<>();
 		json.put("result", "success");
 		json.put("exists", exists);
-		
+
 		return json;
-	
+
 	}
-	
+
 	/*
 	 * @GetMapping("/{userNo}") public String view(@PathVariable("userNo") Long no,
 	 * Model model, HttpSession session, RedirectAttributes redirectAttributes) {
@@ -162,39 +158,38 @@ public class UserController {
 	 * 
 	 * return "updateuser/updateform"; }
 	 */
-	
+
 	// 회원 상세정보 폼
 	@GetMapping("/{email}/userinfo")
-	public String userInfo(@PathVariable("email")String email, Model model) {
+	public String userInfo(@PathVariable("email") String email, Model model) {
 		model.addAttribute("email", email);
 		return "users/userinfo";
 	}
 
-	
 	// 회원정보 수정 폼
 	@GetMapping("/updateform")
 	public String updateForm() {
 		return "users/updateform";
 	}
-	
+
 //	 회원정보 수정 액션
 	@PostMapping("/updateform")
 	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result, Model model) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
-			for(ObjectError e : list) {
+			for (ObjectError e : list) {
 				System.err.println("Error" + e);
-			} model.addAllAttributes(result.getModel());
+			}
+			model.addAllAttributes(result.getModel());
 			return "users/updateform";
 		}
 		boolean success = userService.updateUser(vo);
-		if(success) {
+		if (success) {
 			return "users/updatesuccess";
 		} else {
 			return "users/updateform";
 		}
 	}
-
 
 	// 회원 수정 완료 폼
 	@RequestMapping("/updatesuccess")
@@ -207,25 +202,27 @@ public class UserController {
 	public String deleteConfirm() {
 		return "users/deleteconfirm";
 	}
-	
-	// 회원 탈퇴 액션
-	@PostMapping("/deleteconfirm")
-	public String deleteAction(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model){
-		if(!vo.getPassword().equals(vo.getPasswordConfirm())) {
-			result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
-		}
-	
-		return "users/deleteconfirm";
-	}
 
+	@PostMapping("/{email}/deleteconfirm")
+	public String deleteUserAction(@PathVariable("email") String email, @RequestParam("password") String password, HttpSession session) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null || !authUser.getEmail().equals(email) || !authUser.getPassword().equals(password)) {
+			return "redirect:/users/deleteconfirm?error=fail";
+		}
+		boolean success = userService.deleteUser(email);		// 회원 삭제 메서드 호출
+		if(success) {
+			session.invalidate();
+			return "redirect:/users/deletesuccess";				// 회원 삭제 성공시 성공페이지로 리다이렉트
+		} else {	
+			return "redirect:/users/deleteconfirm?error=fail";	// 실패시 ......
+		}
+	}
 	
+
+
 	// 회원 삭제 완료 폼
 	@RequestMapping("/deletesuccess")
 	public String deleteSuccess() {
 		return "users/deletesuccess";
 	}
 }
-
-
-
-

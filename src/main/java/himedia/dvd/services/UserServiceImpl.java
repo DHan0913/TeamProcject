@@ -65,8 +65,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean deleteUser(UserVo vo) {
-		return userDao.delete(vo);
+	public boolean deleteUser(String email) {
+		UserVo userVo = userDao.selectUserByEmail(email);
+		return userDao.delete(userVo.getUserNo()) == 1;
 	}
 	
 	
@@ -76,6 +77,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.delete(userNo);
 	}
 
+
 	@Override
     public UserVo getUserByUserNo(Long userNo) {
         return userDao.selectUserByUserNo(userNo);
@@ -84,4 +86,3 @@ public class UserServiceImpl implements UserService {
 
 
 
-}

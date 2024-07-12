@@ -53,9 +53,8 @@ public class UserDaoImpl implements UserDao {
 	
 	// 사용자를 삭제
 	@Override
-	public boolean delete(UserVo user) {
-		int count = sqlSession.delete("users.deleteUser", user);
-		return count == 1;
+	public int delete(Long userNo) {
+		return sqlSession.delete("users.deleteUser", userNo);
 	}
 
 	// 유저 번호로 사용자 조회
@@ -70,6 +69,9 @@ public class UserDaoImpl implements UserDao {
 		int count = sqlSession.delete("users.deleteUser", userNo);
 		return count == 1;
 	}
+	
+	
+	
 	
 	
 }

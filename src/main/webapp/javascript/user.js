@@ -37,3 +37,4 @@ window.addEventListener("load", event => {
 		.addEventListener("click", checkEmail);
 		
 	});	
+	
