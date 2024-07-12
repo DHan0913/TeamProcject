@@ -188,6 +188,7 @@ public class UserController {
 		}
 	}
 
+
 	// 회원 수정 완료 폼
 	@RequestMapping("/updatesuccess")
 	public String updateSuccess() {

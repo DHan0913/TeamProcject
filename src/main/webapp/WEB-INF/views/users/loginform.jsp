@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>DVD 로그인</title>
-</head>
+</head>  
 <body>
-	<h1>로그인</h1>
+	<h1>로그인</h1> 
 	
 	<!-- 에러 메시지 출력 -->
     <c:if test="${param.error == 'empty'}">
