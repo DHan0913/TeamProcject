@@ -22,7 +22,6 @@ import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
-import himedia.dvd.services.UpdateService;
 import himedia.dvd.services.UserService;
 
 @Controller
@@ -30,12 +29,17 @@ import himedia.dvd.services.UserService;
 public class AdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	
 	@Autowired
 	private ProductService productService;
+	
 	@Autowired
 	private UserService userService;
+	
 	@Autowired
 	private MembershipService membershipService;
+
+
 
 	@GetMapping("/home")
 	public String getHome(Model model) {
@@ -43,7 +47,7 @@ public class AdminController {
 		return "admin/home";
 	}
 
-	// 상품추가 페이지
+	// 상품 추가 페이지
 	@GetMapping("/add")
 	public String getGoodsRegister() {
 		return "admin/products/addproduct";
@@ -55,74 +59,51 @@ public class AdminController {
 		return "redirect:/admin/productlist";
 	}
 
-
+	// 사용자 목록 조회
 	@GetMapping("/users")
 	public String main(Model model) {
-		// 여기서 제품 목록을 조회하고 모델에 추가
 		List<UserVo> users = userService.getAllUsers();
 		model.addAttribute("users", users);
-
 		return "admin/users/userList"; // home.jsp로 이동
 	}
 
-	 @GetMapping("/{productNo}/delete")
-	    public String deleteProduct(@PathVariable("productNo") Long productNo, Model model) {
-	        boolean deleted = productService.deleteProduct(productNo);
-
-	        if (deleted) {
-	            model.addAttribute("successMessage", "Product deleted successfully");
-	        } else {
-	            model.addAttribute("errorMessage", "Failed to delete product");
-	        }
-
-	        return "redirect:/admin/productlist"; 
-	    }
-
-	 // 상품 리스트
-	 @GetMapping("/productlist")
-	 public String getProductList(Model model) {
-		 List<ProductVo> products = productService.getAllProducts();
-		 model.addAttribute("products", products);
-		 logger.info("productlist");
-		 return "admin/products/productlist";
-	 }
-
-	 @GetMapping("/{productNo}/modify")
-	 public String modifyForm(@PathVariable("productNo") Long productNo , Model model) {
-	     ProductVo productVo = productService.getProductdetail(productNo);
-	     model.addAttribute("productVo" , productVo);
-	     return "admin/products/modify"; 
-	 }
-
-	 
-	 @PostMapping("/modify")
-	 public String modifyAction(@ModelAttribute ProductVo updatedVo) {
-		 boolean success = productService.modify(updatedVo);
-		   if (success) {
-		        return "redirect:/admin/productlist"; 
-		    } else {
-		        return "redirect:/admin"; 
-		    }
-
+	// 상품 삭제
+	@GetMapping("/{productNo}/delete")
+	public String deleteProduct(@PathVariable("productNo") Long productNo, Model model) {
+		boolean deleted = productService.deleteProduct(productNo);
+		if (deleted) {
+			model.addAttribute("successMessage", "Product deleted successfully");
+		} else {
+			model.addAttribute("errorMessage", "Failed to delete product");
 		}
-
-		return "redirect:/admin/productlist";
+		return "redirect:/admin/productlist"; 
 	}
 
+	// 상품 리스트
+	@GetMapping("/productlist")
+	public String getProductList(Model model) {
+		List<ProductVo> products = productService.getAllProducts();
+		model.addAttribute("products", products);
+		logger.info("productlist");
+		return "admin/products/productlist";
+	}
+
+	// 상품 수정 페이지 이동
 	@GetMapping("/{productNo}/modify")
 	public String modifyForm(@PathVariable("productNo") Long productNo, Model model) {
 		ProductVo productVo = productService.getProductdetail(productNo);
 		model.addAttribute("productVo", productVo);
-		return "admin/products/modify";
+		return "admin/products/modify"; 
 	}
 
+	// 상품 수정
 	@PostMapping("/modify")
 	public String modifyAction(@ModelAttribute ProductVo updatedVo) {
 		boolean success = productService.modify(updatedVo);
 		if (success) {
-			return "redirect:/admin/productlist";
+			return "redirect:/admin/productlist"; 
 		} else {
-			return "redirect:/admin";
+			return "redirect:/admin"; 
 		}
 	}
 
@@ -134,7 +115,7 @@ public class AdminController {
 		return "admin/membership/membership";
 	}
 
-	// 멤버쉽 수정페이지 이동
+	// 멤버쉽 수정 페이지 이동
 	@GetMapping("/membershipmodify/{id}")
 	public String memberModifyForm(@PathVariable("id") int id, Model model) {
 		Membership membership = membershipService.getMembershipById(id);
@@ -142,6 +123,7 @@ public class AdminController {
 		return "admin/membership/membershipmodify";
 	}
 
+	// 멤버쉽 수정
 	@PostMapping("/membershipmodify")
 	public String saveMembership(@ModelAttribute MembershipVo membershipVo) {
 		boolean success = membershipService.membershipmodify(membershipVo);
@@ -152,35 +134,31 @@ public class AdminController {
 		}
 	}
 
-	@Autowired
-	private UpdateService updateService;
+//	// 사용자 정보 수정 폼
+//	@GetMapping("/users/{email}/updateform")
+//	public String updateUserForm(@PathVariable("email") String email, Model model) {
+//		UserVo user = updateService.getUserById(email);
+//		model.addAttribute("email", email);
+//		return "admin/users/updateform";
+//	}
 
-	// 사용자 정보 수정 폼
-	@GetMapping("/users/{email}/updateform")
-	public String updateUserForm(@PathVariable("email") Long email, Model model) {
-		UserVo user = updateService.getUserById(email);
-		model.addAttribute("email", email);
-		return "admin/users/updateform";
-	}
-
-	// 사용자 정보 수정 액션
-	@PostMapping("/users/updateform")
-	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result,
-			Model model) {
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError e : list) {
-				System.err.println("Error: " + e);
-			}
-			model.addAttribute(result.getModel());
-			return "admin/users/updateform";
-		}
-
-		boolean success = updateService.updateUser(vo);
-		if (success) {
-			return "redirect:/admin/users";
-		} else {
-			return "admin/users/updateform";
-		}
-	}
+//	// 사용자 정보 수정 액션
+//	@PostMapping("/users/updateform")
+//	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result, Model model) {
+//		if (result.hasErrors()) {
+//			List<ObjectError> list = result.getAllErrors();
+//			for (ObjectError e : list) {
+//				System.err.println("Error: " + e);
+//			}
+//			model.addAttribute(result.getModel());
+//			return "admin/users/updateform";
+//		}
+//
+//		boolean success = updateService.updateUser(vo);
+//		if (success) {
+//			return "redirect:/admin/users";
+//		} else {
+//			return "admin/users/updateform";
+//		}
+//	}
 }

@@ -24,6 +24,7 @@ public class ProductController {
         ProductVo product = productService.getProductdetail(productNo);
         model.addAttribute("product", product);
         return "products/productdetail"; 
+        
     }
 
 
