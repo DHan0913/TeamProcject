@@ -35,7 +35,6 @@ public class AdminInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        accessControlService.resetAttempts(ipAddress); // 정상 접근 시 시도 기록 초기화
         return true;
     }
 
