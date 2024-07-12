@@ -202,22 +202,14 @@ public class UserController {
 	
 	// 회원 탈퇴 액션
 	@PostMapping("/deleteconfirm")
-	public String deleteAction() {
+	public String deleteAction(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model){
+		if(!vo.getPassword().equals(vo.getPasswordConfirm())) {
+			result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
+		}
+	
 		return "users/deleteconfirm";
 	}
-	
-//	@RequestMapping("/deleteconfirm")
-//	public String deleteconfirm(@RequestParam UserVo vo, Model model) {
-//		
-//		boolean result = userService.deleteUser(vo);	
-//		if(result) {
-//			userService.deleteUser(vo);
-//			return "redirect:/home";
-//		} else {
-//			model.addAttribute("message", "비밀번호가 틀립니다.");
-//			return "/deleteconfirm";
-//		} 
-//		
+
 	
 	// 회원 삭제 완료 폼
 	@RequestMapping("/deletesuccess")

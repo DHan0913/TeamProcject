@@ -10,22 +10,21 @@
 <title>회원 탈퇴</title>
 </head>
 <body>
+<h1>회원 탈퇴</h1>
 	<form id="delete-confirm" name="deleteForm" method="POST" action="<c:url value='/users/deleteconfirm' />">
         
 	  	<div class="form-group">
-			<label for="password">비밀번호</label>
-			<form:password path="password" id="password" />
-			<form:errors path="password" cssClass="error" />
-		</div>
+            <label class="block-label">비밀번호</label> 
+            <input name="password" type="password" placeholder="비밀번호">
+        </div>
 	
 		<div class="form-group">
-			<label for="passwordConfirm">비밀번호 확인</label>
-	        <form:password path="passwordConfirm" id="passwordConfirm" />
-	        <form:errors path="passwordConfirm" cssClass="error" />
-	    </div>
+            <label class="block-label">비밀번호 확인</label> 
+            <input name="password" type="password" placeholder="비밀번호 확인">
+        </div>
 	       
-	    <button type="submit">확인</button>
-	    <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
+	    <button type="submit">확인</button>  <!-- 자바스크립트 추가하기! -->
+	    <button type="button" onclick="location.href='<c:url value="/" />'">취소</button>
 	</form>
 </body>
 </html>
