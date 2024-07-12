@@ -23,6 +23,7 @@ import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -42,7 +43,7 @@ public class AdminController {
 
 
 	@GetMapping("/home")
-	public String getHome(Model model) {
+	public String getHome(HttpSession session) {
 		logger.info("admin home");
 		return "admin/home";
 	}

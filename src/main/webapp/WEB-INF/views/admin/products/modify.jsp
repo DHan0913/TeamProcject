@@ -22,6 +22,10 @@
                 <td><input type="text" name="img" value="${productVo.img }"></td>
             </tr>
             <tr>
+                <td>비디오 이름</td>
+                <td colspan="5"><input type="text" name="video" value="${productVo.video}"></td>
+            </tr>
+            <tr>
                 <td colspan="6">
                     <a href="<c:url value='/admin/productlist' />">취소</a>
                     <input type="submit" value="수정">
