@@ -40,12 +40,12 @@
                                     알 수 없음
                                 </c:otherwise>
 							</c:choose></td>
-						
-							
+
+
 						<td>
-							<a href="<c:url value='/admin/users/${user.userNo}/updateform' />">수정</a> 
-							<a>삭제</a> 
-							<a>암호초기화</a>
+							
+								<a href="<c:url value='/admin/users/${user.userNo}/delete' />">삭제</a>
+								<a>암호초기화</a>
 						</td>
 
 					</tr>

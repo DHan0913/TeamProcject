@@ -12,4 +12,7 @@ public interface UserDao {
     
     boolean update(UserVo user);	// 회원정보수정
     boolean delete(UserVo user);	// 회원정보삭제
+    
+    boolean delete(Long userNo);	//	유저 번호로 삭제
+    UserVo selectUserByUserNo(Long userNo);    // 유저 번호로 사용자 조회
 }

@@ -68,8 +68,19 @@ public class UserServiceImpl implements UserService {
 	public boolean deleteUser(UserVo vo) {
 		return userDao.delete(vo);
 	}
+	
+	
 
+	@Override
+	public boolean deleteUser(Long userNo) {
+		return userDao.delete(userNo);
+	}
 
+	@Override
+    public UserVo getUserByUserNo(Long userNo) {
+        return userDao.selectUserByUserNo(userNo);
+    }
+	
 
 
 
