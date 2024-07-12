@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
+import himedia.dvd.services.AccessControlService;
 import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
@@ -37,6 +38,9 @@ public class AdminController {
 
 	@Autowired
 	private MembershipService membershipService;
+
+	@Autowired
+	private AccessControlService accessControlService;
 
 	// 관리자 홈페이지
 	@GetMapping("/home")
@@ -64,7 +68,7 @@ public class AdminController {
 		model.addAttribute("users", users);
 		return "admin/users/userList"; // home.jsp로 이동
 	}
-	
+
 	// 회원정보 삭제 처리
 	@GetMapping("/users/{userNo}/delete")
 	public String deleteAction(@PathVariable("userNo") Long userNo) {
@@ -142,6 +146,22 @@ public class AdminController {
 		}
 	}
 
+	@GetMapping("/ip-block")
+	public String getBlockedIps(Model model) {
+		model.addAttribute("blockedIps", accessControlService.getBlockedIps());
+		return "admin/ip-block";
+	}
 
+	@PostMapping("/block-ip")
+	public String blockIp(@RequestParam("ip") String ip, @RequestParam("adminId") String adminId) {
+		accessControlService.blockIp(ip, adminId);
+		return "redirect:/admin/ip-block";
+	}
+
+	@PostMapping("/unblock-ip")
+	public String unblockIp(@RequestParam("ip") String ip) {
+		accessControlService.unblockIp(ip);
+		return "redirect:/admin/ip-block";
+	}
 
 }
