@@ -82,34 +82,42 @@ public class UserController {
 		return "users/loginform";
 	}
 
-	// 로그인 액션
-	@PostMapping("/login")
-	public String loginAction(@RequestParam(value = "email", required = false, defaultValue = "") String email,
-			@RequestParam(value = "password", required = false, defaultValue = "") String password,
-			HttpSession session) {
-		System.out.println("email:" + email);
-		System.out.println("password:" + password);
 
-		if (email.length() == 0 || password.length() == 0) {
-			System.out.println("email 혹은 password가 입력되지 않음");
-			return "redirect:/users/login";
-		}
-
-		UserVo authUser = userService.login(email, password);
-
-		if (authUser != null) {
-			if (authUser.getRole() == 1) {
-				session.setAttribute("authAdmin", authUser);
-				session.setAttribute("authUser", authUser);
-				return "redirect:/admin/home";
-			} else {
-				session.setAttribute("authUser", authUser);
-				return "redirect:/";
-			}
-		} else {
-			return "redirect:/users/login";
-		}
-	}
+    @PostMapping("/login")
+    public String loginAction(
+            @RequestParam(value="email", required=false, defaultValue="") String email,
+            @RequestParam(value="password", required=false, defaultValue="") String password,
+            HttpSession session, Model model) {
+        System.out.println("email:" + email);
+        System.out.println("password:" + password);
+        
+        //	이메일이나 비밀번호를 입력하지 않은 경우
+        if (email.isEmpty() || password.isEmpty()) {
+            System.out.println("email 혹은 password가 입력되지 않음");
+            model.addAttribute("이메일 또는 비밀번호를 입력해주세요.");
+            return "redirect:/users/login?error=empty";
+        }
+        
+     // 사용자 인증
+        UserVo authUser = userService.login(email, password);
+        
+        if (authUser != null) {
+            if (authUser.getRole() == 1) {	//	관리자
+                session.setAttribute("authAdmin", authUser);
+                session.setAttribute("authUser", authUser);
+                return "redirect:/admin/home";	//	관리자 홈으로
+            } else {
+                session.setAttribute("authUser", authUser);
+                return "redirect:/";	//	일반 사용자 홈으로
+            }
+        } else {
+        	//	로그인 실패시
+        	System.out.println("로그인 실패");
+        	model.addAttribute("로그인에 실패했습니다.");
+        	return "redirect:/users/login?error=fail";
+        }
+    }
+    
 
 	// 관리자용 페이지
 	@GetMapping("/admin")

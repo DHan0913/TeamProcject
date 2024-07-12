@@ -54,10 +54,12 @@
 		WHERE user_no=#{userNo}
 	</update>
 	
-	<select id="getUpdate" parameterType="long" resultType="UserVo">
+	<!-- ? -->
+	 <select id="getUpdate" parameterType="long" resultType="UserVo">
 		SELECT user_no AS userNo,
 		username, birth, email, password, regdate, role FROM users WHERE user_no = #{updateNo, jdbcType=NUMERIC}
-	</select>
+	</select >
+
 
 	<!-- DELETE (사용자 정보 삭제) -->
 	<delete id="deleteUser" parameterType="long">
@@ -65,6 +67,15 @@
 		WHERE user_no=#{userNo}
 	</delete>
 	
+	
+	
+	<!-- RESET(암호 초기화) -->
+	<update id="resetUser" parameterType="UserVo">
+		UPDATE users
+		SET  
+		password=#{0000}
+		WHERE user_no = #{userNo}
+	</update>
 	
 	
 	

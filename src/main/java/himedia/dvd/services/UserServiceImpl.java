@@ -69,16 +69,20 @@ public class UserServiceImpl implements UserService {
 		UserVo userVo = userDao.selectUserByEmail(email);
 		return userDao.delete(userVo.getUserNo()) == 1;
 	}
-
+	
 	
 
-}
+	@Override
+	public boolean deleteUser(Long userNo) {
+		return userDao.delete(userNo);
+	}
+
+
+	@Override
+    public UserVo getUserByUserNo(Long userNo) {
+        return userDao.selectUserByUserNo(userNo);
+    }
 	
-
-	
-
-
-
 
 
 

@@ -143,6 +143,8 @@ public class UserVo {
 	public void setAgree(Boolean agree) {
 		this.agree = agree;
 	}
+	
+	
 
 	@Override
 	public String toString() {
