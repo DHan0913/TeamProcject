@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
@@ -30,18 +28,17 @@ import jakarta.servlet.http.HttpSession;
 public class AdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private MembershipService membershipService;
 
-
-
+	// 관리자 홈페이지
 	@GetMapping("/home")
 	public String getHome(HttpSession session) {
 		logger.info("admin home");
@@ -67,6 +64,16 @@ public class AdminController {
 		model.addAttribute("users", users);
 		return "admin/users/userList"; // home.jsp로 이동
 	}
+	
+	// 회원정보 삭제 처리
+	@GetMapping("/users/{userNo}/delete")
+	public String deleteAction(@PathVariable("userNo") Long userNo) {
+
+		// 사용자 삭제 서비스 호출
+		userService.deleteUser(userNo);
+
+		return "redirect:/admin/users"; // 사용자 목록 페이지로 리디렉션
+	}
 
 	// 상품 삭제
 	@GetMapping("/{productNo}/delete")
@@ -77,7 +84,7 @@ public class AdminController {
 		} else {
 			model.addAttribute("errorMessage", "Failed to delete product");
 		}
-		return "redirect:/admin/productlist"; 
+		return "redirect:/admin/productlist";
 	}
 
 	// 상품 리스트
@@ -94,7 +101,7 @@ public class AdminController {
 	public String modifyForm(@PathVariable("productNo") Long productNo, Model model) {
 		ProductVo productVo = productService.getProductdetail(productNo);
 		model.addAttribute("productVo", productVo);
-		return "admin/products/modify"; 
+		return "admin/products/modify";
 	}
 
 	// 상품 수정
@@ -102,9 +109,9 @@ public class AdminController {
 	public String modifyAction(@ModelAttribute ProductVo updatedVo) {
 		boolean success = productService.modify(updatedVo);
 		if (success) {
-			return "redirect:/admin/productlist"; 
+			return "redirect:/admin/productlist";
 		} else {
-			return "redirect:/admin"; 
+			return "redirect:/admin";
 		}
 	}
 
@@ -135,31 +142,6 @@ public class AdminController {
 		}
 	}
 
-//	// 사용자 정보 수정 폼
-//	@GetMapping("/users/{email}/updateform")
-//	public String updateUserForm(@PathVariable("email") String email, Model model) {
-//		UserVo user = updateService.getUserById(email);
-//		model.addAttribute("email", email);
-//		return "admin/users/updateform";
-//	}
 
-//	// 사용자 정보 수정 액션
-//	@PostMapping("/users/updateform")
-//	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result, Model model) {
-//		if (result.hasErrors()) {
-//			List<ObjectError> list = result.getAllErrors();
-//			for (ObjectError e : list) {
-//				System.err.println("Error: " + e);
-//			}
-//			model.addAttribute(result.getModel());
-//			return "admin/users/updateform";
-//		}
-//
-//		boolean success = updateService.updateUser(vo);
-//		if (success) {
-//			return "redirect:/admin/users";
-//		} else {
-//			return "admin/users/updateform";
-//		}
-//	}
+
 }
