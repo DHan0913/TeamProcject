@@ -90,38 +90,30 @@ public class UserController {
     public String loginAction(
             @RequestParam(value="email", required=false, defaultValue="") String email,
             @RequestParam(value="password", required=false, defaultValue="") String password,
-            HttpSession session, Model model) {
+            HttpSession session) {
         System.out.println("email:" + email);
         System.out.println("password:" + password);
         
-        //	이메일이나 비밀번호를 입력하지 않은 경우
-        if (email.isEmpty() || password.isEmpty()) {
+        if(email.length() == 0 || password.length() == 0) {
             System.out.println("email 혹은 password가 입력되지 않음");
-            model.addAttribute("이메일 또는 비밀번호를 입력해주세요.");
-            return "redirect:/users/login?error=empty";
+            return "redirect:/users/login";
         }
         
-        
-        // 사용자 인증
         UserVo authUser = userService.login(email, password);
         
         if (authUser != null) {
-            if (authUser.getRole() == 1) {	//	관리자
+            if (authUser.getRole() == 1) {
                 session.setAttribute("authAdmin", authUser);
                 session.setAttribute("authUser", authUser);
-                return "redirect:/admin/home";	//	관리자 홈으로
+                return "redirect:/admin/home";
             } else {
                 session.setAttribute("authUser", authUser);
-                return "redirect:/";	//	일반 사용자 홈으로
+                return "redirect:/";
             }
         } else {
-        	//	로그인 실패시
-        	System.out.println("로그인 실패");
-        	model.addAttribute("로그인에 실패했습니다.");
-        	return "redirect:/users/login?error=fail";
+            return "redirect:/users/login";
         }
     }
-    
 	// 관리자용 페이지
 	@GetMapping("/admin")
 	public String adminHome() {
@@ -164,11 +156,18 @@ public class UserController {
 	 * return "updateuser/updateform"; }
 	 */
 	
+	// 회원 상세정보 폼
+	@GetMapping("/{email}/userinfo")
+	public String userInfo(@PathVariable("email")String email, Model model) {
+		model.addAttribute("email", email);
+		return "users/userinfo";
+	}
+
+	
 	// 회원정보 수정 폼
-	@GetMapping("{email}/updateform")
-	public String updateForm(@PathVariable("email")String email, Model model) {
-		model.addAttribute("email",email);
-	    return "users/updateform";
+	@GetMapping("/updateform")
+	public String updateForm() {
+		return "users/updateform";
 	}
 	
 //	 회원정보 수정 액션
@@ -183,23 +182,43 @@ public class UserController {
 		}
 		boolean success = userService.updateUser(vo);
 		if(success) {
-			return "redirect:/users/login";
+			return "users/updatesuccess";
 		} else {
-			return "redirect:/users/updateform";
+			return "users/updateform";
 		}
 	}
 
-	// 회원 수정 완료 폼    
-	@GetMapping("/updatesuccess")
+
+	// 회원 수정 완료 폼
+	@RequestMapping("/updatesuccess")
 	public String updateSuccess() {
 		return "users/updatesuccess";
 	}
 
-	// 회원 상세정보 폼
-	@GetMapping("/{email}/userinfo")
-	public String userInfo(@PathVariable("email")String email, Model model) {
-		model.addAttribute("email", email);
-		return "users/userinfo";
+	// 회원 탈퇴(삭제) 폼
+	@GetMapping("/deleteconfirm")
+	public String deleteConfirm() {
+		return "users/deleteconfirm";
+	}
+	
+	// 회원 탈퇴 액션
+	@PostMapping("/deleteconfirm")
+	public String deleteAction(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model){
+		if(!vo.getPassword().equals(vo.getPasswordConfirm())) {
+			result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
+		}
+	
+		return "users/deleteconfirm";
 	}
 
+	
+	// 회원 삭제 완료 폼
+	@RequestMapping("/deletesuccess")
+	public String deleteSuccess() {
+		return "users/deletesuccess";
+	}
 }
+
+
+
+
