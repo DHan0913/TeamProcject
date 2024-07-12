@@ -51,7 +51,7 @@
 		SET  
 		email=#{email},
 		password=#{password}
-		WHERE user_no = #{userNo}
+		WHERE user_no=#{userNo}
 	</update>
 	
 	<select id="getUpdate" parameterType="long" resultType="UserVo">
@@ -61,9 +61,11 @@
 
 	<!-- DELETE (사용자 정보 삭제) -->
 	<delete id="deleteUser" parameterType="long">
-		DELETE FROM users
-		WHERE
-		user_no=#{value}
+		DELETE users
+		WHERE user_no=#{userNo}
 	</delete>
+	
+	
+	
 	
 </mapper>

@@ -46,9 +46,11 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public boolean delete(UserVo user) {
-		int count = sqlSession.delete("users.deleteUser", user);
-		return count == 1;
+	public int delete(Long userNo) {
+		return sqlSession.delete("users.deleteUser", userNo);
 	}
+	
+	
+	
 	
 }

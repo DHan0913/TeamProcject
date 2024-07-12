@@ -14,7 +14,8 @@ public interface UserService {
 
 	UserVo getUserByEmail(String email);	 // 이메일로 회원정보 불러오기
     boolean updateUser(UserVo vo);		 // 회원정보 수정
-    boolean deleteUser(UserVo vo);		 // 회원정보 삭제
+    boolean deleteUser(String email);		 // 회원정보 삭제
+
 
 
 

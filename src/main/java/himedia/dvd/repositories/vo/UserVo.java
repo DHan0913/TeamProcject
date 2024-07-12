@@ -65,6 +65,12 @@ public class UserVo {
 		this.birth = birth;
 		this.email = email;
 	}
+	
+	// 회원 삭제에 필요한 생성자
+	public UserVo(String password) {
+		super();
+		this.password = password;
+	}
 
 	public Long getUserNo() {
 		return userNo;

@@ -11,5 +11,6 @@ public interface UserDao {
     UserVo selectUserByEmailAndPassword(String email, String password);	//	로그인용
     
     boolean update(UserVo user);	// 회원정보수정
-    boolean delete(UserVo user);	// 회원정보삭제
+    int delete(Long userNo);		// 회원정보삭제
+
 }
