@@ -40,11 +40,6 @@ public class AccessControlServiceImpl implements AccessControlService {
     }
 
     @Override
-    public void resetAttempts(String ipAddress) {
-        accessAttemptDao.deleteByIpAddress(ipAddress);
-    }
-
-    @Override
     public void blockIp(String ipAddress, String adminId) {
         BlockedIpVo blockedIp = new BlockedIpVo();
         blockedIp.setIpAddress(ipAddress);
@@ -67,5 +62,4 @@ public class AccessControlServiceImpl implements AccessControlService {
     public List<AccessAttemptVo> getRecentAccessAttempts() {
         return accessAttemptDao.findAllAccessAttempts();
     }
-
 }

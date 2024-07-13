@@ -10,15 +10,16 @@ public interface AccessAttemptDao {
 	// 의미 명확화 없을수도 있음
 	Optional<AccessAttemptVo> findByIpAddress(String ipAddress);
 
+	// 추가
 	void insert(AccessAttemptVo accessAttempt);
 
+	// 수정
 	void update(AccessAttemptVo accessAttempt);
 
+	// 삭제
 	void deleteByIpAddress(String ipAddress);
 
+	// 목록 조회
 	List<AccessAttemptVo> findAllAccessAttempts();
 
-	
-	
-	
 }

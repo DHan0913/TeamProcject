@@ -35,8 +35,11 @@
 		access_attempts WHERE ip_address = #{ipAddress}
 	</delete>
 
+	<!-- SELECT (전체 조회) -->
 	<select id="findAllAccessAttempts" resultType="AccessAttemptVo">
-		SELECT * FROM access_attempts
+		SELECT id,
+		ip_address as ipAddress, last_attempt as lastAttempt, attempts FROM
+		access_attempts
 		ORDER BY last_attempt DESC
 	</select>
 

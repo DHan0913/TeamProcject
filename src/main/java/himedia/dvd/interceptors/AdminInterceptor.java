@@ -14,6 +14,7 @@ public class AdminInterceptor implements HandlerInterceptor {
     @Autowired
     private AccessControlService accessControlService;
 
+    // 부적절한 접근 차단 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
@@ -37,7 +38,8 @@ public class AdminInterceptor implements HandlerInterceptor {
 
         return true;
     }
-
+    
+    // 부적절한 접근 아이피 리턴
     private String getClientIp(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {

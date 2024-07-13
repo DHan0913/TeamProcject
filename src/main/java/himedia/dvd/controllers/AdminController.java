@@ -148,16 +148,19 @@ public class AdminController {
 
 	@GetMapping("/ip-block")
 	public String getBlockedIps(Model model) {
+		model.addAttribute("attempts", accessControlService.getRecentAccessAttempts());
 		model.addAttribute("blockedIps", accessControlService.getBlockedIps());
 		return "admin/ip-block";
 	}
 
+	// IP 차단
 	@PostMapping("/block-ip")
 	public String blockIp(@RequestParam("ip") String ip, @RequestParam("adminId") String adminId) {
 		accessControlService.blockIp(ip, adminId);
 		return "redirect:/admin/ip-block";
 	}
 
+	// IP 차단 해제
 	@PostMapping("/unblock-ip")
 	public String unblockIp(@RequestParam("ip") String ip) {
 		accessControlService.unblockIp(ip);

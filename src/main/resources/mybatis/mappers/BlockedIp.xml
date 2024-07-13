@@ -3,27 +3,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BlockedIp">
 
-    <!-- SELECT (IP로 차단된 IP 조회) -->
-    <select id="findByIpAddress" parameterType="string" resultType="BlockedIpVo">
-        SELECT * FROM blocked_ips WHERE ip_address = #{ipAddress}
-    </select>
+	<!-- SELECT (IP로 차단된 IP 조회) -->
+	<select id="findByIpAddress" parameterType="string"
+		resultType="BlockedIpVo">
+		SELECT * FROM blocked_ips WHERE ip_address = #{ipAddress}
+	</select>
 
-    <!-- SELECT (모든 차단된 IP 조회) -->
-    <select id="findAll" resultType="BlockedIpVo">
-        SELECT * FROM blocked_ips
-    </select>
+	<!-- SELECT (모든 차단된 IP 조회) -->
+	<select id="findAll" resultType="BlockedIpVo">
+		SELECT id AS id, ip_address AS ipAddress, blocked_at AS blockedAt,
+		blocked_by AS blockedBy
+		FROM blocked_ips
+	</select>
 
-    <!-- INSERT (차단된 IP 추가) -->
-    <insert id="insert" parameterType="BlockedIpVo">
-        <selectKey keyProperty="id" resultType="long" order="BEFORE">
-            SELECT blocked_ips_seq.nextval FROM dual
-        </selectKey>
-        INSERT INTO blocked_ips (id, ip_address, blocked_at, blocked_by)
-        VALUES (#{id}, #{ipAddress}, CURRENT_TIMESTAMP, #{blockedBy})
-    </insert>
+	<!-- INSERT (차단된 IP 추가) -->
+	<insert id="insert" parameterType="BlockedIpVo">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+			SELECT blocked_ips_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO blocked_ips (id, ip_address, blocked_at, blocked_by)
+		VALUES (#{id}, #{ipAddress}, CURRENT_TIMESTAMP, #{blockedBy})
+	</insert>
 
-    <!-- DELETE (IP로 차단된 IP 삭제) -->
-    <delete id="deleteByIpAddress" parameterType="string">
-        DELETE FROM blocked_ips WHERE ip_address = #{ipAddress}
-    </delete>
+	<!-- DELETE (IP로 차단된 IP 삭제) -->
+	<delete id="deleteByIpAddress" parameterType="string">
+		DELETE FROM blocked_ips WHERE ip_address = #{ipAddress}
+	</delete>
 </mapper>
