@@ -17,5 +17,6 @@ public interface UserDao {
 
 	boolean delete(Long userNo); // 유저 번호로 삭제
 
+	boolean reset(Long userNo); // 회원 비밀번호 초기화
 
 }

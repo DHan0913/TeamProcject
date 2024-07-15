@@ -58,6 +58,10 @@ public class UserDaoImpl implements UserDao {
 		return count == 1;
 	}
 
-
+	// 유저 비밀번호 초기화
+	@Override
+	public boolean reset(Long userNo) {
+		return sqlSession.update("users.resetUser", userNo) == 1;
+	}
 
 }

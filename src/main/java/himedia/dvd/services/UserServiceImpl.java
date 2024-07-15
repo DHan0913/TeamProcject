@@ -75,8 +75,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.delete(userNo);
 	}
 
+	@Override
+	public boolean resetPassword(Long userNo) {
+		return userDao.reset(userNo);
 
-
-
+	}
 
 }

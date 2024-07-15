@@ -75,6 +75,19 @@ public class AdminController {
 		return "redirect:/admin/users"; // 사용자 목록 페이지로 리디렉션
 	}
 
+	//	회원정보 암호 초기화
+	@GetMapping("/users/{userNo}/reset")
+	public String resetPassword(@PathVariable Long userNo, RedirectAttributes redirectAttributes) {
+		boolean success = userService.resetPassword(userNo);
+		if (success) {
+	        redirectAttributes.addFlashAttribute("successMessage", "사용자의 비밀번호가 초기화되었습니다.");
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "비밀번호 초기화에 실패했습니다.");
+	    }
+		
+		return "redirect:/admin/users";
+	}
+	
 	// 상품 삭제
 	@GetMapping("/{productNo}/delete")
 	public String deleteProduct(@PathVariable("productNo") Long productNo, Model model) {

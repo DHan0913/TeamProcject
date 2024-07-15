@@ -24,5 +24,5 @@ public interface UserService {
 
 	boolean deleteUser(Long userNo); // 유저 번호로 삭제
 
-
+	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
 }
