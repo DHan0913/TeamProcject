@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import himedia.dvd.services.FileUploadService;
-
+//	삭제 예정
 @Controller
 @RequestMapping("/fileupload")
 public class FileUploadController {

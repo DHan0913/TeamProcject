@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.AccessControlService;
+import himedia.dvd.services.FileUploadService;
 import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
@@ -42,6 +45,9 @@ public class AdminController {
 	@Autowired
 	private AccessControlService accessControlService;
 
+	@Autowired
+	private FileUploadService fileUploadService;
+
 	// 관리자 홈페이지
 	@GetMapping("/home")
 	public String getHome(HttpSession session) {
@@ -56,8 +62,21 @@ public class AdminController {
 	}
 
 	@PostMapping("/add")
-	public String addProduct(@ModelAttribute ProductVo productVo) {
-		productService.add(productVo);
+	public String addProduct(@ModelAttribute ProductVo productVo, @RequestParam("imageFile") MultipartFile imageFile,
+			RedirectAttributes redirectAttributes, Model model) {
+
+		if (imageFile != null && !imageFile.isEmpty()) {
+			System.out.println("원본파일명" + imageFile.getOriginalFilename());
+			System.out.println("파일사이즈" + imageFile.getSize());
+			System.out.println("파라미터이름" + imageFile.getName());
+			
+			String saveFilename = fileUploadService.store(imageFile);
+			model.addAttribute("imageFilename", saveFilename);
+			productVo.setImg(saveFilename);
+			productService.add(productVo);
+		} else {
+			productService.add(productVo);
+		}
 		return "redirect:/admin/productlist";
 	}
 

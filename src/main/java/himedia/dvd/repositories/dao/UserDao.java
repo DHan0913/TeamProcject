@@ -17,5 +17,5 @@ public interface UserDao {
 
 	boolean delete(Long userNo); // 유저 번호로 삭제
 
-
+	int hasPermission(Long userNo, Long productNo); // 권한 확인
 }

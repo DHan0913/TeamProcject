@@ -13,17 +13,19 @@
 		VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password},
 		SYSDATE)
 	</insert>
-	
+
 	<select id="selectAllUsers" resultType="UserVo">
 		SELECT user_no AS userNo,
 		username, birth, email, regdate, role
 		FROM users
 		ORDER BY user_no ASC
 	</select>
-	
-	<select id="selectUsers" parameterType="long" resultType="UserVo">
+
+	<select id="selectUsers" parameterType="long"
+		resultType="UserVo">
 		SELECT user_no AS userNo,
-		username, birth, email, regdate, role
+		username, birth, email, regdate,
+		role
 		FROM users
 		WHERE user_no=#{userNo}
 	</select>
@@ -48,35 +50,44 @@
 	<!-- UPDATE (사용자 정보 수정) -->
 	<update id="updateUser" parameterType="UserVo">
 		UPDATE users
-		SET  
+		SET
 		email=#{email},
 		password=#{password}
 		WHERE user_no=#{userNo}
 	</update>
-	
+
 	<!-- ? -->
-	 <select id="getUpdate" parameterType="long" resultType="UserVo">
-		SELECT user_no AS userNo,
-		username, birth, email, password, regdate, role FROM users WHERE user_no = #{updateNo, jdbcType=NUMERIC}
-	</select >
+	<select id="getUpdate" parameterType="long" resultType="UserVo">
+		SELECT
+		user_no AS userNo,
+		username, birth, email, password, regdate, role FROM
+		users WHERE user_no = #{updateNo, jdbcType=NUMERIC}
+	</select>
 
 
 	<!-- DELETE (사용자 정보 삭제) -->
 	<delete id="deleteUser" parameterType="long">
 		DELETE users
-		WHERE user_no=#{userNo}
+		WHERE
+		user_no=#{userNo}
 	</delete>
-	
-	
-	
+
+
+
 	<!-- RESET(암호 초기화) -->
 	<update id="resetUser" parameterType="UserVo">
 		UPDATE users
-		SET  
+		SET
 		password=#{0000}
 		WHERE user_no = #{userNo}
 	</update>
-	
-	
-	
+
+	<!-- 권한 체크 -->
+	<select id="hasPermission" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM UserPermissions
+		WHERE User_No = #{userNo} AND Product_No = #{productNo}
+	</select>
+
+
 </mapper>

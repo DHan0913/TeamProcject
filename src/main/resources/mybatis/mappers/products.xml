@@ -8,6 +8,7 @@
         SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
                content, status, img, video_name AS video
         FROM products
+        ORDER BY product_no ASC
     </select>
     
     

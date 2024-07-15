@@ -57,6 +57,14 @@ public class UserDaoImpl implements UserDao {
 		int count = sqlSession.delete("users.deleteUser", userNo);
 		return count == 1;
 	}
+	
+	@Override
+    public int hasPermission(Long userNo, Long productNo) {
+		  Map<String, Long> params = new HashMap<>();
+	        params.put("userNo", userNo);
+	        params.put("productNo", productNo);
+	        return sqlSession.selectOne("users.hasPermission", params);
+	    }
 
 
 
