@@ -12,7 +12,7 @@
     
     
     <!-- 추가 -->
-     <insert id="insertProduct" parameterType="ProductVo">
+    <insert id="insertProduct" parameterType="ProductVo">
       	<selectKey keyProperty="productNo" resultType="long"
 			order="BEFORE">
 			SELECT product_no_seq.nextval FROM dual
@@ -28,26 +28,27 @@
         FROM products
         WHERE product_no = #{productNo}
     </select>
-    	<!-- 삭제 -->
-	    <delete id="deleteProduct" parameterType="long">
+    
+    <!-- 삭제 -->
+	<delete id="deleteProduct" parameterType="long">
 	    DELETE FROM products
 	    WHERE product_no = #{productNo}
-		</delete>
+	</delete>
 		
-		<!-- 수정 -->
-		<update id="modifyProduct" parameterType="ProductVo">
-		    UPDATE products
-		    SET 
-		    productname = #{productName},
-		    genre = #{genre},
-		    content = #{content},
-		    img =#{img},
-		    video_name = #{video}
-		    WHERE product_no = #{productNo}
-		</update>
+	<!-- 수정 -->
+	<update id="modifyProduct" parameterType="ProductVo">
+		 UPDATE products
+		 SET 
+		   productname = #{productName},
+		   genre = #{genre},
+		   content = #{content},
+		   img =#{img},
+		   video_name = #{video}
+		 WHERE product_no = #{productNo}
+	</update>
 
 
-    
+    <!-- 제품 검색 -->
     <select id="selectProductsByName" parameterType="string" resultType="ProductVo">
         SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
                content, status, img, video_name AS video

@@ -5,10 +5,10 @@
 
 	<!-- INSERT (회원 가입) -->
 	<insert id="insert" parameterType="UserVo">
-		<selectKey keyProperty="userNo" resultType="long"
-			order="BEFORE">
+		<selectKey keyProperty="userNo" resultType="long" order="BEFORE">
 			SELECT user_no_seq.nextval FROM dual
 		</selectKey>
+		
 		INSERT INTO users (user_no, username, birth, email, password, regdate)
 		VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password},
 		SYSDATE)
