@@ -8,6 +8,7 @@
 <title>멤버십 가격</title>
 </head>
 <body>
+	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
     <h1>멤버십 가격 안내</h1>
     <table border="1" width="100%">
         <tr>

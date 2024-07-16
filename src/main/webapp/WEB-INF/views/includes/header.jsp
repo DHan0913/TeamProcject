@@ -9,7 +9,7 @@
     <c:if test="${not empty errorMsg }">
         <h5>${errorMsg }</h5>
     </c:if>
-    <h1>DVD</h1>
+	<h1><a href='<c:url value="/" />'>VOD</a></h1>
     <c:choose>
         <c:when test="${not empty authUser }">
             <ul>

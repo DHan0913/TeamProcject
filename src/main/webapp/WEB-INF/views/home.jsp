@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>DVD</title>
+<title>VOD</title>
 </head>
 <body>
    <div id="container">

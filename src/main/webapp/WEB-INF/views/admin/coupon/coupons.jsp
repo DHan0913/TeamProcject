@@ -7,6 +7,7 @@
     <title>쿠폰 관리</title>
 </head>
 <body>
+	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
     <h1>쿠폰 관리</h1>
     
     <!-- 쿠폰 생성 링크 -->
