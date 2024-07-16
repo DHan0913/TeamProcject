@@ -15,6 +15,9 @@
             <ul>
                 <li><a href='<c:url value="/users/logout" />'>로그아웃</a></li>
                 <li><a href='<c:url value="/users/${authUser.email}/userinfo" />'>${authUser.username }님 환영합니다</a></li>
+                <li>
+            <button onclick="location.href='<c:url value='/users/requestcash' />'">캐시 충전</button>
+		        </li>
             </ul>
         </c:when>
         <c:otherwise>

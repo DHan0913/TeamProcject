@@ -225,4 +225,32 @@ public class UserController {
 	public String deleteSuccess() {
 		return "users/deletesuccess";
 	}
+	
+	// 캐시 충전 요청 폼
+    @GetMapping("/requestcash")
+    public String requestCashForm() {
+        return "users/requestcashform";
+    }
+    
+    // 충전 요청
+    @PostMapping("/requestcash")
+    public String requestCash(@RequestParam String requestId, @RequestParam Double amount, HttpSession session, Model model) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        String loggedInEmail = authUser.getEmail();
+
+        if (!requestId.equals(loggedInEmail)) {
+            model.addAttribute("errorMessage", "요청 ID가 로그인된 이메일과 일치하지 않습니다.");
+            return "users/requestcashform";
+        }
+
+        boolean success = userService.requestCash(requestId, amount);
+
+        if (success) {
+            model.addAttribute("message", "캐시 충전 요청이 성공적으로 제출되었습니다.");
+            return "redirect:/";
+        } else {
+            model.addAttribute("errorMessage", "캐시 충전 요청에 실패했습니다.");
+            return "users/requestcashform";
+        }
+    }
 }
