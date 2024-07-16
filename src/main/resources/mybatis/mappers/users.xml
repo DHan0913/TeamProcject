@@ -70,10 +70,10 @@
 	
 	
 	<!-- RESET(암호 초기화) -->
-	<update id="resetUser" parameterType="UserVo">
+	<update id="resetUser" parameterType="long">
 		UPDATE users
 		SET  
-		password=#{0000}
+		password = '0000'
 		WHERE user_no = #{userNo}
 	</update>
 	

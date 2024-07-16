@@ -22,5 +22,6 @@ public interface UserDao {
 	boolean approveCashRequest(CashVo cashVo); // 요청 승인
 	boolean rejectCashRequest(CashVo cashVo); // 요청 거절
 
+	boolean reset(Long userNo); // 회원 비밀번호 초기화
 
 }

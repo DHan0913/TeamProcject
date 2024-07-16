@@ -65,6 +65,13 @@ public class UserDaoImpl implements UserDao {
 		        cashVo.setRequestId(requestId);
 		        cashVo.setAmount(amount);
 
+
+	// 유저 비밀번호 초기화
+	@Override
+	public boolean reset(Long userNo) {
+		return sqlSession.update("users.resetUser", userNo) == 1;
+	}
+
 		        int count = sqlSession.insert("users.insertCashRequest", cashVo);
 
 		        if (count > 0) {
@@ -86,6 +93,7 @@ public class UserDaoImpl implements UserDao {
 		 	    int count = sqlSession.update("users.approveCashRequest", cashVo);
 		 	    return count == 1;
 		 	}
+
 
 		 	//요청 거절
 		 	@Override

@@ -105,8 +105,10 @@ public class UserServiceImpl implements UserService {
 
 	 
 
+	@Override
+	public boolean resetPassword(Long userNo) {
+		return userDao.reset(userNo);
 
-
-
+	}
 
 }

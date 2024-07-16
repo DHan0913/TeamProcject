@@ -31,5 +31,5 @@ public interface UserService {
     boolean rejectCashRequest(CashVo cashVo); // 요청 거절
 
 
-
+	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
 }
