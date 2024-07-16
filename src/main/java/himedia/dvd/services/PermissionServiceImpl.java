@@ -16,4 +16,11 @@ public class PermissionServiceImpl implements PermissionService {
 		int count = userDao.hasPermission(userNo, productNo);
 		return count > 0;
 	}
+
+	@Override
+	public void setPermission(Long userNo, Long productNo) {
+		userDao.setPermission(userNo, productNo);
+	}
+	
+	
 }

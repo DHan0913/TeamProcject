@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
+import himedia.dvd.services.PermissionService;
+import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -25,8 +28,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/users")
 @Controller
 public class UserController {
+
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private PermissionService permissionService;
 
 	// 가입 폼
 	@GetMapping({ "", "/", "/join" })
@@ -261,19 +269,19 @@ public class UserController {
 	// 예성씌 파트 ----------------------------------------
 	// 구매 누르면 결제창으로 이동 자스로 할거
 
-	@GetMapping("/payment")
-	public String paymentAction(HttpSession session) {
+	@GetMapping("/payment/{productNo}")
+	public String paymentAction(@PathVariable("productNo") Long productNo, HttpSession session) {
 		UserVo vo = (UserVo) session.getAttribute("authUser");
 		String email = vo.getEmail();
-		boolean success = userService.insertCash(email);
 
+		boolean success = userService.insertCash(email);
+		permissionService.setPermission(vo.getUserNo(), productNo);
 		if (success) {
 			double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
 			session.setAttribute("approvedCashAmount", approvedCashAmount);
 			return "redirect:/";
-		} else {
-			return "/";
 		}
+		return "/";
 
 	}
 

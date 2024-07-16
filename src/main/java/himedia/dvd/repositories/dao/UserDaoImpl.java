@@ -124,9 +124,12 @@ public class UserDaoImpl implements UserDao {
     
     // 예성씌 파트 ////////////////////////////////////////////////////////////////////
 	@Override
-	public int checkPermission(Long userNo, Long productNo) {
-		
-		return 0;
+	public void setPermission(Long userNo, Long productNo) {
+		 Map<String, Long> params = new HashMap<>();
+	        params.put("userNo", userNo);
+	        params.put("productNo", productNo);
+	       sqlSession.insert("users.setPermission", params);
+	      
 	}
 
 	@Override

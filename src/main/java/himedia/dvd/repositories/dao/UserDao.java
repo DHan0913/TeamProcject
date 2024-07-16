@@ -24,7 +24,7 @@ public interface UserDao {
 
 	
 	// 예성씌 파트
-	int checkPermission(Long userNo, Long productNo);	// 시청권한 부여
+	void setPermission(Long userNo, Long productNo);	// 시청권한 부여
 	CashVo insertCash(String requestId);	// 구매 후 캐시 차감
 
 
