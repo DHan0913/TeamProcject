@@ -54,8 +54,8 @@ public class AdminController {
 	private FileUploadService fileUploadService;
 
 
-//	@Autowired
-//	private CouponService couponService;
+	@Autowired
+	private CouponService couponService;
 	
 	// 관리자 홈페이지
 	@GetMapping("/home")
