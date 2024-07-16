@@ -3,81 +3,69 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
 
-	<!-- INSERT (회원 가입) -->
-	<insert id="insert" parameterType="UserVo">
-		<selectKey keyProperty="userNo" resultType="long" order="BEFORE">
-			SELECT user_no_seq.nextval FROM dual
-		</selectKey>
-		
-		INSERT INTO users (user_no, username, birth, email, password, regdate)
-		VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password},
-		SYSDATE)
-	</insert>
-	
-	<select id="selectAllUsers" resultType="UserVo">
-		SELECT user_no AS userNo,
-		username, birth, email, regdate, role
-		FROM users
-		ORDER BY user_no ASC
-	</select>
-	
-	<select id="selectUsers" parameterType="long" resultType="UserVo">
-		SELECT user_no AS userNo,
-		username, birth, email, regdate, role
-		FROM users
-		WHERE user_no=#{userNo}
-	</select>
+    <!-- INSERT (회원 가입) -->
+    <insert id="insert" parameterType="UserVo">
+        <selectKey keyProperty="userNo" resultType="long" order="BEFORE">
+            SELECT user_no_seq.nextval FROM dual
+        </selectKey>
+        
+        INSERT INTO users (user_no, username, birth, email, password, regdate)
+        VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password}, SYSDATE)
+    </insert>
 
-	<select id="selectUserByEmail" parameterType="string"
-		resultType="UserVo">
-		SELECT user_no as userNo, username, birth, email, password,
-		regdate
-		FROM users
-		WHERE email=#{value}
-	</select>
+    <select id="selectAllUsers" resultType="UserVo">
+        SELECT user_no AS userNo, username, birth, email, regdate, role
+        FROM users
+        ORDER BY user_no ASC
+    </select>
 
-	<!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
-	<select id="selectUserByEmailAndPassword" parameterType="map"
-		resultType="UserVo">
-		SELECT user_no as userNo, username, birth, email, password,
-		regdate, role
-		FROM users
-		WHERE email=#{email} AND password=#{password}
-	</select>
+    <select id="selectUsers" parameterType="long" resultType="UserVo">
+        SELECT user_no AS userNo, username, birth, email, regdate, role
+        FROM users
+        WHERE user_no=#{userNo}
+    </select>
 
-	<!-- UPDATE (사용자 정보 수정) -->
-	<update id="updateUser" parameterType="UserVo">
-		UPDATE users
-		SET  
-		email=#{email},
-		password=#{password}
-		WHERE user_no=#{userNo}
-	</update>
-	
-	<!-- ? -->
-	 <select id="getUpdate" parameterType="long" resultType="UserVo">
-		SELECT user_no AS userNo,
-		username, birth, email, password, regdate, role FROM users WHERE user_no = #{updateNo, jdbcType=NUMERIC}
-	</select >
+    <select id="selectUserByEmail" parameterType="string" resultType="UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate
+        FROM users
+        WHERE email=#{value}
+    </select>
 
+    <!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
+    <select id="selectUserByEmailAndPassword" parameterType="map" resultType="UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate, role
+        FROM users
+        WHERE email=#{email} AND password=#{password}
+    </select>
 
-	<!-- DELETE (사용자 정보 삭제) -->
-	<delete id="deleteUser" parameterType="long">
-		DELETE users
-		WHERE user_no=#{userNo}
-	</delete>
-	
-	
-	
-	<!-- RESET(암호 초기화) -->
-	<update id="resetUser" parameterType="long">
-		UPDATE users
-		SET  
-		password = '0000'
-		WHERE user_no = #{userNo}
-	</update>
-	
-	 <!-- 캐시 요청 -->
+    <!-- UPDATE (사용자 정보 수정) -->
+    <update id="updateUser" parameterType="UserVo">
+        UPDATE users
+        SET email=#{email}, password=#{password}
+        WHERE user_no=#{userNo}
+    </update>
+
+    <!-- DELETE (사용자 정보 삭제) -->
+    <delete id="deleteUser" parameterType="long">
+        DELETE FROM users
+        WHERE user_no=#{userNo}
+    </delete>
+
+    <!-- RESET (암호 초기화) -->
+    <update id="resetUser" parameterType="long">
+        UPDATE users
+        SET password='0000'
+        WHERE user_no=#{userNo}
+    </update>
+
+    <!-- 권한 체크 -->
+    <select id="hasPermission" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM UserPermissions
+        WHERE User_No = #{userNo} AND Product_No = #{productNo}
+    </select>
+
+    <!-- 캐시 요청 -->
     <insert id="insertCashRequest" parameterType="CashVo">
         <selectKey keyProperty="id" resultType="long" order="BEFORE">
             SELECT cash_seq.NEXTVAL FROM dual
@@ -93,19 +81,17 @@
     </select>
     
     <!-- 요청 수락 -->
-    <update id="approveCashRequest" parameterType="himedia.dvd.repositories.vo.CashVo">
+    <update id="approveCashRequest" parameterType="CashVo">
         UPDATE cash
         SET status = '충전완료', approve_date = SYSDATE
         WHERE id = #{id} AND status = '요청'
     </update>
 
     <!-- 요청 거절 -->
-    <update id="rejectCashRequest" parameterType="himedia.dvd.repositories.vo.CashVo">
+    <update id="rejectCashRequest" parameterType="CashVo">
         UPDATE cash
         SET status = '거절', approve_date = SYSDATE
         WHERE id = #{id} AND status = '요청'
     </update>
-	
-	
-	
+
 </mapper>

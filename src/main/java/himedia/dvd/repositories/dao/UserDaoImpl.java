@@ -58,12 +58,22 @@ public class UserDaoImpl implements UserDao {
 		int count = sqlSession.delete("users.deleteUser", userNo);
 		return count == 1;
 	}
+	
+	@Override
+    public int hasPermission(Long userNo, Long productNo) {
+		  Map<String, Long> params = new HashMap<>();
+	        params.put("userNo", userNo);
+	        params.put("productNo", productNo);
+	        return sqlSession.selectOne("users.hasPermission", params);
+	    }
+
 	//요청
 		 @Override
 		    public CashVo insertCashRequest(String requestId, Double amount) {
 		        CashVo cashVo = new CashVo();
 		        cashVo.setRequestId(requestId);
 		        cashVo.setAmount(amount);
+
 
 
 	// 유저 비밀번호 초기화

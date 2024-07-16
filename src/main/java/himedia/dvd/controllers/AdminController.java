@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,6 +22,8 @@ import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
+import himedia.dvd.services.AccessControlService;
+import himedia.dvd.services.FileUploadService;
 import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
@@ -41,6 +44,12 @@ public class AdminController {
 	@Autowired
 	private MembershipService membershipService;
 
+	@Autowired
+	private AccessControlService accessControlService;
+
+	@Autowired
+	private FileUploadService fileUploadService;
+
 	// 관리자 홈페이지
 	@GetMapping("/home")
 	public String getHome(HttpSession session) {
@@ -55,8 +64,21 @@ public class AdminController {
 	}
 
 	@PostMapping("/add")
-	public String addProduct(@ModelAttribute ProductVo productVo) {
-		productService.add(productVo);
+	public String addProduct(@ModelAttribute ProductVo productVo, @RequestParam("imageFile") MultipartFile imageFile,
+			RedirectAttributes redirectAttributes, Model model) {
+
+		if (imageFile != null && !imageFile.isEmpty()) {
+			System.out.println("원본파일명" + imageFile.getOriginalFilename());
+			System.out.println("파일사이즈" + imageFile.getSize());
+			System.out.println("파라미터이름" + imageFile.getName());
+			
+			String saveFilename = fileUploadService.store(imageFile);
+			model.addAttribute("imageFilename", saveFilename);
+			productVo.setImg(saveFilename);
+			productService.add(productVo);
+		} else {
+			productService.add(productVo);
+		}
 		return "redirect:/admin/productlist";
 	}
 
@@ -67,7 +89,7 @@ public class AdminController {
 		model.addAttribute("users", users);
 		return "admin/users/userList"; // home.jsp로 이동
 	}
-	
+
 	// 회원정보 삭제 처리
 	@GetMapping("/users/{userNo}/delete")
 	public String deleteAction(@PathVariable("userNo") Long userNo) {
@@ -188,6 +210,25 @@ public class AdminController {
 	        return result ? "success" : "error";
 	    }
 
+	@GetMapping("/ip-block")
+	public String getBlockedIps(Model model) {
+		model.addAttribute("attempts", accessControlService.getRecentAccessAttempts());
+		model.addAttribute("blockedIps", accessControlService.getBlockedIps());
+		return "admin/ip-block";
+	}
 
+	// IP 차단
+	@PostMapping("/block-ip")
+	public String blockIp(@RequestParam("ip") String ip, @RequestParam("adminId") String adminId) {
+		accessControlService.blockIp(ip, adminId);
+		return "redirect:/admin/ip-block";
+	}
+
+	// IP 차단 해제
+	@PostMapping("/unblock-ip")
+	public String unblockIp(@RequestParam("ip") String ip) {
+		accessControlService.unblockIp(ip);
+		return "redirect:/admin/ip-block";
+	}
 
 }
