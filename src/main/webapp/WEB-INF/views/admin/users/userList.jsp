@@ -11,6 +11,13 @@
 <body>
 	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
 	<div id="content">
+		<%-- 성공 또는 실패 메시지가 있을 경우 출력 --%>
+		<c:if test="${not empty successMessage}">
+			<div class="alert alert-success">${successMessage}</div>
+		</c:if>
+		<c:if test="${not empty errorMessage}">
+			<div class="alert alert-danger">${errorMessage}</div>
+		</c:if>
 		<div class="list-container">
 			<table border="1" width="100%">
 				<tr>
@@ -42,10 +49,11 @@
 							</c:choose></td>
 
 
-						<td>
-							
-								<a href="<c:url value='/admin/users/${user.userNo}/delete' />">삭제</a>
-								<a>암호초기화</a>
+						<td><a
+							href="<c:url value='/admin/users/${user.userNo}/delete' />">삭제</a>
+
+							<a href="<c:url value='/admin/users/${user.userNo}/reset' />">암호초기화</a>
+
 						</td>
 
 					</tr>

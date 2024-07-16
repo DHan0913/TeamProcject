@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.UserVo;
 
 @Repository("userDao")
@@ -66,6 +67,49 @@ public class UserDaoImpl implements UserDao {
 	        return sqlSession.selectOne("users.hasPermission", params);
 	    }
 
+	//요청
+		 @Override
+		    public CashVo insertCashRequest(String requestId, Double amount) {
+		        CashVo cashVo = new CashVo();
+		        cashVo.setRequestId(requestId);
+		        cashVo.setAmount(amount);
 
 
+
+	// 유저 비밀번호 초기화
+	@Override
+	public boolean reset(Long userNo) {
+		return sqlSession.update("users.resetUser", userNo) == 1;
+	}
+
+		        int count = sqlSession.insert("users.insertCashRequest", cashVo);
+
+		        if (count > 0) {
+		            return cashVo; // 캐시 요청이 성공적으로 추가되었으면 CashVo 객체를 반환
+		        } else {
+		            return null; // 실패 시 null 반환
+		        }
+		    }
+		 
+		//요청 리스트
+		 	@Override
+		    public List<CashVo> selectAllCashRequests() {
+		        return sqlSession.selectList("users.selectAllCashRequests");
+		    }
+		 
+		 	// 요청 승인
+		 	@Override
+		 	public boolean approveCashRequest(CashVo cashVo) {
+		 	    int count = sqlSession.update("users.approveCashRequest", cashVo);
+		 	    return count == 1;
+		 	}
+
+
+		 	//요청 거절
+		 	@Override
+		 	public boolean rejectCashRequest(CashVo cashVo) {
+		 	    int count = sqlSession.update("users.rejectCashRequest", cashVo);
+		 	    return count == 1;
+		 	}
+		    
 }

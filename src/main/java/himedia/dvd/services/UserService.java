@@ -2,6 +2,7 @@ package himedia.dvd.services;
 
 import java.util.List;
 
+import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.UserVo;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -23,6 +24,12 @@ public interface UserService {
 	boolean deleteUser(String email); // 회원정보 삭제
 
 	boolean deleteUser(Long userNo); // 유저 번호로 삭제
+	
+	boolean requestCash(String requestId, Double amount); // 캐시요청
+	List<CashVo> getAllCashRequests(); // 요청리스트
+	boolean approveCashRequest(CashVo cashVo); // 요청 승인
+    boolean rejectCashRequest(CashVo cashVo); // 요청 거절
 
 
+	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
 }

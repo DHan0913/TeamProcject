@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
@@ -98,6 +100,19 @@ public class AdminController {
 		return "redirect:/admin/users"; // 사용자 목록 페이지로 리디렉션
 	}
 
+	//	회원정보 암호 초기화
+	@GetMapping("/users/{userNo}/reset")
+	public String resetPassword(@PathVariable Long userNo, RedirectAttributes redirectAttributes) {
+		boolean success = userService.resetPassword(userNo);
+		if (success) {
+	        redirectAttributes.addFlashAttribute("successMessage", "사용자의 비밀번호가 초기화되었습니다.");
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "비밀번호 초기화에 실패했습니다.");
+	    }
+		
+		return "redirect:/admin/users";
+	}
+	
 	// 상품 삭제
 	@GetMapping("/{productNo}/delete")
 	public String deleteProduct(@PathVariable("productNo") Long productNo, Model model) {
@@ -164,6 +179,36 @@ public class AdminController {
 			return "redirect:/admin";
 		}
 	}
+	// 캐시 요청 목록
+		@GetMapping("/acceptcash")
+		public String getAllCashRequests(Model model) {
+			List<CashVo> requests = userService.getAllCashRequests();
+			model.addAttribute("requests", requests);
+			return "admin/users/acceptcash";
+		}
+		
+		// 캐시 요청 승인
+	    @PostMapping("/approve-request")
+	    @ResponseBody
+	    public String approveRequest(@RequestParam Long id, @RequestParam Double amount) {
+	        CashVo cashVo = new CashVo();
+	        cashVo.setId(id);
+	        cashVo.setAmount(amount);
+
+	        boolean result = userService.approveCashRequest(cashVo);
+	        return result ? "success" : "error";
+	    }
+
+	    // 요청 거절
+	    @PostMapping("/reject-request")
+	    @ResponseBody
+	    public String rejectRequest(@RequestParam Long id) {
+	        CashVo cashVo = new CashVo();
+	        cashVo.setId(id);
+
+	        boolean result = userService.rejectCashRequest(cashVo);
+	        return result ? "success" : "error";
+	    }
 
 	@GetMapping("/ip-block")
 	public String getBlockedIps(Model model) {

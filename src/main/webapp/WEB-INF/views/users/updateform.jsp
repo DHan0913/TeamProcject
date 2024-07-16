@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 정보 수정</title>
+<script src="<c:url value="/javascript/update.js" />"></script>
 </head>
 <body>
     <h1>회원 정보 수정</h1>
@@ -28,7 +29,7 @@
             <input name="password" type="password" value="${authUser.password}" placeholder="비밀번호 입력">
         </div>
        
-        <button type="submit">수정</button>
+        <input type="button" id="editButton" data-target="<c:url value="/users/updateComplete" />" value="수정"/>
         <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
 
     </form>
