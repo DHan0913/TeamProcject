@@ -93,5 +93,12 @@
         SET status = '거절', approve_date = SYSDATE
         WHERE id = #{id} AND status = '요청'
     </update>
+    
+   	<!-- 충전된 금액 -->
+    <select id="getApprovedCashAmountByEmail" parameterType="string" resultType="double">
+        SELECT SUM(amount)
+        FROM cash
+        WHERE request_id = #{email} AND status = '충전완료'
+    </select>
 
 </mapper>

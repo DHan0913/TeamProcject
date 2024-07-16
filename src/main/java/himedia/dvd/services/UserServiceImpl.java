@@ -80,27 +80,27 @@ public class UserServiceImpl implements UserService {
 	//캐시 요청
 	@Override
 	public boolean requestCash(String requestId, Double amount) {
-		CashVo cashVo = userDao.insertCashRequest(requestId, amount);
+	CashVo cashVo = userDao.insertCashRequest(requestId, amount);
 		 return cashVo != null;
 		    }
 	
 	// 요청리스트
-		 @Override
-		 public List<CashVo> getAllCashRequests() {
-		     return userDao.selectAllCashRequests();
+	@Override
+	public List<CashVo> getAllCashRequests() {
+		 return userDao.selectAllCashRequests();
 		    }
 		
-		   // 요청 승인
-		    @Override
-		    public boolean approveCashRequest(CashVo cashVo) {
-		        cashVo.setApproveDate(new Date(System.currentTimeMillis()));
-		        return userDao.approveCashRequest(cashVo);
+	// 요청 승인
+	@Override
+	public boolean approveCashRequest(CashVo cashVo) {
+	cashVo.setApproveDate(new Date(System.currentTimeMillis()));
+		return userDao.approveCashRequest(cashVo);
 		    }
 
-		    // 요청 거절
-		    @Override
-		    public boolean rejectCashRequest(CashVo cashVo) {
-		        return userDao.rejectCashRequest(cashVo);
+	// 요청 거절
+	@Override
+	public boolean rejectCashRequest(CashVo cashVo) {
+		return userDao.rejectCashRequest(cashVo);
 		    }
 
 	 
@@ -110,5 +110,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.reset(userNo);
 
 	}
+	//충전된 금액
+	@Override
+    public double getApprovedCashAmountByEmail(String email) {
+        return userDao.getApprovedCashAmountByEmail(email);
+    }
+
 
 }

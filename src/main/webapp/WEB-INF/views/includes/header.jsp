@@ -18,6 +18,9 @@
                 <li>
             <button onclick="location.href='<c:url value='/users/requestcash' />'">캐시 충전</button>
 		        </li>
+		        <li>
+                    <p>잔액: ${sessionScope.approvedCashAmount}</p>
+            	</li>
             </ul>
         </c:when>
         <c:otherwise>

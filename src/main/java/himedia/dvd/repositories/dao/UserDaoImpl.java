@@ -113,4 +113,11 @@ public class UserDaoImpl implements UserDao {
         int count = sqlSession.update("users.rejectCashRequest", cashVo);
         return count == 1;
     }
+    
+    //충전된 금액
+    @Override
+    public double getApprovedCashAmountByEmail(String email) {
+        Double totalAmount = sqlSession.selectOne("users.getApprovedCashAmountByEmail", email);
+        return totalAmount != null ? totalAmount : 0.0;
+    }
 }

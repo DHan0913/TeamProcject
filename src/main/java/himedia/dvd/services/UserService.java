@@ -29,6 +29,7 @@ public interface UserService {
 	List<CashVo> getAllCashRequests(); // 요청리스트
 	boolean approveCashRequest(CashVo cashVo); // 요청 승인
     boolean rejectCashRequest(CashVo cashVo); // 요청 거절
+    double getApprovedCashAmountByEmail(String email); //충전된 금액
 
 
 	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
