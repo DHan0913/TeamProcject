@@ -82,47 +82,44 @@ public class UserController {
 		return "users/loginform";
 	}
 
-
 	@PostMapping("/login")
-	public String loginAction(
-	        @RequestParam(value="email", required=false, defaultValue="") String email,
-	        @RequestParam(value="password", required=false, defaultValue="") String password,
-	        HttpSession session, Model model) {
-	    System.out.println("email:" + email);
-	    System.out.println("password:" + password);
+	public String loginAction(@RequestParam(value = "email", required = false, defaultValue = "") String email,
+			@RequestParam(value = "password", required = false, defaultValue = "") String password, HttpSession session,
+			Model model) {
+		System.out.println("email:" + email);
+		System.out.println("password:" + password);
 
-	    // 이메일이나 비밀번호를 입력하지 않은 경우
-	    if (email.isEmpty() || password.isEmpty()) {
-	        System.out.println("email 혹은 password가 입력되지 않음");
-	        model.addAttribute("이메일 또는 비밀번호를 입력해주세요.");
-	        return "redirect:/users/login?error=empty";
-	    }
+		// 이메일이나 비밀번호를 입력하지 않은 경우
+		if (email.isEmpty() || password.isEmpty()) {
+			System.out.println("email 혹은 password가 입력되지 않음");
+			model.addAttribute("이메일 또는 비밀번호를 입력해주세요.");
+			return "redirect:/users/login?error=empty";
+		}
 
-	    // 사용자 인증
-	    UserVo authUser = userService.login(email, password);
+		// 사용자 인증
+		UserVo authUser = userService.login(email, password);
 
-	    if (authUser != null) {
-	        double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
-	        session.setAttribute("authUser", authUser);
-	        session.setAttribute("approvedCashAmount", approvedCashAmount);
+		if (authUser != null) {
+			double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
+			session.setAttribute("authUser", authUser);
+			session.setAttribute("approvedCashAmount", approvedCashAmount);
 
-	        System.out.println("로그인 성공 - Role: " + authUser.getRole());
+			System.out.println("로그인 성공 - Role: " + authUser.getRole());
 
-	        if (authUser.getRole() == 1) {    // 관리자
-	            session.setAttribute("authAdmin", authUser);
-	            System.out.println("관리자로 로그인 성공");
-	            return "redirect:/admin/home";    // 관리자 홈으로
-	        } else {
-	            return "redirect:/";    // 일반 사용자 홈으로
-	        }
-	    } else {
-	        // 로그인 실패시
-	        System.out.println("로그인 실패");
-	        model.addAttribute("로그인에 실패했습니다.");
-	        return "redirect:/users/login?error=fail";
-	    }
+			if (authUser.getRole() == 1) { // 관리자
+				session.setAttribute("authAdmin", authUser);
+				System.out.println("관리자로 로그인 성공");
+				return "redirect:/admin/home"; // 관리자 홈으로
+			} else {
+				return "redirect:/"; // 일반 사용자 홈으로
+			}
+		} else {
+			// 로그인 실패시
+			System.out.println("로그인 실패");
+			model.addAttribute("로그인에 실패했습니다.");
+			return "redirect:/users/login?error=fail";
+		}
 	}
-    
 
 	// 관리자용 페이지
 	@GetMapping("/admin")
@@ -209,89 +206,76 @@ public class UserController {
 	}
 
 	@PostMapping("/{email}/deleteconfirm")
-	public String deleteUserAction(@PathVariable("email") String email, @RequestParam("password") String password, HttpSession session) {
+	public String deleteUserAction(@PathVariable("email") String email, @RequestParam("password") String password,
+			HttpSession session) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser == null || !authUser.getEmail().equals(email) || !authUser.getPassword().equals(password)) {
+		if (authUser == null || !authUser.getEmail().equals(email) || !authUser.getPassword().equals(password)) {
 			return "redirect:/users/deleteconfirm?error=fail";
 		}
-		boolean success = userService.deleteUser(email);		// 회원 삭제 메서드 호출
-		if(success) {
+		boolean success = userService.deleteUser(email); // 회원 삭제 메서드 호출
+		if (success) {
 			session.invalidate();
-			return "redirect:/users/deletesuccess";				// 회원 삭제 성공시 성공페이지로 리다이렉트
-		} else {	
-			return "redirect:/users/deleteconfirm?error=fail";	// 실패시 ......
+			return "redirect:/users/deletesuccess"; // 회원 삭제 성공시 성공페이지로 리다이렉트
+		} else {
+			return "redirect:/users/deleteconfirm?error=fail"; // 실패시 ......
 		}
 	}
-	
-
 
 	// 회원 삭제 완료 폼
 	@RequestMapping("/deletesuccess")
 	public String deleteSuccess() {
 		return "users/deletesuccess";
 	}
-	
+
 	// 캐시 충전 요청 폼
-    @GetMapping("/requestcash")
-    public String requestCashForm() {
-        return "users/requestcashform";
-    }
-    
-    // 충전 요청
-    @PostMapping("/requestcash")
-    public String requestCash(@RequestParam String requestId, @RequestParam Double amount, HttpSession session, Model model) {
-        UserVo authUser = (UserVo) session.getAttribute("authUser");
-        String loggedInEmail = authUser.getEmail();
+	@GetMapping("/requestcash")
+	public String requestCashForm() {
+		return "users/requestcashform";
+	}
 
-        if (!requestId.equals(loggedInEmail)) {
-            model.addAttribute("errorMessage", "요청 ID가 로그인된 이메일과 일치하지 않습니다.");
-            return "users/requestcashform";
-        }
+	// 충전 요청
+	@PostMapping("/requestcash")
+	public String requestCash(@RequestParam String requestId, @RequestParam Double amount, HttpSession session,
+			Model model) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		String loggedInEmail = authUser.getEmail();
 
-        boolean success = userService.requestCash(requestId, amount);
+		if (!requestId.equals(loggedInEmail)) {
+			model.addAttribute("errorMessage", "요청 ID가 로그인된 이메일과 일치하지 않습니다.");
+			return "users/requestcashform";
+		}
 
-        if (success) {
-        	double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
-            session.setAttribute("approvedCashAmount", approvedCashAmount);
-            model.addAttribute("message", "캐시 충전 요청이 성공적으로 제출되었습니다.");
-            return "redirect:/";
-        } else {
-            model.addAttribute("errorMessage", "캐시 충전 요청에 실패했습니다.");
-            return "users/requestcashform";
-        }
-    }
-    
-    
-    // 예성씌 파트 ----------------------------------------
-    // 구매 누르면 결제창으로 이동
-    @GetMapping("/payment")
-    public String payment() {
-    	
-    	return "products/poductdetail";
-    }
-    
-    @PostMapping("/payment")
-    public String paymentAction(@RequestParam String requestId, HttpSession session, Model model) {
-    	UserVo authUser = (UserVo)session.getAttribute("authUser");
-    	String payment = authUser.getEmail();
-    	
-    	boolean success = userService.insertCash(requestId);
-    	
-    	if(success) {
-    		double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
-            session.setAttribute("approvedCashAmount", approvedCashAmount);
-            model.addAttribute("message", "동영상 구매에 성공했습니다..");
-            return "users/payment";
-    	} else {
-    		model.addAttribute("errorMessage", "동영상 구매에 실패했습니다.");
-    		return "users/payment";
-    	}
-    	
-    	
-    }
-    
-    
-    
-    
-    // 예성씌 파트 end ----------------------------------------
+		boolean success = userService.requestCash(requestId, amount);
+
+		if (success) {
+			double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
+			session.setAttribute("approvedCashAmount", approvedCashAmount);
+			model.addAttribute("message", "캐시 충전 요청이 성공적으로 제출되었습니다.");
+			return "redirect:/";
+		} else {
+			model.addAttribute("errorMessage", "캐시 충전 요청에 실패했습니다.");
+			return "users/requestcashform";
+		}
+	}
+
+	// 예성씌 파트 ----------------------------------------
+	// 구매 누르면 결제창으로 이동 자스로 할거
+
+	@GetMapping("/payment")
+	public String paymentAction(HttpSession session) {
+		UserVo vo = (UserVo) session.getAttribute("authUser");
+		String email = vo.getEmail();
+		boolean success = userService.insertCash(email);
+
+		if (success) {
+			double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
+			session.setAttribute("approvedCashAmount", approvedCashAmount);
+			return "redirect:/";
+		} else {
+			return "/";
+		}
+
+	}
+
+	// 예성씌 파트 end ----------------------------------------
 }
