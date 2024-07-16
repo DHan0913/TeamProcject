@@ -18,6 +18,7 @@ public interface UserDao {
 	boolean rejectCashRequest(CashVo cashVo); // 요청 거절
 	int hasPermission(Long userNo, Long productNo); // 권한 확인
 	boolean reset(Long userNo); // 회원 비밀번호 초기화
+	double getApprovedCashAmountByEmail(String email); //충전된 금액
 
 
 }
