@@ -18,8 +18,27 @@ public class CashVo {
         this.amount = amount;
         this.requestDate = requestDate;
     }
+    
+    public CashVo(Double amount) {
+		super();
+		this.amount = amount;
+	}
+    
+   
+    
+    
+    // 예성씌 캐시 차감에 필요한 생성자
+   
 
-    public Long getId() {
+    public CashVo(String requestId) {
+		super();
+		this.requestId = requestId;
+	}
+    
+    
+    
+
+	public Long getId() {
         return id;
     }
 

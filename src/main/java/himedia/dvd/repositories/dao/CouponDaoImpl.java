@@ -49,3 +49,4 @@ public class CouponDaoImpl implements CouponDao {
         sqlSession.update("expireCoupon", couponId);
     }
 }
+
