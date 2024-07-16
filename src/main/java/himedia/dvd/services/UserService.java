@@ -30,6 +30,10 @@ public interface UserService {
 	boolean approveCashRequest(CashVo cashVo); // 요청 승인
     boolean rejectCashRequest(CashVo cashVo); // 요청 거절
     double getApprovedCashAmountByEmail(String email); //충전된 금액
+    
+	
+	// 예성씌 파트
+	boolean insertCash(String requestId);	// 캐시 차감
 
 
 	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화

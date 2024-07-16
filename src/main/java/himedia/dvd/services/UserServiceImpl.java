@@ -115,6 +115,15 @@ public class UserServiceImpl implements UserService {
     public double getApprovedCashAmountByEmail(String email) {
         return userDao.getApprovedCashAmountByEmail(email);
     }
+	
+
+	//////////////예성씌 파트
+	@Override
+	public boolean insertCash(String requestId) {
+		CashVo cashVo = userDao.insertCash(requestId);
+		return cashVo != null;
+	}
+
 
 
 }

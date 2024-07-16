@@ -33,6 +33,7 @@
 	
 			<label id="userNo" class="block-label" for="birth">생년월일 ${authUser.birth }</label>
 			<br>
+
 		<div class="button">
 			<button type="button" onclick="location.href='<c:url value="/users/updateform" />'">수정하기</button>
 			<button type="button" onclick="location.href='<c:url value="/users/deleteconfirm" />'">탈퇴하기</button>
