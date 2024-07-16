@@ -1,61 +1,52 @@
-//package himedia.dvd.repositories.dao;
-//
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.List;
-//
-//import org.springframework.stereotype.Repository;
-//
-//import himedia.dvd.repositories.vo.CouponVo;
-//
-//@Repository("couponDao")
-//public class CouponDaoImpl implements CouponDao {
-//	
-//	private List<CouponVo> coupons = new ArrayList<>();
-//
-//    @Override
-//    public List<CouponVo> getAllCoupons() {
-//        return coupons;
-//    }
-//
-//    @Override
-//    public CouponVo getCouponById(Long couponId) {
-//        for (CouponVo coupon : coupons) {
-//            if (coupon.getCouponId().equals(couponId)) {
-//                return coupon;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public void addCoupon(CouponVo couponVo) {
-//        couponVo.setCouponId((long) (coupons.size() + 1)); // 간단한 예시용
-//        coupons.add(couponVo);
-//    }
-//
-//    @Override
-//    public void issueCoupon(Long couponId, Long userId) {
-//        CouponVo coupon = getCouponById(couponId);
-//        if (coupon != null && coupon.getUserId() == null) {
-//            coupon.setUserId(userId);
-//            coupon.setIssueDate(new Date());
-//        }
-//    }
-//
-//    @Override
-//    public void useCoupon(Long couponId, Long userId) {
-//        CouponVo coupon = getCouponById(couponId);
-//        if (coupon != null && coupon.getUserId().equals(userId)) {
-//            coupon.setUsed(true);
-//        }
-//    }
-//
-//    @Override
-//    public void expireCoupon(Long couponId) {
-//        CouponVo coupon = getCouponById(couponId);
-//        if (coupon != null) {
-//            coupon.setExpiryDate(new Date());
-//        }
-//    }
-//}
+package himedia.dvd.repositories.dao;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import himedia.dvd.repositories.vo.CouponVo;
+
+@Repository("couponDao")
+public class CouponDaoImpl implements CouponDao {
+	@Autowired
+    private SqlSession sqlSession;
+	
+	//	쿠폰 리스트 출력
+	@Override
+    public List<CouponVo> getAllCoupons() {
+		List<CouponVo> list = sqlSession.selectList("coupons.getAllCoupons");
+        return list;
+    }
+
+    @Override
+    public CouponVo getCouponById(Long couponId) {
+        return sqlSession.selectOne("getCouponById", couponId);
+    }
+    
+    //	쿠폰 추가
+    @Override
+    public int insertCoupon(CouponVo couponVo) {
+    	return sqlSession.insert("coupons.createCoupon", couponVo);
+    }
+
+    //	쿠폰 지급
+    @Override
+    public void issueCoupon(Long couponId, Long userId) {
+        CouponVo coupon = new CouponVo();
+        coupon.setCouponId(couponId);
+        coupon.setUserId(userId);
+        sqlSession.update("issueCoupon", coupon);
+    }
+
+    
+    //	쿠폰 만료
+    @Override
+    public void expireCoupon(Long couponId) {
+        sqlSession.update("expireCoupon", couponId);
+    }
+}
+

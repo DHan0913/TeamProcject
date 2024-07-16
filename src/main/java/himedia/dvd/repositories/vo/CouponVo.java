@@ -2,6 +2,8 @@ package himedia.dvd.repositories.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class CouponVo {
 
 	private Long couponId; // 쿠폰 아이디
@@ -38,7 +40,8 @@ public class CouponVo {
 	public void setCouponCode(String couponCode) {
 		this.couponCode = couponCode;
 	}
-
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getIssueDate() {
 		return issueDate;
 	}
@@ -47,6 +50,7 @@ public class CouponVo {
 		this.issueDate = issueDate;
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getExpiryDate() {
 		return expiryDate;
 	}
@@ -61,6 +65,12 @@ public class CouponVo {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "CouponVo [couponId=" + couponId + ", couponCode=" + couponCode + ", issueDate=" + issueDate
+				+ ", expiryDate=" + expiryDate + ", userId=" + userId + "]";
 	}
 	
 	
