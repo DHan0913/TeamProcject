@@ -64,6 +64,33 @@
         FROM UserPermissions
         WHERE User_No = #{userNo} AND Product_No = #{productNo}
     </select>
+    
+        
+    
+    
+    <!--        예성씌 파트         -->
+    <!-- 구매후 시청권한 부여 -->
+    <select id="checkPermission" resultType="int" parameterType="map">
+	    SELECT COUNT(*) 
+	    FROM UserPermissions
+	    WHERE User_No = #{userNo} AND Product_No = #{productNo}
+	</select>
+	
+	<!-- 구매후 캐시 차감 -->
+	 <insert id="insertCash" parameterType="CashVo">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT cash_seq.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO cash (id, request_id, amount, request_date, status)
+        VALUES (#{id}, #{requestId}, -3000, SYSDATE, '충전완료')
+    </insert>
+	
+
+    <!--      예성씌 파트 end       -->
+	
+
+
+    
 
     <!-- 캐시 요청 -->
     <insert id="insertCashRequest" parameterType="CashVo">

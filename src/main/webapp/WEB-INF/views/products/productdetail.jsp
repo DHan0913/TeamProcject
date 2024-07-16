@@ -48,6 +48,7 @@
                 </c:if>
                 <c:if test="${not hasPermission}">
                     <p>동영상을 시청할 권한이 없습니다. 권한을 요청하시려면 관리자에게 문의하세요.</p>
+                    <P><button onclick="location.href='<c:url value="/users/payment" />'">구매하기</button></P>
                 </c:if>
             </td>
         </tr>

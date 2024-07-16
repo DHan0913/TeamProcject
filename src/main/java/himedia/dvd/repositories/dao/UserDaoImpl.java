@@ -120,4 +120,28 @@ public class UserDaoImpl implements UserDao {
         Double totalAmount = sqlSession.selectOne("users.getApprovedCashAmountByEmail", email);
         return totalAmount != null ? totalAmount : 0.0;
     }
+    
+    
+    // 예성씌 파트 ////////////////////////////////////////////////////////////////////
+	@Override
+	public int checkPermission(Long userNo, Long productNo) {
+		
+		return 0;
+	}
+
+	@Override
+	public CashVo insertCash(String requestId) {
+		CashVo cashVo = new CashVo();
+		cashVo.setRequestId(requestId);
+		
+		int count = sqlSession.insert("users.insertCash", cashVo);
+		
+		if(count > 0) {
+			return cashVo;
+		} else {
+			return null;			
+		}
+
+	}
+
 }

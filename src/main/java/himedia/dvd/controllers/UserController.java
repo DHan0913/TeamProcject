@@ -260,4 +260,38 @@ public class UserController {
             return "users/requestcashform";
         }
     }
+    
+    
+    // 예성씌 파트 ----------------------------------------
+    // 구매 누르면 결제창으로 이동
+    @GetMapping("/payment")
+    public String payment() {
+    	
+    	return "products/poductdetail";
+    }
+    
+    @PostMapping("/payment")
+    public String paymentAction(@RequestParam String requestId, HttpSession session, Model model) {
+    	UserVo authUser = (UserVo)session.getAttribute("authUser");
+    	String payment = authUser.getEmail();
+    	
+    	boolean success = userService.insertCash(requestId);
+    	
+    	if(success) {
+    		double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
+            session.setAttribute("approvedCashAmount", approvedCashAmount);
+            model.addAttribute("message", "동영상 구매에 성공했습니다..");
+            return "users/payment";
+    	} else {
+    		model.addAttribute("errorMessage", "동영상 구매에 실패했습니다.");
+    		return "users/payment";
+    	}
+    	
+    	
+    }
+    
+    
+    
+    
+    // 예성씌 파트 end ----------------------------------------
 }
