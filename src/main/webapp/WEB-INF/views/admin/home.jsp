@@ -22,6 +22,7 @@
 				<li><a href='<c:url value="/admin/acceptcash" />'>캐시요청화면</a></li>
 				<li><a href='<c:url value="/admin/membership" />'>멤버쉽 관리</li>
 				<li><a href='<c:url value="/admin/coupons" />'>쿠폰 관리</a></li>
+				<li><a href='<c:url value="/admin/totalrank" />'>통계 관리</a></li>
 			</ul>
 		</div>
 	</div>
