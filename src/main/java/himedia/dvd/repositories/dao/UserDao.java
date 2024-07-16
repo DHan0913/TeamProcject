@@ -2,6 +2,7 @@ package himedia.dvd.repositories.dao;
 
 import java.util.List;
 
+import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.UserVo;
 
 public interface UserDao {
@@ -16,6 +17,10 @@ public interface UserDao {
 	boolean update(UserVo user); // 회원정보수정
 
 	boolean delete(Long userNo); // 유저 번호로 삭제
+	CashVo insertCashRequest(String requestId, Double amount); //충전요청
+	List<CashVo> selectAllCashRequests();//요청 리스트
+	boolean approveCashRequest(CashVo cashVo); // 요청 승인
+	boolean rejectCashRequest(CashVo cashVo); // 요청 거절
 
 	boolean reset(Long userNo); // 회원 비밀번호 초기화
 

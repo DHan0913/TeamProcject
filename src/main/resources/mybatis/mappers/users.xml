@@ -77,6 +77,35 @@
 		WHERE user_no = #{userNo}
 	</update>
 	
+	 <!-- 캐시 요청 -->
+    <insert id="insertCashRequest" parameterType="CashVo">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT cash_seq.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO cash (id, request_id, amount, request_date)
+        VALUES (#{id}, #{requestId}, #{amount}, SYSDATE)
+    </insert>
+
+    <!-- 요청 확인 -->
+    <select id="selectAllCashRequests" resultType="CashVo">
+        SELECT id, request_id AS requestId, amount, request_date AS requestDate, status
+        FROM cash
+    </select>
+    
+    <!-- 요청 수락 -->
+    <update id="approveCashRequest" parameterType="himedia.dvd.repositories.vo.CashVo">
+        UPDATE cash
+        SET status = '충전완료', approve_date = SYSDATE
+        WHERE id = #{id} AND status = '요청'
+    </update>
+
+    <!-- 요청 거절 -->
+    <update id="rejectCashRequest" parameterType="himedia.dvd.repositories.vo.CashVo">
+        UPDATE cash
+        SET status = '거절', approve_date = SYSDATE
+        WHERE id = #{id} AND status = '요청'
+    </update>
+	
 	
 	
 </mapper>

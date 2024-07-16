@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
@@ -154,6 +157,36 @@ public class AdminController {
 			return "redirect:/admin";
 		}
 	}
+	// 캐시 요청 목록
+		@GetMapping("/acceptcash")
+		public String getAllCashRequests(Model model) {
+			List<CashVo> requests = userService.getAllCashRequests();
+			model.addAttribute("requests", requests);
+			return "admin/users/acceptcash";
+		}
+		
+		// 캐시 요청 승인
+	    @PostMapping("/approve-request")
+	    @ResponseBody
+	    public String approveRequest(@RequestParam Long id, @RequestParam Double amount) {
+	        CashVo cashVo = new CashVo();
+	        cashVo.setId(id);
+	        cashVo.setAmount(amount);
+
+	        boolean result = userService.approveCashRequest(cashVo);
+	        return result ? "success" : "error";
+	    }
+
+	    // 요청 거절
+	    @PostMapping("/reject-request")
+	    @ResponseBody
+	    public String rejectRequest(@RequestParam Long id) {
+	        CashVo cashVo = new CashVo();
+	        cashVo.setId(id);
+
+	        boolean result = userService.rejectCashRequest(cashVo);
+	        return result ? "success" : "error";
+	    }
 
 
 

@@ -1,11 +1,13 @@
 package himedia.dvd.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import himedia.dvd.repositories.dao.UserDao;
+import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.UserVo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -74,6 +76,34 @@ public class UserServiceImpl implements UserService {
 	public boolean deleteUser(Long userNo) {
 		return userDao.delete(userNo);
 	}
+	
+	//캐시 요청
+	@Override
+	public boolean requestCash(String requestId, Double amount) {
+		CashVo cashVo = userDao.insertCashRequest(requestId, amount);
+		 return cashVo != null;
+		    }
+	
+	// 요청리스트
+		 @Override
+		 public List<CashVo> getAllCashRequests() {
+		     return userDao.selectAllCashRequests();
+		    }
+		
+		   // 요청 승인
+		    @Override
+		    public boolean approveCashRequest(CashVo cashVo) {
+		        cashVo.setApproveDate(new Date(System.currentTimeMillis()));
+		        return userDao.approveCashRequest(cashVo);
+		    }
+
+		    // 요청 거절
+		    @Override
+		    public boolean rejectCashRequest(CashVo cashVo) {
+		        return userDao.rejectCashRequest(cashVo);
+		    }
+
+	 
 
 	@Override
 	public boolean resetPassword(Long userNo) {
