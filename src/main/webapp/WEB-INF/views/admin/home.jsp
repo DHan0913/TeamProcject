@@ -21,6 +21,7 @@
 				<li><a href='<c:url value="/admin/ip-block" />'>IP 관리</a></li> 
 				<li><a href='<c:url value="/admin/acceptcash" />'>캐시요청화면</a></li>
 				<li><a href='<c:url value="/admin/membership" />'>멤버쉽 관리</li>
+				<li><a href='<c:url value="" />'>쿠폰 관리/a></li>
 			</ul>
 		</div>
 	</div>
