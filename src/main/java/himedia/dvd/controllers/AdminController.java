@@ -23,12 +23,14 @@ import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
+import himedia.dvd.repositories.vo.TotalVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.AccessControlService;
 import himedia.dvd.services.CouponService;
 import himedia.dvd.services.FileUploadService;
 import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
+import himedia.dvd.services.TotalService;
 import himedia.dvd.services.UserService;
 import jakarta.servlet.http.HttpSession;
 
@@ -56,6 +58,9 @@ public class AdminController {
 
 	@Autowired
 	private CouponService couponService;
+	
+	@Autowired
+	private TotalService totalService;
 	
 	// 관리자 홈페이지
 	@GetMapping("/home")
@@ -296,5 +301,17 @@ public class AdminController {
         }
         return "redirect:/admin/coupons";
     }
+    
+ // 통계관리
+ 	@GetMapping("/totalrank")
+ 	public String getTotalRank(Model model) {
+ 		
+ 		String totalAmt = totalService.getTotalAmt();
+ 		List<TotalVo> total = totalService.getTotalRank();
+ 		
+ 		model.addAttribute("totalAmt", totalAmt);
+ 		model.addAttribute("total", total);
+ 		return "admin/total/totalrank";
+ 	}
 
 }

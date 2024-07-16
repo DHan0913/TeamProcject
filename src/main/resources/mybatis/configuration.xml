@@ -16,6 +16,7 @@
         <typeAlias type="himedia.dvd.repositories.vo.BlockedIpVo" alias="BlockedIpVo" />
       	<typeAlias type="himedia.dvd.repositories.vo.CashVo" alias="CashVo" />
       	<typeAlias type="himedia.dvd.repositories.vo.CashVo" alias="CouponVo" />
+      	<typeAlias type="himedia.dvd.repositories.vo.TotalVo" alias="TotalVo" />
     </typeAliases>
     
     <mappers>
@@ -25,6 +26,7 @@
         <mapper resource="mybatis/mappers/AccessAttempt.xml" />
         <mapper resource="mybatis/mappers/BlockedIp.xml" />
         <mapper resource="mybatis/mappers/coupons.xml" />
+        <mapper resource="mybatis/mappers/total.xml" />
     </mappers>
 
 </configuration>

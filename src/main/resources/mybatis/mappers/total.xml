@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="total">
+	
+    <select id="selectTotalRank" resultType="TotalVo">
+		SELECT 
+		    UPM.PRODUCT_NO,
+		    PRD.PRODUCTNAME,
+		    (COUNT(*) * 3000) PRODUCTAMT
+		FROM 
+		    USERPERMISSIONS UPM
+		LEFT OUTER JOIN 
+		    PRODUCTS PRD 
+		ON 
+		    UPM.PRODUCT_NO = PRD.PRODUCT_NO
+		WHERE 
+		    1 = 1
+		GROUP BY 
+		    UPM.PRODUCT_NO,
+		    PRD.PRODUCTNAME
+		ORDER BY PRODUCTAMT DESC
+    </select>
+    
+    
+    
+    <!-- Select product by product number -->
+    <select id="totalAmt" resultType="String">
+        SELECT (COUNT(*) * 3000) TOTAL_AMT FROM USERPERMISSIONS
+    </select>
+</mapper>
