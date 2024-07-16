@@ -9,12 +9,16 @@
 </head>
 <body>
 	<h1>쿠폰 지급</h1>
-	<form action="${pageContext.request.contextPath}/coupon/issue" method="post">
+	<form action="${pageContext.request.contextPath}/admin/coupon/issue" method="post">
+	
         <label for="userNo">사용자 번호:</label>
         <input type="number" id="userNo" name="userNo" required><br><br>
-        <label for="couponCode">쿠폰 코드:</label>
-        <input type="text" id="couponCode" name="couponCode" required><br><br>
+        
+        <label for="couponId">쿠폰 ID:</label>
+        <input type="number" id="couponId" name="couponId" required><br><br>
+        
         <button type="submit">쿠폰 지급</button>
+        
     </form>
 </body>
 </html>

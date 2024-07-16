@@ -10,11 +10,11 @@ public interface CouponDao {
 
 	CouponVo getCouponById(Long couponId);
 
-	void addCoupon(CouponVo couponVo);
+	int insertCoupon(CouponVo couponVo);
 
 	void issueCoupon(Long couponId, Long userId);
 
-	void useCoupon(Long couponId, Long userId);
-
 	void expireCoupon(Long couponId);
+	
+	
 }

@@ -1,5 +1,6 @@
 package himedia.dvd.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.catalina.tribes.membership.Membership;
@@ -14,15 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.AccessControlService;
+import himedia.dvd.services.CouponService;
 import himedia.dvd.services.FileUploadService;
 import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
@@ -233,36 +236,38 @@ public class AdminController {
 		accessControlService.unblockIp(ip);
 		return "redirect:/admin/ip-block";
 	}
+	
+	// 쿠폰 관리 페이지로 이동
+	@GetMapping("/coupons")
+	public String coupons(Model model) {
+	    List<CouponVo> coupons = couponService.getAllCoupons();
+	    model.addAttribute("coupons", coupons);
+	    return "admin/coupon/coupons";
+	}
+
 
 	// 쿠폰 생성 페이지 이동
 	@GetMapping("/coupons/add")
 	public String getCouponForm(Model model) {
         model.addAttribute("couponVo", new CouponVo());
-        return "admin/coupons/addcoupon";
+        return "admin/coupon/addcoupon";
     }
 	
 	// 쿠폰 생성
     @PostMapping("/coupons/add")
     public String addCoupon(@ModelAttribute CouponVo couponVo, RedirectAttributes redirectAttributes) {
+        couponVo.setIssueDate(new Date());
         couponService.addCoupon(couponVo);
         redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
         return "redirect:/admin/coupons";
     }
     
-    // 쿠폰 목록 조회
-    @GetMapping("/coupons")
-    public String getCoupons(Model model) {
-        List<CouponVo> coupons = couponService.getAllCoupons();
-        model.addAttribute("coupons", coupons);
-        return "admin/coupons/couponlist";
-    }
     
     // 쿠폰 발급 페이지 이동
     @GetMapping("/coupons/{couponId}/issue")
     public String issueCouponForm(@PathVariable("couponId") Long couponId, Model model) {
-        CouponVo couponVo = couponService.getCouponById(couponId);
-        model.addAttribute("couponVo", couponVo);
-        return "admin/coupons/issuecoupon";
+        model.addAttribute("couponVo", new CouponVo());
+        return "admin/coupon/issuecoupon";
     }
     
     // 쿠폰 발급 처리
