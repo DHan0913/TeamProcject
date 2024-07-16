@@ -11,6 +11,7 @@
 		<typeAlias type="himedia.dvd.repositories.vo.UserVo" alias="UserVo" />
 		<typeAlias type="himedia.dvd.repositories.vo.ProductVo" alias="ProductVo" />
 		<typeAlias type="himedia.dvd.repositories.vo.MembershipVo" alias="MembershipVo" />
+		<typeAlias type="himedia.dvd.repositories.vo.CashVo" alias="CashVo" />
 	</typeAliases>
 	
 	<mappers>
