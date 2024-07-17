@@ -11,7 +11,8 @@
     <div id="container">
         <!-- 헤더 포함 -->
         <c:import url="/WEB-INF/views/admin/includes/header.jsp" />
-
+		
+		<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
         <div id="content">
             <h1>IP 관리</h1>
 

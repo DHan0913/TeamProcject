@@ -137,7 +137,7 @@
 		resultType="double">
 		SELECT SUM(amount)
 		FROM cash
-		WHERE request_id = #{email} AND status = '충전완료' AND amount >=0
+		WHERE request_id = #{email} AND status = '충전완료'
 	</select>
 
 </mapper>

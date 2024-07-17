@@ -10,6 +10,7 @@
 </head>
 <body>
     <c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+    <c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
     <div id="content">
         <div class="list-container">
             <h2>캐시 충전 요청 목록</h2>
