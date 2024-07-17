@@ -8,17 +8,15 @@
 <title>쿠폰 지급</title>
 </head>
 <body>
-	<h1>쿠폰 지급</h1>
-	<form action="${pageContext.request.contextPath}/admin/coupon/issued" method="post">
-	
-        <label for="userNo">사용자 번호:</label>
-        <input type="number" id="userNo" name="userNo" required><br><br>
-        
+    <h1>쿠폰 지급</h1>
+    <form action="<c:url value='/admin/coupons/issued' />" method="post">
         <label for="couponId">쿠폰 ID:</label>
-        <input type="number" id="couponId" name="couponId" required><br><br>
-        
-        <button type="submit">쿠폰 지급</button>
-        
+        <input type="text" id="couponId" name="couponId"><br>
+    
+        <label for="userNo">사용자 번호:</label>
+        <input type="text" id="userNo" name="userNo"><br>
+    
+        <input type="submit" value="쿠폰 발급">
     </form>
 </body>
 </html>

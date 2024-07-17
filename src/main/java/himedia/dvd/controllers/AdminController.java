@@ -260,28 +260,29 @@ public class AdminController {
         return "admin/coupon/addcoupon";
     }
 	
-	// 쿠폰 생성
-    @PostMapping("/coupons/add")
-    public String addCoupon(@ModelAttribute CouponVo couponVo, RedirectAttributes redirectAttributes) {
-        couponVo.setIssuedDate(new Date());
-        couponService.addCoupon(couponVo);
-        redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
-        return "redirect:/admin/coupons";
-    }
+		// 쿠폰 생성
+	    @PostMapping("/coupons/add")
+	    public String addCoupon(@ModelAttribute CouponVo couponVo, RedirectAttributes redirectAttributes) {
+	        couponVo.setIssuedDate(new Date());
+	        couponService.addCoupon(couponVo);
+	        redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
+	        return "redirect:/admin/coupons";
+	    }
     
     
     // 쿠폰 발급 페이지 이동
-    @GetMapping("/coupons/{couponId}/issued")
-    public String issuedCouponForm(@PathVariable("couponId") Long couponId, Model model) {
-        model.addAttribute("couponVo", new CouponVo());
-        return "admin/coupon/issuedcoupon";
+	    @GetMapping("/coupons/issued")
+	    public String issuedCouponForm(Model model) {
+	        model.addAttribute("couponVo", new CouponVo());
+	        return "admin/coupon/issuedcoupon";
     }
     
     // 쿠폰 발급 처리
     @PostMapping("/coupons/issued")
-    public String issuedCoupon(@RequestParam("couponId") Long couponId, @RequestParam("userId") Long userId,
-                              RedirectAttributes redirectAttributes) {
-        boolean success = couponService.issuedCoupon(couponId, userId);
+    public String issuedCoupon(@RequestParam("couponId") Long couponId, 
+                               @RequestParam("userNo") Long userNo,
+                               RedirectAttributes redirectAttributes) {
+        boolean success = couponService.issuedCoupon(couponId, userNo);
         if (success) {
             redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 발급되었습니다.");
         } else {
@@ -289,13 +290,16 @@ public class AdminController {
         }
         return "redirect:/admin/coupons";
     }
+
     
     
-    // 쿠폰 만료 처리
+ // 쿠폰 만료 처리
     @PostMapping("/coupons/{couponId}/expiry")
     public String expiryCoupon(@PathVariable("couponId") Long couponId, RedirectAttributes redirectAttributes) {
         boolean success = couponService.expiryCoupon(couponId);
         if (success) {
+            // 쿠폰 만료 상태 업데이트
+            couponService.updateCouponExpiryStatus(couponId, true);
             redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 만료 처리되었습니다.");
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "쿠폰 만료 처리에 실패했습니다.");
