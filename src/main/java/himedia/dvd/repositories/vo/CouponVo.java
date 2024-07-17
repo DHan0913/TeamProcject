@@ -8,7 +8,7 @@ public class CouponVo {
 
 	private Long couponId; // 쿠폰 아이디
 	private String couponCode; // 쿠폰 코드
-	private Date issueDate; // 지급일
+	private Date issuedDate; // 지급일
 	private Date expiryDate; // 만료일
 	private Long userId; // 발급된 사용자 ID
 
@@ -16,10 +16,10 @@ public class CouponVo {
 		
 	}
 	
-	public CouponVo(Long couponId, String couponCode, Date issueDate, Date expiryDate, Long userId) {
+	public CouponVo(Long couponId, String couponCode, Date issuedDate, Date expiryDate, Long userId) {
         this.couponId = couponId;
         this.couponCode = couponCode;
-        this.issueDate = issueDate;
+        this.issuedDate = issuedDate;
         this.expiryDate = expiryDate;
         this.userId = userId;
     }
@@ -42,12 +42,12 @@ public class CouponVo {
 	}
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public Date getIssueDate() {
-		return issueDate;
+	public Date getIssuedDate() {
+		return issuedDate;
 	}
 
-	public void setIssueDate(Date issueDate) {
-		this.issueDate = issueDate;
+	public void setIssuedDate(Date issuedDate) {
+		this.issuedDate = issuedDate;
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -69,7 +69,7 @@ public class CouponVo {
 
 	@Override
 	public String toString() {
-		return "CouponVo [couponId=" + couponId + ", couponCode=" + couponCode + ", issueDate=" + issueDate
+		return "CouponVo [couponId=" + couponId + ", couponCode=" + couponCode + ", issuedDate=" + issuedDate
 				+ ", expiryDate=" + expiryDate + ", userId=" + userId + "]";
 	}
 	
