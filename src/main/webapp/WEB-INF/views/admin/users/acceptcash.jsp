@@ -22,7 +22,11 @@
                     <th>상태</th>
                     <th>관리</th>
                 </tr>
+                <c:set var="totalAmount" value="0" />
                 <c:forEach var="cash" items="${requests}">
+                <c:if test="${cash.status == '충전완료'}">
+                    <c:set var="totalAmount" value="${totalAmount + cash.amount}" />
+                </c:if>
                 <tr>
                     <td>${cash.id}</td>
                     <td>${cash.requestId}</td>
@@ -44,6 +48,8 @@
                 </tr>
                 </c:forEach>
             </table>
+            <p>총 충전 완료 금액: ${totalAmount} 원</p>
+            <a href="<c:url value="/admin/home"/>">홈</a>
         </div>
     </div>
     <script>
@@ -67,6 +73,14 @@
                             statusCell.text('승인');
                         } else if (action.includes('reject-request')) {
                             statusCell.text('거절');
+                        }
+                        // Update the total amount if the request is approved
+                        if (action.includes('approve-request')) {
+                            var amount = parseFloat(form.find('input[name="amount"]').val());
+                            var totalAmountElement = $('p:contains("총 충전 완료 금액:")');
+                            var currentTotalAmount = parseFloat(totalAmountElement.text().match(/[\d,]+/)[0].replace(/,/g, ''));
+                            var newTotalAmount = currentTotalAmount + amount;
+                            totalAmountElement.text('총 충전 완료 금액: ' + newTotalAmount + ' 원');
                         }
                     } else {
                         alert('요청 처리에 실패했습니다.');

@@ -102,11 +102,11 @@
 
 	<!-- 캐시 요청 -->
 	<insert id="insertCashRequest" parameterType="CashVo">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			SELECT cash_seq.NEXTVAL FROM dual
-		</selectKey>
-		INSERT INTO cash (id, request_id, amount, request_date)
-		VALUES (#{id}, #{requestId}, #{amount}, SYSDATE)
+	    <selectKey keyProperty="id" resultType="long" order="BEFORE">
+	        SELECT cash_seq.NEXTVAL FROM dual
+	    </selectKey>
+	    INSERT INTO cash (id, request_id, amount, request_date)
+	    VALUES (#{id}, #{requestId}, CASE WHEN #{amount} >= 0 THEN #{amount} ELSE 0 END, SYSDATE)
 	</insert>
 
 	<!-- 요청 확인 -->
@@ -114,20 +114,21 @@
 		SELECT id, request_id AS requestId, amount, request_date AS requestDate,
 		status
 		FROM cash
+		WHERE amount >=0
 	</select>
 
 	<!-- 요청 수락 -->
 	<update id="approveCashRequest" parameterType="CashVo">
 		UPDATE cash
 		SET status = '충전완료', approve_date = SYSDATE
-		WHERE id = #{id} AND status = '요청'
+		WHERE id = #{id} AND status = '요청' AND amount >=0
 	</update>
 
 	<!-- 요청 거절 -->
 	<update id="rejectCashRequest" parameterType="CashVo">
 		UPDATE cash
 		SET status = '거절', approve_date = SYSDATE
-		WHERE id = #{id} AND status = '요청'
+		WHERE id = #{id} AND status = '요청' AND amount >=0
 	</update>
 
 	<!-- 충전된 금액 -->
@@ -135,7 +136,7 @@
 		resultType="double">
 		SELECT SUM(amount)
 		FROM cash
-		WHERE request_id = #{email} AND status = '충전완료'
+		WHERE request_id = #{email} AND status = '충전완료' AND amount >=0
 	</select>
 
 </mapper>
