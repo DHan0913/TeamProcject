@@ -116,6 +116,13 @@ public class UserServiceImpl implements UserService {
         return userDao.getApprovedCashAmountByEmail(email);
     }
 	
+	//충전내역
+	@Override
+	public List<CashVo> getCashHistory(String requestId) {
+		 return userDao.getCashHistory(requestId);
+	}
+
+	
 
 	//////////////예성씌 파트
 	@Override

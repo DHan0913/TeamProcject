@@ -30,6 +30,7 @@ public interface UserService {
 	boolean approveCashRequest(CashVo cashVo); // 요청 승인
     boolean rejectCashRequest(CashVo cashVo); // 요청 거절
     double getApprovedCashAmountByEmail(String email); //충전된 금액
+    List<CashVo> getCashHistory(String requestId); // 충전 내역 조회
     
 	
 	// 예성씌 파트
