@@ -23,6 +23,7 @@
             </tr>
         </c:forEach>
     </table>
+    <h3>총 충전 금액: ${totalAmount}</h3>
     <button onclick="location.href='<c:url value="/" />'">홈으로</button>
 </body>
 </html>

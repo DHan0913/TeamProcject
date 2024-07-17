@@ -273,7 +273,10 @@ public class UserController {
         UserVo authUser = (UserVo) session.getAttribute("authUser");
 
         List<CashVo> cashList = userService.getCashHistory(authUser.getEmail());
+        double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
+        
         model.addAttribute("cashList", cashList);
+        model.addAttribute("totalAmount", totalAmount);
 
         return "users/cashhistory";
     }
