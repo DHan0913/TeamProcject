@@ -139,5 +139,13 @@
 		FROM cash
 		WHERE request_id = #{email} AND status = '충전완료' AND amount >=0
 	</select>
+	
+	<!-- 충전 내역 불러오기 -->
+    <select id="getCashHistory" parameterType="string" resultType="CashVo">
+        SELECT approve_date AS approveDate, amount, status
+        FROM cash
+        WHERE request_id = #{requestId}
+        ORDER BY approve_date DESC
+    </select>
 
 </mapper>

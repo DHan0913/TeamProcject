@@ -121,6 +121,12 @@ public class UserDaoImpl implements UserDao {
         return totalAmount != null ? totalAmount : 0.0;
     }
     
+    //충전내역
+    @Override
+    public List<CashVo> getCashHistory(String requestId) {
+        return sqlSession.selectList("users.getCashHistory", requestId);
+    }
+    
     
     // 예성씌 파트 ////////////////////////////////////////////////////////////////////
 	@Override

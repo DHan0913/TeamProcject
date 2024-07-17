@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.PermissionService;
@@ -265,6 +266,20 @@ public class UserController {
 			return "users/requestcashform";
 		}
 	}
+	
+	 // 충전 내역
+    @GetMapping("/cashhistory")
+    public String getCashHistory(HttpSession session, Model model) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+
+        List<CashVo> cashList = userService.getCashHistory(authUser.getEmail());
+        double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
+        
+        model.addAttribute("cashList", cashList);
+        model.addAttribute("totalAmount", totalAmount);
+
+        return "users/cashhistory";
+    }
 
 	// 예성씌 파트 ----------------------------------------
 	// 구매 누르면 결제창으로 이동 자스로 할거
