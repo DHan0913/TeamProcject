@@ -5,43 +5,50 @@
 <mapper namespace="coupons">
 
 	<!-- 쿠폰 생성 -->
-    <insert id="createCoupon" parameterType="CouponVo">
-        INSERT INTO coupons (coupon_id, coupon_code, expiry_date, issued_date)
-        VALUES (coupon_seq.NEXTVAL, #{couponCode}, #{expiryDate}, SYSDATE)
-    </insert>
+	<insert id="createCoupon" parameterType="CouponVo">
+		INSERT INTO coupons (coupon_id, coupon_code, expiry_date, issued_date)
+		VALUES (coupon_seq.NEXTVAL, #{couponCode}, #{expiryDate}, SYSDATE)
+	</insert>
 
-    <!-- 유저에게 쿠폰 발급 -->
-    <insert id="issueCouponToUser" parameterType="map">
-        INSERT INTO user_coupons (user_coupon_id, user_no, coupon_id, issued_date)
-        VALUES (user_coupon_seq.NEXTVAL, #{userNo}, 
-            (SELECT coupon_id FROM coupons WHERE coupon_code = #{couponCode}), 
-            SYSDATE)
-    </insert>
+	<!-- 유저에게 쿠폰 발급 -->
+	<insert id="issueCouponToUser" parameterType="map">
+		INSERT INTO user_coupons (user_coupon_id, user_no, coupon_id, issued_date)
+		VALUES (user_coupon_seq.NEXTVAL, #{userNo},
+		(SELECT coupon_id FROM coupons WHERE coupon_code = #{couponCode}),
+		SYSDATE)
+	</insert>
 
-    <!-- 모든 쿠폰 조회 -->
-<select id="getAllCoupons" resultMap="couponResultMap">
-        SELECT 
-            coupon_id AS couponId, 
-            coupon_code AS couponCode, 
-            expiry_date AS expiryDate, 
-            issued_date AS issuedDate
-        FROM 
-            coupons
-    </select>
+	<!-- 모든 쿠폰 조회 -->
+	<select id="getAllCoupons" resultMap="couponResultMap">
+		SELECT
+		coupon_id AS couponId,
+		coupon_code AS couponCode,
+		expiry_date AS expiryDate,
+		issued_date AS issuedDate
+		FROM
+		coupons
+	</select>
 
-    <resultMap id="couponResultMap" type="himedia.dvd.repositories.vo.CouponVo">
-        <result property="couponId" column="couponId"/>
-        <result property="couponCode" column="couponCode"/>
-        <result property="expiryDate" column="expiryDate"/>
-        <result property="issuedDate" column="issuedDate"/>
-    </resultMap>
-    
-    <!-- 쿠폰 만료 -->
-    <update id="expiryCoupon" parameterType="Long">
-        UPDATE coupons
-        SET expiry_date = NOW() -- 혹은 적절한 날짜로 설정
-        WHERE coupon_id = #{couponId}
-    </update>
+	<resultMap id="couponResultMap"
+		type="himedia.dvd.repositories.vo.CouponVo">
+		<result property="couponId" column="couponId" />
+		<result property="couponCode" column="couponCode" />
+		<result property="expiryDate" column="expiryDate" />
+		<result property="issuedDate" column="issuedDate" />
+	</resultMap>
 
+	<!-- 쿠폰 만료 -->
+	<update id="expiryCoupon" parameterType="Long">
+		UPDATE coupons
+		SET expiry_date = NOW()
+		WHERE coupon_id = #{couponId}
+	</update>
+
+	<!-- 쿠폰 만료 상태 업데이트 -->
+	<update id="updateCouponExpiryStatus" parameterType="CouponVo">
+		UPDATE coupons
+    	SET expired = #{expired}
+    	WHERE coupon_id = #{couponId}
+	</update>
 
 </mapper>

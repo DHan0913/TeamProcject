@@ -11,8 +11,10 @@ public interface CouponService {
 
     boolean addCoupon(CouponVo couponVo);
 
-    boolean issuedCoupon(Long couponId, Long userId);
+    boolean issuedCoupon(Long couponCode, Long userNo);
 
     boolean expiryCoupon(Long couponId);
+    
+    void updateCouponExpiryStatus(Long couponId, boolean isExpired);
 
 }
