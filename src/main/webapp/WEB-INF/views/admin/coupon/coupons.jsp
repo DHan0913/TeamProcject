@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
     <title>쿠폰 관리</title>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+    <c:import url="/WEB-INF/views/admin/includes/header.jsp" />
     <h1>쿠폰 관리</h1>
     
     <!-- 쿠폰 생성 링크 -->
@@ -15,7 +16,7 @@
     <br><br>
     
     <!-- 쿠폰 발급 링크 -->
-    <a href="${pageContext.request.contextPath}/admin/coupons/issue">쿠폰 지급</a>
+    <a href="${pageContext.request.contextPath}/admin/coupons/issued">쿠폰 지급</a>
     
     <!-- 쿠폰 목록 테이블 -->
     <table border="1">
@@ -31,11 +32,11 @@
             <c:forEach var="coupon" items="${coupons}">
                 <tr>
                     <td>${coupon.couponCode}</td>
-                    <td>${coupon.expiryDate}</td>
-                    <td>${coupon.issueDate}</td>
+                    <td><fmt:formatDate value="${coupon.expiryDate}" pattern="yyyy-MM-dd"/></td>
+                    <td><fmt:formatDate value="${coupon.issuedDate}" pattern="yyyy-MM-dd"/></td>
                     <td>
                         <!-- 쿠폰 만료 처리 폼 -->
-                        <form action="${pageContext.request.contextPath}/admin/coupons/${coupon.couponId}/expire" method="POST">
+                        <form action="${pageContext.request.contextPath}/admin/coupons/${coupon.couponId}/expiry" method="POST">
                             <input type="hidden" name="_method" value="POST">
                             <input type="submit" value="만료 처리">
                         </form>
