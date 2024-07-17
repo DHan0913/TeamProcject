@@ -32,6 +32,10 @@
 			<td>${product.status}</td>
 		</tr>
 		<tr>
+			<th>줄거리</th>
+			<td>${product.content}</td>
+		</tr>
+		<tr>
 			<th>상품사진</th>
 			<td><c:if test="${not empty product.img}">
 					<img src="<c:url value='/upload-images/${product.img}' />" />

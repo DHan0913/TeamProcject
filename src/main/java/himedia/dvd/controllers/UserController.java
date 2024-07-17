@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import himedia.dvd.repositories.vo.CashVo;
-import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.PermissionService;
 import himedia.dvd.services.ProductService;
@@ -266,38 +265,42 @@ public class UserController {
 			return "users/requestcashform";
 		}
 	}
-	
-	 // 충전 내역
-    @GetMapping("/cashhistory")
-    public String getCashHistory(HttpSession session, Model model) {
-        UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-        List<CashVo> cashList = userService.getCashHistory(authUser.getEmail());
-        double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
-        
-        model.addAttribute("cashList", cashList);
-        model.addAttribute("totalAmount", totalAmount);
+	// 충전 내역
+	@GetMapping("/cashhistory")
+	public String getCashHistory(HttpSession session, Model model) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-        return "users/cashhistory";
-    }
+		List<CashVo> cashList = userService.getCashHistory(authUser.getEmail());
+		double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
+
+		model.addAttribute("cashList", cashList);
+		model.addAttribute("totalAmount", totalAmount);
+
+		return "users/cashhistory";
+	}
 
 	// 예성씌 파트 ----------------------------------------
-	// 구매 누르면 결제창으로 이동 자스로 할거
 
 	@GetMapping("/payment/{productNo}")
 	public String paymentAction(@PathVariable("productNo") Long productNo, HttpSession session) {
 		UserVo vo = (UserVo) session.getAttribute("authUser");
 		String email = vo.getEmail();
+		List<CashVo> cashList = userService.getCashHistory(email);
+		double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
+		System.out.println("잔액:" + totalAmount);
 
-		boolean success = userService.insertCash(email);
-		permissionService.setPermission(vo.getUserNo(), productNo);
-		if (success) {
-			double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
-			session.setAttribute("approvedCashAmount", approvedCashAmount);
+		if (totalAmount >= 3000) {
+			boolean success = userService.insertCash(email);
+			permissionService.setPermission(vo.getUserNo(), productNo);
+			if (success) {
+				double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
+				session.setAttribute("approvedCashAmount", approvedCashAmount);
+				  return "redirect:/products/detail?productNo=" + productNo;
+			}
 			return "redirect:/";
 		}
-		return "/";
-
+		return "redirect:/";
 	}
 
 	// 예성씌 파트 end ----------------------------------------
