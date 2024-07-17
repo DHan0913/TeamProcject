@@ -307,6 +307,16 @@ public class AdminController {
         return "redirect:/admin/coupons";
     }
     
+    
+ // 만료된 쿠폰 목록 보기
+    @GetMapping("/coupons/expired")
+    public String viewExpiredCoupons(Model model) {
+        List<CouponVo> expiredCoupons = couponService.getExpiredCoupons();
+        model.addAttribute("expiredCoupons", expiredCoupons);
+        return "admin/expired_coupon_list"; 
+    }
+    
+    
  // 통계관리
  	@GetMapping("/totalrank")
  	public String getTotalRank(Model model) {

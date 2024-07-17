@@ -62,4 +62,10 @@ public class CouponDaoImpl implements CouponDao {
 		coupon.setExpired(isExpired);
 		sqlSession.update("coupons.updateCouponExpiryStatus", coupon);
 	}
+	
+	// 만료된 쿠폰 목록 보기
+	@Override
+	public List<CouponVo> getExpiredCoupons() {
+	    return sqlSession.selectList("coupons.getExpiredCoupons");
+	}
 }

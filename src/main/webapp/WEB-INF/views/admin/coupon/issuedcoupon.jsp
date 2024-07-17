@@ -10,11 +10,14 @@
 <body>
     <h1>쿠폰 지급</h1>
     <form action="<c:url value='/admin/coupons/issued' />" method="post">
-        <label for="couponId">쿠폰 ID:</label>
+        <!-- <label for="couponId">쿠폰 ID:</label>
         <input type="text" id="couponId" name="couponId"><br>
     
         <label for="userNo">사용자 번호:</label>
-        <input type="text" id="userNo" name="userNo"><br>
+        <input type="text" id="userNo" name="userNo"><br> -->
+        
+        <label for="">사용자 이메일:</label>
+        <input type="text" id="" name=""><br>
     
         <input type="submit" value="쿠폰 발급">
     </form>
