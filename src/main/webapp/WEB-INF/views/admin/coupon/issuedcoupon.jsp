@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>쿠폰 지급</h1>
-	<form action="${pageContext.request.contextPath}/admin/coupon/issue" method="post">
+	<form action="${pageContext.request.contextPath}/admin/coupon/issued" method="post">
 	
         <label for="userNo">사용자 번호:</label>
         <input type="number" id="userNo" name="userNo" required><br><br>

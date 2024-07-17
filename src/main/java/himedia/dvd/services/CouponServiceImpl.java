@@ -2,6 +2,7 @@ package himedia.dvd.services;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,16 @@ import himedia.dvd.repositories.vo.CouponVo;
 @Service("couponService")
 public class CouponServiceImpl implements CouponService {
 
+	
     @Autowired
     private CouponDao couponDao;
 
     @Override
     public List<CouponVo> getAllCoupons() {
-        return couponDao.getAllCoupons();
+        List<CouponVo> coupons = couponDao.getAllCoupons();
+        System.out.println("서비스에서 가져온 쿠폰 목록: " + coupons); 
+        return coupons;
     }
-   
 
     @Override
     public CouponVo getCouponById(Long couponId) {
@@ -32,9 +35,9 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public boolean issueCoupon(Long couponId, Long userId) {
+    public boolean issuedCoupon(Long couponId, Long userId) {
         try {
-            couponDao.issueCoupon(couponId, userId);
+            couponDao.issuedCoupon(couponId, userId);
             return true;
         } catch (Exception e) {
             return false;
@@ -42,11 +45,12 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public boolean expireCoupon(Long couponId) {
+    public boolean expiryCoupon(Long couponId) {
         try {
-            couponDao.expireCoupon(couponId);
+            couponDao.expiryCoupon(couponId);
             return true;
         } catch (Exception e) {
+        	e.printStackTrace();
             return false;
         }
     }
