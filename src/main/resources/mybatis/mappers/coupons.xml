@@ -19,9 +19,29 @@
     </insert>
 
     <!-- 모든 쿠폰 조회 -->
-    <select id="getAllCoupons" resultType="CouponVo">
-        SELECT coupon_id, coupon_code, expiry_date, issued_date
-        FROM coupons
+<select id="getAllCoupons" resultMap="couponResultMap">
+        SELECT 
+            coupon_id AS couponId, 
+            coupon_code AS couponCode, 
+            expiry_date AS expiryDate, 
+            issued_date AS issuedDate
+        FROM 
+            coupons
     </select>
+
+    <resultMap id="couponResultMap" type="himedia.dvd.repositories.vo.CouponVo">
+        <result property="couponId" column="couponId"/>
+        <result property="couponCode" column="couponCode"/>
+        <result property="expiryDate" column="expiryDate"/>
+        <result property="issuedDate" column="issuedDate"/>
+    </resultMap>
+    
+    <!-- 쿠폰 만료 -->
+    <update id="expiryCoupon" parameterType="Long">
+        UPDATE coupons
+        SET expiry_date = NOW() -- 혹은 적절한 날짜로 설정
+        WHERE coupon_id = #{couponId}
+    </update>
+
 
 </mapper>

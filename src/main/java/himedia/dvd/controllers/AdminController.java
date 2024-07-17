@@ -247,6 +247,7 @@ public class AdminController {
 	@GetMapping("/coupons")
 	public String coupons(Model model) {
 	    List<CouponVo> coupons = couponService.getAllCoupons();
+	    System.out.println("쿠폰 목록: " + coupons);
 	    model.addAttribute("coupons", coupons);
 	    return "admin/coupon/coupons";
 	}
@@ -262,7 +263,7 @@ public class AdminController {
 	// 쿠폰 생성
     @PostMapping("/coupons/add")
     public String addCoupon(@ModelAttribute CouponVo couponVo, RedirectAttributes redirectAttributes) {
-        couponVo.setIssueDate(new Date());
+        couponVo.setIssuedDate(new Date());
         couponService.addCoupon(couponVo);
         redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
         return "redirect:/admin/coupons";
@@ -270,17 +271,17 @@ public class AdminController {
     
     
     // 쿠폰 발급 페이지 이동
-    @GetMapping("/coupons/{couponId}/issue")
-    public String issueCouponForm(@PathVariable("couponId") Long couponId, Model model) {
+    @GetMapping("/coupons/{couponId}/issued")
+    public String issuedCouponForm(@PathVariable("couponId") Long couponId, Model model) {
         model.addAttribute("couponVo", new CouponVo());
-        return "admin/coupon/issuecoupon";
+        return "admin/coupon/issuedcoupon";
     }
     
     // 쿠폰 발급 처리
-    @PostMapping("/coupons/issue")
-    public String issueCoupon(@RequestParam("couponId") Long couponId, @RequestParam("userId") Long userId,
+    @PostMapping("/coupons/issued")
+    public String issuedCoupon(@RequestParam("couponId") Long couponId, @RequestParam("userId") Long userId,
                               RedirectAttributes redirectAttributes) {
-        boolean success = couponService.issueCoupon(couponId, userId);
+        boolean success = couponService.issuedCoupon(couponId, userId);
         if (success) {
             redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 발급되었습니다.");
         } else {
@@ -291,9 +292,9 @@ public class AdminController {
     
     
     // 쿠폰 만료 처리
-    @PostMapping("/coupons/{couponId}/expire")
-    public String expireCoupon(@PathVariable("couponId") Long couponId, RedirectAttributes redirectAttributes) {
-        boolean success = couponService.expireCoupon(couponId);
+    @PostMapping("/coupons/{couponId}/expiry")
+    public String expiryCoupon(@PathVariable("couponId") Long couponId, RedirectAttributes redirectAttributes) {
+        boolean success = couponService.expiryCoupon(couponId);
         if (success) {
             redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 만료 처리되었습니다.");
         } else {
