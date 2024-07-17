@@ -11,6 +11,13 @@
    <div id="container">
       <!-- 헤더 포함 -->
       <c:import url="/WEB-INF/views/includes/header.jsp" />
+       <c:if test="${authUser != null && authUser.role == 1}">
+               <tr>
+                  <td colspan="4">
+                     <button onclick="location.href='<c:url value="/admin/home" />'">관리자 화면</button>
+                  </td>
+               </tr>
+            </c:if>
       <div id="search-bar">
          <form id="searchForm" action="${pageContext.request.contextPath}/products/search" method="GET">
             <input type="text" name="keyword" placeholder="검색">
@@ -30,6 +37,7 @@
          <button onclick="goSearch('로맨스')">로맨스</button>
          <button onclick="goSearch('액션')">액션</button>
          <button onclick="goSearch('SF')">SF</button>
+         <button onclick="goSearch('')">필터해제</button>
       </div>
       <div class="list-container">
          <table border="1" width="100%">
@@ -47,13 +55,7 @@
                   <td>${product.releaseDate}</td>
                </tr>
             </c:forEach>
-            <c:if test="${authUser != null && authUser.role == 1}">
-               <tr>
-                  <td colspan="4">
-                     <button onclick="location.href='<c:url value="/admin/home" />'">관리자 화면</button>
-                  </td>
-               </tr>
-            </c:if>
+           
          </table>
       </div>
    </div>

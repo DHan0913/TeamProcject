@@ -10,6 +10,7 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+	<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
 	<div id="content">
 		<%-- 성공 또는 실패 메시지가 있을 경우 출력 --%>
 		<c:if test="${not empty successMessage}">
