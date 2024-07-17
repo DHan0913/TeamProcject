@@ -58,4 +58,9 @@ public class CouponServiceImpl implements CouponService {
 		couponDao.updateCouponExpiryStatus(couponId, isExpired);
 	}
 
+	// 만료된 쿠폰 목록 보기
+	@Override
+	public List<CouponVo> getExpiredCoupons() {
+	    return couponDao.getExpiredCoupons();
+	}
 }
