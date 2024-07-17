@@ -114,6 +114,7 @@
 		SELECT id, request_id AS requestId, amount, request_date AS requestDate,
 		status
 		FROM cash
+		ORDER BY requestDate ASC
 	</select>
 
 	<!-- 요청 수락 -->
