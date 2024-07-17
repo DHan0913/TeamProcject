@@ -323,9 +323,11 @@ public class AdminController {
  		
  		String totalAmt = totalService.getTotalAmt();
  		List<TotalVo> total = totalService.getTotalRank();
+ 		List<TotalVo> usrList = totalService.getUsrList();
  		
  		model.addAttribute("totalAmt", totalAmt);
  		model.addAttribute("total", total);
+ 		model.addAttribute("usrList", usrList);
  		return "admin/total/totalrank";
  	}
 

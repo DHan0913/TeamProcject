@@ -26,5 +26,12 @@ public class TotalDaoImpl implements TotalDao {
     public String getTotalAmt() {
         return sqlSession.selectOne("total.totalAmt");
     }
+    
+    // 유저랭킹 리스트 출력
+    @Override
+    public List<TotalVo> getUsrList() {
+    	List<TotalVo> list = sqlSession.selectList("total.selectUsrList");
+    	return list;
+    }
 
 }

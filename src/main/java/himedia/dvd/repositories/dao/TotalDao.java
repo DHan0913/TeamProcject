@@ -7,4 +7,5 @@ import himedia.dvd.repositories.vo.TotalVo;
 public interface TotalDao {
     List<TotalVo> getTotalRank();
     String getTotalAmt();
+	List<TotalVo> getUsrList();
 }
