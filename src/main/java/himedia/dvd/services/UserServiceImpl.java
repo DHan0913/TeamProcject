@@ -66,15 +66,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.update(vo);
 	}
 
+	//탈퇴 요청
 	@Override
 	public boolean deleteUser(String email) {
-		UserVo userVo = userDao.selectUserByEmail(email);
-		return userDao.delete(userVo.getUserNo());
-	}
-
-	@Override
-	public boolean deleteUser(Long userNo) {
-		return userDao.delete(userNo);
+		return userDao.deactivateUser(email) > 0;
 	}
 	
 	//캐시 요청

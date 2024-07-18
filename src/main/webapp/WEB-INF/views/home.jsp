@@ -24,6 +24,7 @@
             <button type="button" onclick="goSearch('')">검색</button>
             <input type="hidden" name="filter" value="">
             <input type="hidden" id="genre" name="genre">
+            <input type="hidden" id="authorized" name="authorized" value="true">
          </form>
       </div>
    </div>
