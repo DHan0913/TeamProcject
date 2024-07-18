@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.UserVo;
+import himedia.dvd.services.CouponService;
 import himedia.dvd.services.PermissionService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
@@ -35,9 +36,11 @@ public class UserController {
 	private ProductService productService;
 	@Autowired
 	private PermissionService permissionService;
-
+	@Autowired
+    private CouponService couponService;
+	
 	// 가입 폼
-	@GetMapping({ "", "/", "/join" })
+	@GetMapping("/join")
 	public String join(@ModelAttribute UserVo userVo) {
 		return "users/joinform";
 	}
@@ -116,6 +119,7 @@ public class UserController {
 
 			if (authUser.getRole() == 1) { // 관리자
 				session.setAttribute("authAdmin", authUser);
+				session.setAttribute("authUser", authUser);
 				System.out.println("관리자로 로그인 성공");
 				return "redirect:/admin/home"; // 관리자 홈으로
 			} else {
@@ -304,4 +308,42 @@ public class UserController {
 	}
 
 	// 예성씌 파트 end ----------------------------------------
+	
+	//	쿠폰 입력 창
+	@GetMapping("/coupon")
+	public String couponForm() {
+		return "/users/selectcoupon";
+	}
+	
+	// 쿠폰 관련 메서드 통합
+    @PostMapping("/coupon/action")
+    @ResponseBody
+    public Object couponAction(@RequestParam(value = "actionType") String actionType,
+                               @RequestParam(value = "couponCode", required = false, defaultValue = "") String couponCode,
+                               @RequestParam(value = "couponStatus", required = false, defaultValue = "") String couponStatus) {
+        if ("validate".equals(actionType)) {
+            boolean isValid = couponService.isCouponValid(couponCode, couponStatus);
+            Map<String, Object> result = new HashMap<>();
+            result.put("actionType", "validate");
+            result.put("isValid", isValid);
+            return result;
+        } else if ("checkCode".equals(actionType)) {
+            boolean exists = couponService.checkCouponExistence(couponCode);
+            Map<String, Object> result = new HashMap<>();
+            result.put("actionType", "checkCode");
+            result.put("exists", exists);
+            return result;
+        } else {
+            // 알 수 없는 actionType인 경우 처리
+            Map<String, Object> result = new HashMap<>();
+            result.put("error", "Unknown actionType: " + actionType);
+            return result;
+        }
+    }
+	    
+    // 쿠폰등록 성공 페이지
+ 	@RequestMapping("/couponsuccess")
+ 	public String couponsuccess() {
+ 		return "users/couponsuccess";
+ 	}
 }

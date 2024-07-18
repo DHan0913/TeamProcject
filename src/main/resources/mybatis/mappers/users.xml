@@ -4,71 +4,70 @@
 <mapper namespace="users">
 
 	<!-- INSERT (회원 가입) -->
-	<insert id="insert" parameterType="UserVo">
-		<selectKey keyProperty="userNo" resultType="long"
-			order="BEFORE">
-			SELECT user_no_seq.nextval FROM dual
-		</selectKey>
+    <insert id="insert" parameterType="UserVo">
+        <selectKey keyProperty="userNo" resultType="long"
+            order="BEFORE">
+            SELECT user_no_seq.nextval FROM dual
+        </selectKey>
 
-		INSERT INTO users (user_no, username, birth, email, password, regdate)
-		VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password},
-		SYSDATE)
-	</insert>
+        INSERT INTO users (user_no, username, birth, email, password, regdate, status)
+        VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password},
+        SYSDATE, '로그인 가능')
+    </insert>
 
-	<select id="selectAllUsers" resultType="UserVo">
-		SELECT user_no AS userNo, username, birth, email, regdate, role
-		FROM users
-		ORDER BY user_no ASC
-	</select>
+    <select id="selectAllUsers" resultType="UserVo">
+        SELECT user_no AS userNo, username, birth, email, regdate, role, status
+        FROM users
+        ORDER BY user_no ASC
+    </select>
 
-	<select id="selectUsers" parameterType="long"
-		resultType="UserVo">
-		SELECT user_no AS userNo, username, birth, email, regdate, role
-		FROM users
-		WHERE user_no=#{userNo}
-	</select>
+    <select id="selectUsers" parameterType="long"
+        resultType="UserVo">
+        SELECT user_no AS userNo, username, birth, email, regdate, role, status
+        FROM users
+        WHERE user_no=#{userNo}
+    </select>
 
-	<select id="selectUserByEmail" parameterType="string"
-		resultType="UserVo">
-		SELECT user_no as userNo, username, birth, email, password, regdate
-		FROM users
-		WHERE email=#{value}
-	</select>
+    <select id="selectUserByEmail" parameterType="string"
+        resultType="UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate, status
+        FROM users
+        WHERE email=#{value}
+    </select>
 
-	<!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
-	<select id="selectUserByEmailAndPassword" parameterType="map"
-		resultType="UserVo">
-		SELECT user_no as userNo, username, birth, email, password, regdate, role
-		FROM users
-		WHERE email=#{email} AND password=#{password}
-	</select>
+    <!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
+    <select id="selectUserByEmailAndPassword" parameterType="map"
+        resultType="UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate, role, status
+        FROM users
+        WHERE email=#{email} AND password=#{password} AND status = '로그인 가능'
+    </select>
 
-	<!-- UPDATE (사용자 정보 수정) -->
-	<update id="updateUser" parameterType="UserVo">
-		UPDATE users
-		SET email=#{email}, password=#{password}
-		WHERE user_no=#{userNo}
-	</update>
+    <!-- UPDATE (사용자 정보 수정) -->
+    <update id="updateUser" parameterType="UserVo">
+        UPDATE users
+        SET email=#{email}, password=#{password}, status='로그인 가능'
+        WHERE user_no=#{userNo}
+    </update>
 
-	<!-- DELETE (사용자 정보 삭제) -->
-	<delete id="deleteUser" parameterType="long">
-		DELETE FROM users
-		WHERE user_no=#{userNo}
-	</delete>
+    <!-- DELETE (사용자 상태를 '탈퇴 요청'으로 변경) -->
+    <update id="deleteUser" parameterType="String">
+        UPDATE users SET status = '탈퇴 요청' WHERE email = #{email}
+    </update>
 
-	<!-- RESET (암호 초기화) -->
-	<update id="resetUser" parameterType="long">
-		UPDATE users
-		SET password='0000'
-		WHERE user_no=#{userNo}
-	</update>
+    <!-- RESET (암호 초기화) -->
+    <update id="resetUser" parameterType="long">
+        UPDATE users
+        SET password='0000', status='로그인 가능'
+        WHERE user_no=#{userNo}
+    </update>
 
-	<!-- 권한 체크 -->
-	<select id="hasPermission" parameterType="map" resultType="int">
-		SELECT COUNT(*)
-		FROM UserPermissions
-		WHERE User_No = #{userNo} AND Product_No = #{productNo}
-	</select>
+    <!-- 권한 체크 -->
+    <select id="hasPermission" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM UserPermissions
+        WHERE User_No = #{userNo} AND Product_No = #{productNo}
+    </select>
 
 
 
@@ -144,8 +143,11 @@
     <select id="getCashHistory" parameterType="string" resultType="CashVo">
         SELECT approve_date AS approveDate, amount, status
         FROM cash
-        WHERE request_id = #{requestId}
+        WHERE request_id = #{requestId} AND status = '충전완료' AND amount >=0
         ORDER BY approve_date DESC
     </select>
+    
+    
+    
 
 </mapper>

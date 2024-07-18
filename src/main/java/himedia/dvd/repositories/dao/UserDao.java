@@ -11,7 +11,7 @@ public interface UserDao {
 	UserVo selectUserByEmail(String email); // 중복 이메일
 	UserVo selectUserByEmailAndPassword(String email, String password); // 로그인용
 	boolean update(UserVo user); // 회원정보수정
-	boolean delete(Long userNo); // 유저 번호로 삭제
+	int deactivateUser(String email); // 삭제요청
 	CashVo insertCashRequest(String requestId, Double amount); //충전요청
 	List<CashVo> selectAllCashRequests();//요청 리스트
 	boolean approveCashRequest(CashVo cashVo); // 요청 승인

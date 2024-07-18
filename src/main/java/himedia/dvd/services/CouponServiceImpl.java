@@ -68,4 +68,19 @@ public class CouponServiceImpl implements CouponService {
 	public String couponCheck(CouponVo couponVo) {
 		return couponDao.couponCheck(couponVo);
 	}
+	
+	// 쿠폰 코드의 유효성 검사 메서드
+    @Override
+    public boolean isCouponValid(String couponCode, String expiryYn) {
+        CouponVo coupon = couponDao.getCouponByCodeAndStatus(couponCode, expiryYn);
+        return coupon != null;
+    }
+
+    // 쿠폰 코드 중복 여부 확인 메서드
+    @Override
+    public boolean checkCouponExistence(String couponCode) {
+        CouponVo coupon = couponDao.getCouponByCode(couponCode);
+        return coupon != null;
+    }
+	
 }
