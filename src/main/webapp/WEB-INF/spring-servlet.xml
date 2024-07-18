@@ -62,10 +62,21 @@
 			<mvc:mapping path="/users/admin/**" />
 			<bean class="himedia.dvd.interceptors.AdminInterceptor" />
 		</mvc:interceptor>
-			<mvc:interceptor>
+		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
 			<bean class="himedia.dvd.interceptors.AdminInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/users/**" />
+			<mvc:exclude-mapping path="/users/login" />
+			<mvc:exclude-mapping path="/users/join" />
+			<mvc:exclude-mapping path="/users/checkEmail" />
+			<mvc:exclude-mapping path="/users/logout" />
+			<mvc:exclude-mapping path="/users/joinsuccess" />
+			<mvc:exclude-mapping path="/users/deleteconfirm" />
+			<bean class="himedia.dvd.interceptors.AuthInterceptor" />
+		</mvc:interceptor>
+
 	</mvc:interceptors>
 
 	<!-- MessageSource : 반드시 bean id를 messageSource로 설정해야 한다 -->
@@ -74,14 +85,15 @@
 		<property name="basenames" value="messages/messages_ko" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
-	
-	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:messages/messages_ko.properties</value>
-            </list>
-        </property>
-    </bean>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:messages/messages_ko.properties</value>
+			</list>
+		</property>
+	</bean>
 
 	<!-- MultipartResolver -->
 	<bean id="multipartResolver"

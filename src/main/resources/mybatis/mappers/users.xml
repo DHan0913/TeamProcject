@@ -146,5 +146,8 @@
         WHERE request_id = #{requestId} AND status = '충전완료' AND amount >=0
         ORDER BY approve_date DESC
     </select>
+    
+    
+    
 
 </mapper>
