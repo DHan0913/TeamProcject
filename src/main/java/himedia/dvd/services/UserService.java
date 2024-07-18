@@ -37,6 +37,7 @@ public interface UserService {
 
 	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
 	
+	boolean isCouponValid(String couponCode, String expiryYn);
+    boolean checkCouponExistence(String couponCode);
 	
-
 }

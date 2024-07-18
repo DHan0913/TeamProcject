@@ -23,7 +23,6 @@ public interface CouponDao {
 
 	String couponCheck(CouponVo couponVo);
 	
-	CouponVo getCouponByCode(String couponCode);
-    CouponVo getCouponByCodeAndStatus(String couponCode, String expiryYn);
+	
 }
 

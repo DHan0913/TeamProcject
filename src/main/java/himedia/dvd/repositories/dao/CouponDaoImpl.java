@@ -1,6 +1,8 @@
 package himedia.dvd.repositories.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,17 +77,5 @@ public class CouponDaoImpl implements CouponDao {
 		return couponChk;
 	}
 	
-	@Override
-    public CouponVo getCouponByCode(String couponCode) {
-        return sqlSession.selectOne("coupons.getCouponByCode", couponCode);
-    }
-
-    @Override
-    public CouponVo getCouponByCodeAndStatus(String couponCode, String expiryYn) {
-        CouponVo coupon = new CouponVo();
-        coupon.setCouponCode(couponCode);
-        coupon.setExpiryYn(expiryYn);
-        return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", coupon);
-    }
 	
 }

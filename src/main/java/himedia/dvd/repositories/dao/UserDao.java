@@ -1,8 +1,10 @@
 package himedia.dvd.repositories.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.UserVo;
 
 public interface UserDao {
@@ -27,5 +29,6 @@ public interface UserDao {
 	void setPermission(Long userNo, Long productNo);	// 시청권한 부여
 	CashVo insertCash(String requestId);	// 구매 후 캐시 차감
 
-
+	CouponVo getCouponByCode(String couponCode);
+    CouponVo getCouponByCodeAndStatus(Map<String, Object> params);
 }
