@@ -82,5 +82,14 @@ public class CouponServiceImpl implements CouponService {
         CouponVo coupon = couponDao.getCouponByCode(couponCode);
         return coupon != null;
     }
+
+    
+    // 지급된 쿠폰 리스트
+	@Override
+	public List<CouponVo> getCouponList() {
+		return couponDao.getCouponList();
+	}
+    
+    
 	
 }

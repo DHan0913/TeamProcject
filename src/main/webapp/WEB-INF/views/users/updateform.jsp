@@ -19,10 +19,7 @@
             <label class="block-label" for="username" readonly>이름 ${authUser.username }</label>
         </div>
         <div class="form-group">
-            <label class="block-label">이메일</label> 
-            <input name="email" type="email" value="${authUser.email}" placeholder="이메일을 입력하십시오">
-            <input type="button" id="check-email" data-target="<c:url value="/users/checkEmail" />" value="이메일 중복체크" /><br>    
-            <input type="hidden" name="emailCheck" value="n" />
+            <label class="block-label" for="email" readonly>이메일 ${authUser.email }</label> 
         </div>
        <div class="form-group">
             <label class="block-label">비밀번호</label> 
