@@ -44,9 +44,9 @@
     </select>
 
     <!-- UPDATE (사용자 정보 수정) -->
-    <update id="updateUser" parameterType="UserVo">
+    <update id="updatePassword" parameterType="map">
         UPDATE users
-        SET email=#{email}, password=#{password}, status='로그인 가능'
+        SET password=#{password}
         WHERE user_no=#{userNo}
     </update>
 

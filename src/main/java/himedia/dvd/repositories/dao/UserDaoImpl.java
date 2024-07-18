@@ -47,11 +47,13 @@ public class UserDaoImpl implements UserDao {
         return vo;
     }
 
-    // 사용자의 정보를 업데이트
+    // 비밀번호 변경
     @Override
-    public boolean update(UserVo user) {
-        int count = sqlSession.update("users.updateUser", user);
-        return count == 1;
+    public int updatePassword(Long userNo, String password) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userNo", userNo);
+        params.put("password", password);
+        return sqlSession.update("users.updatePassword", params);
     }
 
     // 삭제요청

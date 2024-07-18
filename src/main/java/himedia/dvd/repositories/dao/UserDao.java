@@ -10,7 +10,7 @@ public interface UserDao {
 	int insert(UserVo user); // 회원 가입
 	UserVo selectUserByEmail(String email); // 중복 이메일
 	UserVo selectUserByEmailAndPassword(String email, String password); // 로그인용
-	boolean update(UserVo user); // 회원정보수정
+	int updatePassword(Long userNo, String password); //정보수정
 	int deactivateUser(String email); // 삭제요청
 	CashVo insertCashRequest(String requestId, Double amount); //충전요청
 	List<CashVo> selectAllCashRequests();//요청 리스트

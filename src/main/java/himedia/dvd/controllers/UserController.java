@@ -186,23 +186,15 @@ public class UserController {
 		return "users/updateform";
 	}
 
-//	 회원정보 수정 액션
+	//비밀번호 변경
 	@PostMapping("/updateform")
-	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError e : list) {
-				System.err.println("Error" + e);
-			}
-			model.addAllAttributes(result.getModel());
-			return "users/updateform";
-		}
-		boolean success = userService.updateUser(vo);
-		if (success) {
-			return "users/updatesuccess";
-		} else {
-			return "users/updateform";
-		}
+	public String updateUserAction(@RequestParam("userNo") Long userNo, @RequestParam("password") String password, Model model) {
+	    boolean success = userService.updatePassword(userNo, password);
+	    if (success) {
+	        return "users/updatesuccess";
+	    } else {
+	        return "users/updateform";
+	    }
 	}
 
 	// 회원 수정 완료 폼
