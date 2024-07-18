@@ -26,14 +26,15 @@
 	<!-- 모든 쿠폰 조회 -->
 	<select id="getAllCoupons" resultMap="couponResultMap">
 		SELECT
-		coupon_id AS
-		couponId,
-		coupon_code AS couponCode,
-		expiry_date AS expiryDate,
-		issued_date AS issuedDate,
-		expiry_yn AS expiryYn
-		FROM
-		coupons
+      coupon_id AS
+      couponId,
+      coupon_code AS couponCode,
+      expiry_date AS expiryDate,
+      issued_date AS issuedDate,
+      expiry_yn AS expiryYn
+      FROM
+      coupons
+      ORDER BY expiryYn ASC
 	</select>
 
 	<resultMap id="couponResultMap"
