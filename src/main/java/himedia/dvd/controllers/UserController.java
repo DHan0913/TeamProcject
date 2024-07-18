@@ -37,7 +37,7 @@ public class UserController {
 	private PermissionService permissionService;
 
 	// 가입 폼
-	@GetMapping({ "", "/", "/join" })
+	@GetMapping("/join")
 	public String join(@ModelAttribute UserVo userVo) {
 		return "users/joinform";
 	}
@@ -116,6 +116,7 @@ public class UserController {
 
 			if (authUser.getRole() == 1) { // 관리자
 				session.setAttribute("authAdmin", authUser);
+				session.setAttribute("authUser", authUser);
 				System.out.println("관리자로 로그인 성공");
 				return "redirect:/admin/home"; // 관리자 홈으로
 			} else {
