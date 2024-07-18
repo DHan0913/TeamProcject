@@ -16,7 +16,7 @@
 	</div>
 
 	<div id="content">
-		<div class="list-container" style="margin-bottom:20px;">
+		<div class="list-container" style="margin-bottom:20px; margin-left:10px;">
 			<table border="1" width="25%">
 				<tr>
 					<th>총매출</th>
@@ -28,7 +28,7 @@
 		</div>
 		
 		<div class="list-container">
-			<table border="1" width="100%">
+			<table border="1" width="47%" style="float:left; margin-left:10px;">
 				<tr>
 					<th>인기순위</th>
 					<th>상품이름</th>
@@ -42,8 +42,22 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<table border="1" width="47%" style="float:right; margin-right:10px;">
+				<tr>
+					<th>회원 순위</th>
+					<th>회원 이름</th>
+					<th>회원별 총 매출액</th>
+				</tr>
+				<c:forEach var="items" items="${usrList}" varStatus="status">
+					<tr>
+						<td>${status.count }</td>
+						<td>${items.username}</td>
+						<td>${items.useramt}</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
-	</div>
+		
 	</div>
 </body>
 </html>

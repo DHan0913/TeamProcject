@@ -25,4 +25,10 @@ public class TotalServiceImpl implements TotalService {
 		String totalAmt = totalDao.getTotalAmt();
         return totalAmt;
 	}
+	
+	@Override
+	public List<TotalVo> getUsrList() {
+		List<TotalVo> list = totalDao.getUsrList();
+		return list;
+	}
 }

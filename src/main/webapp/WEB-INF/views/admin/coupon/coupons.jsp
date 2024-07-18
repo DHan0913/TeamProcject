@@ -36,11 +36,19 @@
                     <td><fmt:formatDate value="${coupon.expiryDate}" pattern="yyyy-MM-dd"/></td>
                     <td><fmt:formatDate value="${coupon.issuedDate}" pattern="yyyy-MM-dd"/></td>
                     <td>
-                        <!-- 쿠폰 만료 처리 폼 -->
-                        <form action="${pageContext.request.contextPath}/admin/coupons/${coupon.couponId}/expiry" method="POST">
-                            <input type="hidden" name="_method" value="POST">
-                            <input type="submit" value="만료 처리">
-                        </form>
+                    	<c:choose>
+	                    	<c:when test="${coupon.expiryYn eq 'N'}">
+		                        <!-- 쿠폰 만료 처리 폼 -->
+		                        <form action="${pageContext.request.contextPath}/admin/coupons/${coupon.couponId}/expiry" method="POST">
+		                            <input type="hidden" name="_method" value="POST">
+		                            <input type="hidden" name="couponId" value="${coupon.couponId}">
+		                            <input type="submit" value="만료 처리">
+		                        </form>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	만료됨
+	                        </c:otherwise>
+                        </c:choose>
                     </td>
                 </tr>
             </c:forEach>
@@ -55,3 +63,14 @@
     
 </body>
 </html>
+<script>
+
+if("${successMessage}" != ''){
+	alert("${successMessage}");
+}
+
+if("${errorMessage}" != ''){
+	alert("${errorMessage}");
+}
+
+</script>

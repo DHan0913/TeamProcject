@@ -56,10 +56,10 @@ public class CouponDaoImpl implements CouponDao {
 
 	// 쿠폰 만료 상태 업데이트
 	@Override
-	public void updateCouponExpiryStatus(Long couponId, boolean isExpired) {
+	public void updateCouponExpiryStatus(Long couponId, String isExpired) {
 		CouponVo coupon = new CouponVo();
 		coupon.setCouponId(couponId);
-		coupon.setExpired(isExpired);
+		coupon.setExpiryYn(isExpired);
 		sqlSession.update("coupons.updateCouponExpiryStatus", coupon);
 	}
 	
@@ -67,5 +67,11 @@ public class CouponDaoImpl implements CouponDao {
 	@Override
 	public List<CouponVo> getExpiredCoupons() {
 	    return sqlSession.selectList("coupons.getExpiredCoupons");
+	}
+	
+	@Override
+	public String couponCheck(CouponVo couponVo) {
+		String couponChk = sqlSession.selectOne("getCouponCheck", couponVo);
+		return couponChk;
 	}
 }

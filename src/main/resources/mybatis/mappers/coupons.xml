@@ -30,7 +30,8 @@
 		couponId,
 		coupon_code AS couponCode,
 		expiry_date AS expiryDate,
-		issued_date AS issuedDate
+		issued_date AS issuedDate,
+		expiry_yn AS expiryYn
 		FROM
 		coupons
 	</select>
@@ -41,13 +42,15 @@
 		<result property="couponCode" column="couponCode" />
 		<result property="expiryDate" column="expiryDate" />
 		<result property="issuedDate" column="issuedDate" />
+		<result property="expiryYn" column="expiryYn" />
 	</resultMap>
 
 	<!-- 쿠폰 만료 -->
 	<update id="expiryCoupon" parameterType="Long">
 		UPDATE coupons
 		SET
-		expiry_date = NOW()
+		expiry_date = SYSDATE,
+		expiry_yn = 'Y'
 		WHERE coupon_id = #{couponId}
 	</update>
 
@@ -55,7 +58,7 @@
 	<update id="updateCouponExpiryStatus" parameterType="CouponVo">
 		UPDATE
 		coupons
-		SET expired = #{expired}
+		SET expiry_yn = #{expiryYn}
 		WHERE coupon_id = #{couponId}
 	</update>
 
@@ -65,7 +68,8 @@
     coupon_id AS couponId,
     coupon_code AS couponCode,
     expiry_date AS expiryDate,
-    issued_date AS issuedDate
+    issued_date AS issuedDate,
+    expiry_yn AS expiryYn
     FROM
     coupons
     <where>
@@ -73,5 +77,15 @@
             AND expiry_date &lt; #{currentDate}
         </if>
     </where>
+</select>
+
+<!-- 쿠폰 생성시 중복된 데이터 있는지 확인 -->
+<select id="getCouponCheck" parameterType="CouponVo" resultType = "String">
+   SELECT CASE WHEN COUNT(COUPON_ID) > 0 THEN 'Y'
+	      ELSE 'N'
+	       END
+	FROM COUPONS
+	WHERE COUPON_CODE = #{couponCode}
+
 </select>
 </mapper>

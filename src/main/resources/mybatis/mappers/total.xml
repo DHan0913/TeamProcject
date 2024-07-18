@@ -29,4 +29,24 @@
     <select id="totalAmt" resultType="String">
         SELECT (COUNT(*) * 3000) TOTAL_AMT FROM USERPERMISSIONS
     </select>
+    
+    
+    <select id="selectUsrList" resultType="TotalVo">
+		SELECT 
+            UPM.USER_NO,
+            u.USERNAME,
+            (COUNT(*) * 3000) USERAMT
+        FROM 
+            USERPERMISSIONS UPM
+        LEFT OUTER JOIN 
+            USERS U 
+        ON 
+            UPM.user_NO = u.user_NO
+        WHERE 
+            1 = 1
+        GROUP BY 
+            UPM.user_NO,
+            u.USERNAME
+        ORDER BY USERAMT DESC
+    </select>
 </mapper>

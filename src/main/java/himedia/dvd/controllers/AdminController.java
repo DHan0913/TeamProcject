@@ -264,9 +264,19 @@ public class AdminController {
 	    @PostMapping("/coupons/add")
 	    public String addCoupon(@ModelAttribute CouponVo couponVo, RedirectAttributes redirectAttributes) {
 	        couponVo.setIssuedDate(new Date());
-	        couponService.addCoupon(couponVo);
-	        redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
-	        return "redirect:/admin/coupons";
+	        
+	        
+	        String couponChk = couponService.couponCheck(couponVo);
+	        
+	        if(("Y").equals(couponChk)) {
+	        	redirectAttributes.addFlashAttribute("successMessage", "기존에 등록 되어있는 쿠폰코드입니다 다른 쿠폰코드를 입력하세요");
+	        	return "redirect:/admin/coupons/add";
+	        }else {
+	        	couponService.addCoupon(couponVo);
+	        	redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
+	        	return "redirect:/admin/coupons";
+	        }
+	        
 	    }
     
     
@@ -299,7 +309,7 @@ public class AdminController {
         boolean success = couponService.expiryCoupon(couponId);
         if (success) {
             // 쿠폰 만료 상태 업데이트
-            couponService.updateCouponExpiryStatus(couponId, true);
+            couponService.updateCouponExpiryStatus(couponId, "Y");
             redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 만료 처리되었습니다.");
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "쿠폰 만료 처리에 실패했습니다.");
@@ -323,9 +333,11 @@ public class AdminController {
  		
  		String totalAmt = totalService.getTotalAmt();
  		List<TotalVo> total = totalService.getTotalRank();
+ 		List<TotalVo> usrList = totalService.getUsrList();
  		
  		model.addAttribute("totalAmt", totalAmt);
  		model.addAttribute("total", total);
+ 		model.addAttribute("usrList", usrList);
  		return "admin/total/totalrank";
  	}
 

@@ -20,3 +20,11 @@
     </form>
 </body>
 </html>
+<script>
+
+if("${successMessage}" != ''){
+	alert("${successMessage}");
+}
+
+</script>
+
