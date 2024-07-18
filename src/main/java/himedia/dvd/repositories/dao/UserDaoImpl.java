@@ -152,4 +152,10 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	@Override
+	public void delete(Long userNo) {
+		sqlSession.delete("users.setdeleteUser", userNo);
+		
+	}
+
 }

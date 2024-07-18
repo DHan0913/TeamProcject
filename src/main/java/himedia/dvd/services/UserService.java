@@ -36,6 +36,8 @@ public interface UserService {
 
 
 	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
+
+	void deleteUser(Long userNo);
 	
 	
 

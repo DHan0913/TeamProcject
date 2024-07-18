@@ -126,6 +126,12 @@ public class UserServiceImpl implements UserService {
 		return cashVo != null;
 	}
 
+	@Override
+	public void deleteUser(Long userNo) {
+		userDao.delete(userNo);
+		
+	}
+
 	
 	
 }

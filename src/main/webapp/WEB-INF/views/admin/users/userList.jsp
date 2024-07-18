@@ -29,6 +29,7 @@
 					<th>가입일</th>
 					<th>역할</th>
 					<th>관리</th>
+					<th>상태</th>
 				</tr>
 				<c:forEach var="user" items="${users}">
 					<tr>
@@ -48,14 +49,33 @@
                                     알 수 없음
                                 </c:otherwise>
 							</c:choose></td>
+						<td><c:choose>
+								<c:when test="${user.status == '로그인 가능'}">
+                                    로그인 가능
+                                </c:when>
+								<c:when test="${user.status == '탈퇴 요청'}">
+                                    <c:if test="${user.username == '삭제된 회원' }"> 
+                                    	탈퇴
+                                    </c:if>
+                                     <c:if test="${user.username != '삭제된 회원' }"> 
+                                    	탈퇴 요청
+                                    </c:if>
+                                </c:when>
+								<c:otherwise>
+                                    알 수 없음
+                                </c:otherwise>
+							</c:choose></td>
 
 
-						<td><a
-							href="<c:url value='/admin/users/${user.userNo}/delete' />">삭제</a>
 
-							<a href="<c:url value='/admin/users/${user.userNo}/reset' />">암호초기화</a>
 
-						</td>
+						<td><c:if test="${user.status == '로그인 가능' }">
+								<a href="<c:url value='/admin/users/${user.userNo}/reset' />">암호초기화</a>
+							</c:if> <c:if test="${user.birth != '삭제된 회원' }">
+								<c:if test="${user.status == '탈퇴 요청' }">
+									<a href="<c:url value='/admin/users/${user.userNo}/delete' />">탈퇴</a>
+								</c:if>
+							</c:if></td>
 
 					</tr>
 				</c:forEach>
