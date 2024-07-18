@@ -30,6 +30,7 @@ public class UserVo {
 	
 	@NotNull
 	private Boolean agree; // 약관 동의 여부
+	private String status;
 
 	// 기본생성자
 	public UserVo() {
@@ -144,12 +145,24 @@ public class UserVo {
 		this.agree = agree;
 	}
 	
-	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
 		return "UserVo [userNo=" + userNo + ", username=" + username + ", birth=" + birth + ", email=" + email
 				+ ", password=" + password + ", passwordConfirm=" + passwordConfirm + ", regdate=" + regdate + ", role="
-				+ role + ", agree=" + agree + "]";
+				+ role + ", agree=" + agree + ", status=" + status + ", getUserNo()=" + getUserNo() + ", getUsername()="
+				+ getUsername() + ", getBirth()=" + getBirth() + ", getEmail()=" + getEmail() + ", getPassword()="
+				+ getPassword() + ", getPasswordConfirm()=" + getPasswordConfirm() + ", getRegdate()=" + getRegdate()
+				+ ", getRole()=" + getRole() + ", getAgree()=" + getAgree() + ", getStatus()=" + getStatus()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
+	
 }

@@ -21,9 +21,7 @@ public interface UserService {
 
 	boolean updateUser(UserVo vo); // 회원정보 수정
 
-	boolean deleteUser(String email); // 회원정보 삭제
-
-	boolean deleteUser(Long userNo); // 유저 번호로 삭제
+	boolean deleteUser(String email); // 회원정보 삭제요청
 	
 	boolean requestCash(String requestId, Double amount); // 캐시요청
 	List<CashVo> getAllCashRequests(); // 요청리스트
@@ -38,4 +36,6 @@ public interface UserService {
 
 
 	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
+	
+	
 }
