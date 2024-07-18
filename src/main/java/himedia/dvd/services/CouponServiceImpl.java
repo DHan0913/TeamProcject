@@ -1,6 +1,8 @@
 package himedia.dvd.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,4 +70,25 @@ public class CouponServiceImpl implements CouponService {
 	public String couponCheck(CouponVo couponVo) {
 		return couponDao.couponCheck(couponVo);
 	}
+	
+	// 240718 예성 수정
+	@Override
+	public boolean issueCouponToUser(Long couponId, String email) {
+		Long couponIdFromDB = couponDao.getCouponIdByCode(couponId.toString()); // 쿠폰 코드로 쿠폰 ID 조회
+        
+        if (couponIdFromDB != null) {
+            // 쿠폰을 사용자에게 발급하는 로직 (DAO를 이용하여 데이터베이스에 저장)
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("couponId", couponIdFromDB);
+            paramMap.put("email", email);
+            
+            int rowsAffected = couponDao.issueCouponToUser(paramMap);
+            
+            return rowsAffected > 0; // 발급 성공 여부를 리턴
+        } else {
+            return false; // 쿠폰 코드에 해당하는 쿠폰이 없을 경우 발급 실패
+        }
+	}
+	
+	
 }

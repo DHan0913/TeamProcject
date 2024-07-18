@@ -1,6 +1,7 @@
 package himedia.dvd.repositories.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import himedia.dvd.repositories.vo.CouponVo;
 
@@ -22,5 +23,11 @@ public interface CouponDao {
 	List<CouponVo> getExpiredCoupons();
 
 	String couponCheck(CouponVo couponVo);
+	
+	// 240718 예성
+	Long getCouponIdByCode(String email);
+
+	int issueCouponToUser(Map<String, Object> paramMap);
+
 }
 

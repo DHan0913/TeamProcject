@@ -22,4 +22,7 @@ public interface CouponService {
 
 	String couponCheck(CouponVo couponVo);
 
+	// 240718 예성////////////////
+	// 쿠폰 지급
+	boolean issueCouponToUser(Long couponId, String email);
 }

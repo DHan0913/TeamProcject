@@ -19,7 +19,7 @@
         <button type="submit">쿠폰 생성</button>
     </form>
 </body>
-</html>
+
 <script>
 
 if("${successMessage}" != ''){
@@ -27,4 +27,6 @@ if("${successMessage}" != ''){
 }
 
 </script>
+
+</html>
 

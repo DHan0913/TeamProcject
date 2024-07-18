@@ -260,24 +260,24 @@ public class AdminController {
         return "admin/coupon/addcoupon";
     }
 	
-		// 쿠폰 생성
-	    @PostMapping("/coupons/add")
-	    public String addCoupon(@ModelAttribute CouponVo couponVo, RedirectAttributes redirectAttributes) {
-	        couponVo.setIssuedDate(new Date());
+	// 쿠폰 생성
+	@PostMapping("/coupons/add")
+	public String addCoupon(@ModelAttribute CouponVo couponVo, RedirectAttributes redirectAttributes) {
+	     couponVo.setIssuedDate(new Date());
 	        
 	        
-	        String couponChk = couponService.couponCheck(couponVo);
+	     String couponChk = couponService.couponCheck(couponVo);
 	        
-	        if(("Y").equals(couponChk)) {
-	        	redirectAttributes.addFlashAttribute("successMessage", "기존에 등록 되어있는 쿠폰코드입니다 다른 쿠폰코드를 입력하세요");
-	        	return "redirect:/admin/coupons/add";
-	        }else {
-	        	couponService.addCoupon(couponVo);
-	        	redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
-	        	return "redirect:/admin/coupons";
-	        }
+	     if(("Y").equals(couponChk)) {
+	    	 redirectAttributes.addFlashAttribute("successMessage", "기존에 등록 되어있는 쿠폰코드입니다 다른 쿠폰코드를 입력하세요");
+	         return "redirect:/admin/coupons/add";
+	     }else {
+	    	 couponService.addCoupon(couponVo);
+	         redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 생성되었습니다.");
+	         return "redirect:/admin/coupons";
+	     }
 	        
-	    }
+	 }
     
     
     // 쿠폰 발급 페이지 이동
@@ -341,4 +341,19 @@ public class AdminController {
  		return "admin/total/totalrank";
  	}
 
+ 	
+ 	// 예성 /////////////////////////////////////////////////
+ 	// 쿠폰 지급 관리
+ 	@PostMapping("/coupon/issued")
+    public String sendCoupon(   @RequestParam("couponId") Long couponId,
+    							@RequestParam("email") String email,
+                               RedirectAttributes redirectAttributes) {
+        boolean success = couponService.issueCouponToUser(couponId, email);
+        if (success) {
+            redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 성공적으로 발송되었습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "쿠폰 발송에 실패했습니다.");
+        }
+        return "redirect:/admin/coupons";
+    }
 }

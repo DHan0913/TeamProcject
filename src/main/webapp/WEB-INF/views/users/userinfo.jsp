@@ -33,6 +33,23 @@
 	
 			<label id="userNo" class="block-label" for="birth">생년월일 ${authUser.birth }</label>
 			<br>
+			
+			<label id="userNo" class="block-label" for="couponCode"> MY쿠폰
+					<c:forEach items="${userinfo }" var="vo" varStatus="status">
+					<table width=200 border=1>
+						<tr>
+							<td>[${couponVo.couponCode }] ${status.index }</td>
+							<td>${couponVo.expiryDate }</td>
+							<td>
+								<button>
+								
+								</button>
+							</td>
+						</tr>
+					</table>
+					</c:forEach>
+			</label>
+			<br>
 
 		<div class="button">
 			<button type="button" onclick="location.href='<c:url value="/users/updateform" />'">수정하기</button>
