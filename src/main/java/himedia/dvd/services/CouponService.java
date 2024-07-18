@@ -22,4 +22,7 @@ public interface CouponService {
 
 	String couponCheck(CouponVo couponVo);
 
+	
+	boolean isCouponValid(String couponCode, String expiryYn);
+    boolean checkCouponExistence(String couponCode);
 }

@@ -74,4 +74,18 @@ public class CouponDaoImpl implements CouponDao {
 		String couponChk = sqlSession.selectOne("getCouponCheck", couponVo);
 		return couponChk;
 	}
+	
+	@Override
+    public CouponVo getCouponByCode(String couponCode) {
+        return sqlSession.selectOne("coupons.getCouponByCode", couponCode);
+    }
+
+    @Override
+    public CouponVo getCouponByCodeAndStatus(String couponCode, String expiryYn) {
+        CouponVo coupon = new CouponVo();
+        coupon.setCouponCode(couponCode);
+        coupon.setExpiryYn(expiryYn);
+        return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", coupon);
+    }
+	
 }

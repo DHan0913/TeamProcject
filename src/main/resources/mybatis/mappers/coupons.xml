@@ -63,7 +63,7 @@
 	</update>
 
 	<!-- 만료된 쿠폰 목록 조회 -->
-<select id="getExpiredCoupons" resultMap="couponResultMap">
+<!--<select id="getExpiredCoupons" resultMap="couponResultMap">
     SELECT
     coupon_id AS couponId,
     coupon_code AS couponCode,
@@ -77,7 +77,7 @@
             AND expiry_date &lt; #{currentDate}
         </if>
     </where>
-</select>
+</select>-->
 
 <!-- 쿠폰 생성시 중복된 데이터 있는지 확인 -->
 <select id="getCouponCheck" parameterType="CouponVo" resultType = "String">

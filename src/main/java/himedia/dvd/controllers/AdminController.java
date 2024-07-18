@@ -303,7 +303,7 @@ public class AdminController {
 
     
     
- // 쿠폰 만료 처리
+    // 쿠폰 만료 처리
     @PostMapping("/coupons/{couponId}/expiry")
     public String expiryCoupon(@PathVariable("couponId") Long couponId, RedirectAttributes redirectAttributes) {
         boolean success = couponService.expiryCoupon(couponId);
@@ -318,7 +318,7 @@ public class AdminController {
     }
     
     
- // 만료된 쿠폰 목록 보기
+    // 만료된 쿠폰 목록 보기
     @GetMapping("/coupons/expired")
     public String viewExpiredCoupons(Model model) {
         List<CouponVo> expiredCoupons = couponService.getExpiredCoupons();
@@ -327,7 +327,7 @@ public class AdminController {
     }
     
     
- // 통계관리
+    // 통계관리
  	@GetMapping("/totalrank")
  	public String getTotalRank(Model model) {
  		
