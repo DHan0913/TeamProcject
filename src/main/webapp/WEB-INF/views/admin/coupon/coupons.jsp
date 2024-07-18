@@ -55,9 +55,6 @@
         </tbody>
     </table>
     
-    <!-- 만료된 쿠폰 목록 링크 -->
-    <p><a href="${pageContext.request.contextPath}/admin/coupons/expired">만료된 쿠폰 목록</a></p>
-    
     <!-- 관리자 메뉴로 돌아가는 링크 -->
     <p><a href="${pageContext.request.contextPath}/admin/home">관리자 홈으로 돌아가기</a></p>
     
