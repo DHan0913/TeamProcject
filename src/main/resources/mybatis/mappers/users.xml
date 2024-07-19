@@ -48,6 +48,10 @@
     <update id="deleteUser" parameterType="String">
         UPDATE users SET status = '탈퇴 요청' WHERE email = #{email}
     </update>
+    
+      <update id="setdeleteUser" parameterType="Long">
+        UPDATE users SET password = '삭제된 회원', birth='삭제된 회원', username = '삭제된 회원' WHERE user_no = #{userNo} 
+    </update>
 
     <!-- RESET (암호 초기화) -->
     <update id="resetUser" parameterType="long">

@@ -116,52 +116,54 @@ public class UserDaoImpl implements UserDao {
         return count == 1;
     }
     
-    //충전된 금액
+    // 충전된 금액
     @Override
     public double getApprovedCashAmountByEmail(String email) {
         Double totalAmount = sqlSession.selectOne("users.getApprovedCashAmountByEmail", email);
         return totalAmount != null ? totalAmount : 0.0;
     }
     
-    //충전내역
+    // 충전 내역
     @Override
     public List<CashVo> getCashHistory(String requestId) {
         return sqlSession.selectList("users.getCashHistory", requestId);
     }
     
-    
-    // 예성씌 파트 ////////////////////////////////////////////////////////////////////
-	@Override
-	public void setPermission(Long userNo, Long productNo) {
-		 Map<String, Long> params = new HashMap<>();
-	        params.put("userNo", userNo);
-	        params.put("productNo", productNo);
-	       sqlSession.insert("users.setPermission", params);
-	      
-	}
+    // 예성씌 파트
+    @Override
+    public void setPermission(Long userNo, Long productNo) {
+        Map<String, Long> params = new HashMap<>();
+        params.put("userNo", userNo);
+        params.put("productNo", productNo);
+        sqlSession.insert("users.setPermission", params);
+    }
 
-	@Override
-	public CashVo insertCash(String requestId) {
-		CashVo cashVo = new CashVo();
-		cashVo.setRequestId(requestId);
-		
-		int count = sqlSession.insert("users.insertCash", cashVo);
-		
-		if(count > 0) {
-			return cashVo;
-		} else {
-			return null;			
-		}
+    @Override
+    public CashVo insertCash(String requestId) {
+        CashVo cashVo = new CashVo();
+        cashVo.setRequestId(requestId);
 
-	}
-	
-	@Override
+        int count = sqlSession.insert("users.insertCash", cashVo);
+
+        if (count > 0) {
+            return cashVo;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public CouponVo getCouponByCode(String couponCode) {
         return sqlSession.selectOne("coupons.getCouponByCode", couponCode);
     }
 
-	@Override
+    @Override
     public CouponVo getCouponByCodeAndStatus(Map<String, Object> params) {
         return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", params);
+    }
+
+    @Override
+    public void delete(Long userNo) {
+        sqlSession.delete("users.setdeleteUser", userNo);
     }
 }

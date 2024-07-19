@@ -22,7 +22,7 @@ public interface UserDao {
 	boolean reset(Long userNo); // 회원 비밀번호 초기화
 	List<CashVo> getCashHistory(String requestId); // 충전 내역 조회
 	double getApprovedCashAmountByEmail(String email); //충전된 금액
-
+	void delete(Long userNo);
 
 	
 	// 예성씌 파트

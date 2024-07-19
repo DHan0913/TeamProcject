@@ -103,14 +103,14 @@ public class AdminController {
 	}
 
 	// 회원정보 삭제 처리
-//	@GetMapping("/users/{userNo}/delete")
-//	public String deleteAction(@PathVariable("userNo") Long userNo) {
-//
-//		// 사용자 삭제 서비스 호출
-//		userService.deleteUser(userNo);
-//
-//		return "redirect:/admin/users"; 
-//	}
+	@GetMapping("/users/{userNo}/delete")
+	public String deleteAction(@PathVariable("userNo") Long userNo) {
+
+		// 사용자 삭제 서비스 호출
+		userService.deleteUser(userNo);
+
+		return "redirect:/admin/users"; 
+	}
 
 	//	회원정보 암호 초기화
 	@GetMapping("/users/{userNo}/reset")
