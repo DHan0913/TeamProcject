@@ -30,7 +30,5 @@ public interface UserDao {
 
 	long getCouponCountByCodeAndStatus(String couponCode); // 쿠폰 코드와 상태로 쿠폰 수 조회
 	void expiryCoupon(String couponNo); // 사용한 쿠폰 만료
-	CouponVo getCouponByCode(String couponCode); // 쿠폰 코드로 쿠폰 조회
-	CouponVo getCouponByCodeAndStatus(Map<String, Object> params); // 쿠폰 코드와 상태로 쿠폰 조회
 	List<Map<String, Object>> getWatchHistory(Long userNo); // 시청 내역 조회
 }

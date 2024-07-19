@@ -142,15 +142,11 @@ public class UserServiceImpl implements UserService {
         userDao.expiryCoupon(couponNo);
     }
 
-    // 쿠폰 코드 중복 여부 확인 메서드
-    @Override
-    public boolean checkCouponExistence(String couponCode) {
-        CouponVo coupon = userDao.getCouponByCode(couponCode);
-        return coupon != null;
-    }
 
     @Override
     public List<Map<String, Object>> getWatchHistory(Long userNo) {
         return userDao.getWatchHistory(userNo);
     }
+
+
 }

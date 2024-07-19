@@ -171,4 +171,7 @@ public class UserDaoImpl implements UserDao {
     public List<Map<String, Object>> getWatchHistory(Long userNo) {
         return sqlSession.selectList("users.watchhistory", userNo);
     }
+
+
+
 }
