@@ -15,7 +15,7 @@
         <!-- 네비게이션 포함 -->
         <%@ include file="/WEB-INF/views/admin/includes/navigation.jsp" %>
         <div id="content" class="container">
-            <button onclick="location.href='<c:url value="/" />'" class="btn btn-primary">관리자 페이지</button>
+            <button onclick="location.href='<c:url value="/" />'" class="btn btn-primary">유저 페이지</button>
         </div>
 
 		<%@ include file="/WEB-INF/views/admin/includes/footer.jsp" %>

@@ -48,9 +48,10 @@
     <update id="deleteUser" parameterType="String">
         UPDATE users SET status = '탈퇴 요청' WHERE email = #{email}
     </update>
-    
-      <update id="setdeleteUser" parameterType="Long">
-        UPDATE users SET password = '삭제된 회원', birth='삭제된 회원', username = '삭제된 회원' WHERE user_no = #{userNo} 
+
+    <!-- SET DELETE USER (사용자 상태를 '삭제된 회원'으로 변경) -->
+    <update id="setdeleteUser" parameterType="Long">
+        UPDATE users SET password = '삭제된 회원', birth='삭제된 회원', username = '삭제된 회원' WHERE user_no = #{userNo}
     </update>
 
     <!-- RESET (암호 초기화) -->
@@ -60,29 +61,10 @@
         WHERE user_no=#{userNo}
     </update>
 
-    <!-- 권한 체크 -->
-    <select id="hasPermission" parameterType="map" resultType="int">
-        SELECT COUNT(*)
-        FROM UserPermissions
-        WHERE User_No = #{userNo} AND Product_No = #{productNo}
-    </select>
-
-    <!-- UPDATE (사용자 정보 수정) -->
+    <!-- 비밀번호 변경 -->
     <update id="updatePassword" parameterType="map">
         UPDATE users
         SET password=#{password}
-        WHERE user_no=#{userNo}
-    </update>
-
-    <!-- DELETE (사용자 상태를 '탈퇴 요청'으로 변경) -->
-    <update id="deleteUser" parameterType="String">
-        UPDATE users SET status = '탈퇴 요청' WHERE email = #{email}
-    </update>
-
-    <!-- RESET (암호 초기화) -->
-    <update id="resetUser" parameterType="long">
-        UPDATE users
-        SET password='0000', status='로그인 가능'
         WHERE user_no=#{userNo}
     </update>
 
@@ -111,8 +93,6 @@
         INSERT INTO cash (id, request_id, amount, request_date, status)
         VALUES (#{id}, #{requestId}, -3000, SYSDATE, '충전완료')
     </insert>
-
-    <!-- 예성씌 파트 end -->
 
     <!-- 캐시 요청 -->
     <insert id="insertCashRequest" parameterType="CashVo">
@@ -160,13 +140,6 @@
         ORDER BY approve_date DESC
     </select>
 
-    <!-- 쿠폰 코드 유효성 검사 및 자동 충전 -->
-    <update id="redeemCouponAndChargeCash" parameterType="map">
-        <selectKey keyProperty="cashRequestId" resultType="long" order="BEFORE">
-            SELECT cash_seq.NEXTVAL FROM dual
-        </selectKey>
-    </update>
-    
     <!-- 쿠폰 코드 유효성 검사 -->
     <select id="getCouponByCodeAndStatus" parameterType="map" resultType="CouponVo">
         SELECT *

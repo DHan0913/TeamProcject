@@ -3,7 +3,6 @@ package himedia.dvd.controllers;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.catalina.tribes.membership.Membership;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
-import himedia.dvd.repositories.vo.MembershipVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.TotalVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.AccessControlService;
 import himedia.dvd.services.CouponService;
 import himedia.dvd.services.FileUploadService;
-import himedia.dvd.services.MembershipService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.TotalService;
 import himedia.dvd.services.UserService;
@@ -45,9 +42,6 @@ public class AdminController {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired 
-	private MembershipService membershipService;
 
 	@Autowired
 	private AccessControlService accessControlService;
@@ -165,32 +159,7 @@ public class AdminController {
 		}
 	}
 
-	// 멤버쉽 페이지 이동
-	@GetMapping("/membership")
-	public String getmembership(Model model) {
-		List<MembershipVo> memberships = membershipService.getAllmembers();
-		model.addAttribute("memberships", memberships);
-		return "admin/membership/membership";
-	}
 
-	// 멤버쉽 수정 페이지 이동
-	@GetMapping("/membershipmodify/{id}")
-	public String memberModifyForm(@PathVariable("id") int id, Model model) {
-		Membership membership = membershipService.getMembershipById(id);
-		model.addAttribute("membership", membership);
-		return "admin/membership/membershipmodify";
-	}
-
-	// 멤버쉽 수정
-	@PostMapping("/membershipmodify")
-	public String saveMembership(@ModelAttribute MembershipVo membershipVo) {
-		boolean success = membershipService.membershipmodify(membershipVo);
-		if (success) {
-			return "redirect:/admin/productlist";
-		} else {
-			return "redirect:/admin";
-		}
-	}
 	// 캐시 요청 목록
 		@GetMapping("/acceptcash")
 		public String getAllCashRequests(Model model) {
