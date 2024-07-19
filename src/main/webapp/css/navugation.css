@@ -1,0 +1,37 @@
+/* navugation.css */
+.navbar {
+    background-color: #FFFFE0; /* 연노랑색 */
+    border-bottom: 2px solid #FFD700; /* 버터색 */
+    font-family: 'Arial', sans-serif; /* 세련된 글꼴 */
+}
+
+.navbar-nav .nav-link {
+    color: #555555; /* 다크 그레이 텍스트 */
+    font-size: 1.1rem;
+    margin-right: 15px;
+    transition: color 0.3s ease, background-color 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffffff; /* 흰색 텍스트 */
+    background-color: #FFA500; /* 호버 시 오렌지색 */
+    border-radius: 5px; /* 둥근 모서리 */
+}
+
+.navbar-toggler-icon {
+    color: #000000; /* 검정색 아이콘 */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #FFD700; /* 버터색 */
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .navbar-nav .nav-link {
+        font-size: 1rem;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
