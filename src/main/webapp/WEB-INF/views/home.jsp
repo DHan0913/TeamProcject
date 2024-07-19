@@ -12,14 +12,14 @@
 <body>
     <div id="container">
         <!-- 헤더 포함 -->
-        <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-        
+        <c:import url="/WEB-INF/views/includes/header.jsp" />
+
         <c:if test="${authUser != null && authUser.role == 1}">
             <div class="text-center mb-4">
                 <button class="btn btn-primary" onclick="location.href='<c:url value="/admin/home" />'">관리자 화면</button>
             </div>
         </c:if>
-        
+
         <div id="search-bar" class="container">
             <form id="searchForm" action="${pageContext.request.contextPath}/products/search" method="GET" class="form-inline">
                 <input type="text" name="keyword" class="form-control mr-sm-2" placeholder="검색">
@@ -29,7 +29,7 @@
                 <input type="hidden" id="authorized" name="authorized" value="true">
             </form>
         </div>
-        
+
         <div id="content" class="container">
             <div class="button btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary" onclick="goSearch('공포')">공포</button>
@@ -41,7 +41,7 @@
                 <button type="button" class="btn btn-secondary" onclick="goSearch('SF')">SF</button>
                 <button type="button" class="btn btn-secondary" onclick="goSearch('')">필터해제</button>
             </div>
-            
+
             <div class="list-container table-responsive">
                 <table class="table table-bordered">
                     <thead class="thead-dark">
@@ -65,23 +65,24 @@
                 </table>
             </div>
         </div>
-        
+
         <!-- 푸터 포함 -->
-       <%@ include file="/WEB-INF/views/admin/includes/footer.jsp" %>
+        <c:import url="/WEB-INF/views/admin/includes/footer.jsp" />
     </div>
 
     <script type="text/javascript">
         function goSearch(type){
             var filter = type === '' ? 'productName' : 'genre';
             var form = document.getElementById("searchForm");
-            
+
             form.genre.value = type;
             form.filter.value = filter;
             form.submit();
         }
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+ 

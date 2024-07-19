@@ -1,51 +1,45 @@
 function validateCoupon(event) {
-    event.preventDefault();
-    const frm = document.getElementById("couponForm");
-	
-    const couponCode = frm.querySelector("[name='couponCode']").value.trim();
-	const expiryYn = frm.querySelector("[name='expiryYn']").value.trim();
+    // 이벤트 발생 객체
+    const obj = event.target; // button#validate-coupon
+    const target = obj.getAttribute("data-target"); // API 호출 위치
+    console.log(target);
+    const frm = obj.form; // 폼
+
+    const couponCode = frm.couponCode.value.trim();
 
     if (couponCode.length === 0) {
         alert("쿠폰 코드를 입력하세요!");
         return;
     }
 
-    const requestData = {
-        couponCode: couponCode
-    };
-
-    const target = frm.getAttribute("action"); // Get action URL from form
-
-    console.log(`${target}`, requestData);
-    fetch(target, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    })
+    // fetch
+    console.log(`${target}?couponCode=${couponCode}`);
+    fetch(`${target}?couponCode=${couponCode}`)
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        console.log(response);
         return response.json();
     })
     .then(json => {
         console.log(json);
-        if (json.errors) {
-            alert('쿠폰 검증 중 오류가 발생했습니다.');
-            console.error(json.errors);
-        } else if (json.isValid) {
-            alert('유효한 쿠폰입니다.');
+        // 쿠폰 유효성 검사 결과
+        if (json.result === 'success') {
+            if (json.exists) {
+                alert('유효한 쿠폰 코드입니다.');
+                frm.couponCheck.value = "y";
+                
+            } else {
+                alert('유효하지 않은 쿠폰 코드입니다.');
+                frm.couponCheck.value = "n";
+           
+            }
         } else {
-            alert('유효하지 않은 쿠폰입니다.');
+            alert('쿠폰 코드 확인 중 오류가 발생했습니다.');
+           
+            throw new Error(json.message);
         }
     })
     .catch(error => console.error(error));
 }
 
-window.addEventListener("load", event => {
-    document.getElementById("validate-coupon")
-    
-        .addEventListener("click", validateCoupon);
-});
+// 이벤트 리스너 추가
+document.getElementById('validate-coupon').addEventListener('click', validateCoupon);

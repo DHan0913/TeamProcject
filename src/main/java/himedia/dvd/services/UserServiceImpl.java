@@ -132,16 +132,14 @@ public class UserServiceImpl implements UserService {
 
     // 쿠폰 코드의 유효성 검사 메서드
     @Override
-    public boolean isCouponValid(String couponCode, String expiryYn) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("couponCode", couponCode);
-        params.put("expiryYn", expiryYn);
+    public long getCouponCountByCodeAndStatus(String couponCode) {
+        return userDao.getCouponCountByCodeAndStatus(couponCode);
+    }
 
-        CouponVo coupon = userDao.getCouponByCodeAndStatus(params);
-        if (coupon != null && coupon.getExpiryYn().equals("N") && coupon.getExpiryDate().compareTo(new java.util.Date()) >= 0) {
-            return true;
-        }
-        return false;
+    // 사용한 쿠폰 삭제
+    @Override
+    public void expiryCouponByCouponNo(String couponNo) {
+        userDao.expiryCoupon(couponNo);
     }
 
     // 쿠폰 코드 중복 여부 확인 메서드
@@ -149,5 +147,10 @@ public class UserServiceImpl implements UserService {
     public boolean checkCouponExistence(String couponCode) {
         CouponVo coupon = userDao.getCouponByCode(couponCode);
         return coupon != null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getWatchHistory(Long userNo) {
+        return userDao.getWatchHistory(userNo);
     }
 }

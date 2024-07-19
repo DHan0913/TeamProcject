@@ -141,18 +141,19 @@
     </select>
 
     <!-- 쿠폰 코드 유효성 검사 -->
-    <select id="getCouponByCodeAndStatus" parameterType="map" resultType="CouponVo">
-        SELECT *
-        FROM coupons
-        WHERE coupon_code = #{couponCode} AND expiry_yn = #{expiryYn} AND expiry_date >= SYSDATE
-    </select>
-
-    <!-- 쿠폰 코드 중복 여부 확인 -->
-    <select id="getCouponByCode" parameterType="string" resultType="CouponVo">
-        SELECT *
+    <select id="getCouponCountByCodeAndStatus" parameterType="string" resultType="long">
+        SELECT count(*)
         FROM coupons
         WHERE coupon_code = #{couponCode}
+        AND expiry_yn = 'N'
     </select>
+
+    <!-- 사용한 쿠폰 삭제 -->
+    <update id="expiryCouponByCoupoonNo" parameterType="string">
+        UPDATE coupons
+        SET expiry_date = SYSDATE, expiry_yn = 'Y'
+        WHERE coupon_no = #{couponNo}
+    </update>
 
     <!-- 유효한 쿠폰이면 자동으로 3000원 캐시 충전 -->
     <insert id="chargeCashAutomatically" parameterType="map">
@@ -162,5 +163,23 @@
         INSERT INTO cash (id, request_id, amount, request_date, status)
         VALUES (#{id}, #{requestId}, 3000, SYSDATE, '충전완료')
     </insert>
+    
+    <!-- 시청 내역 불러오기 -->
+    <select id="watchhistory" resultType="map">
+        SELECT 
+            up.User_No AS userNo,
+            p.product_no AS productNo,
+            p.productname AS productName,
+            p.img AS img,
+            up.GrantedAt AS grantedAt
+        FROM 
+            UserPermissions up
+        JOIN 
+            products p ON up.Product_No = p.product_no
+        WHERE 
+            up.User_No = #{userNo}
+        ORDER BY 
+            up.GrantedAt DESC
+    </select>
 
 </mapper>

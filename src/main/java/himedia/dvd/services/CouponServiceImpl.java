@@ -52,7 +52,8 @@ public class CouponServiceImpl implements CouponService {
             return false;
         }
     }
-
+    
+    
     @Override
     public void updateCouponExpiryStatus(Long couponId, String isExpired) {
         couponDao.updateCouponExpiryStatus(couponId, isExpired);

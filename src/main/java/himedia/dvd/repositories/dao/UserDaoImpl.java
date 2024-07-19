@@ -115,20 +115,20 @@ public class UserDaoImpl implements UserDao {
         int count = sqlSession.update("users.rejectCashRequest", cashVo);
         return count == 1;
     }
-    
+
     // 충전된 금액
     @Override
     public double getApprovedCashAmountByEmail(String email) {
         Double totalAmount = sqlSession.selectOne("users.getApprovedCashAmountByEmail", email);
         return totalAmount != null ? totalAmount : 0.0;
     }
-    
+
     // 충전 내역
     @Override
     public List<CashVo> getCashHistory(String requestId) {
         return sqlSession.selectList("users.getCashHistory", requestId);
     }
-    
+
     // 예성씌 파트
     @Override
     public void setPermission(Long userNo, Long productNo) {
@@ -153,17 +153,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public CouponVo getCouponByCode(String couponCode) {
-        return sqlSession.selectOne("coupons.getCouponByCode", couponCode);
-    }
-
-    @Override
-    public CouponVo getCouponByCodeAndStatus(Map<String, Object> params) {
-        return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", params);
+    public long getCouponCountByCodeAndStatus(String couponCode) {
+        return sqlSession.selectOne("users.getCouponCountByCodeAndStatus", couponCode);
     }
 
     @Override
     public void delete(Long userNo) {
         sqlSession.delete("users.setdeleteUser", userNo);
+    }
+
+    @Override
+    public void expiryCoupon(String couponNo) {
+        sqlSession.update("users.expiryCouponBy", couponNo);
+    }
+
+    @Override
+    public List<Map<String, Object>> getWatchHistory(Long userNo) {
+        return sqlSession.selectList("users.watchhistory", userNo);
     }
 }
