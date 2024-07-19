@@ -35,6 +35,7 @@
                     <td>${cash.requestDate}</td>
                     <td class="status">${cash.status}</td>
                     <td>
+                    <c:if test="${cash.status != '충전완료'}">
                         <form id="approve-form-${cash.id}" action="<c:url value='/admin/approve-request' />" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="${cash.id}" />
                             <input type="hidden" name="amount" value="${cash.amount}" />
@@ -45,6 +46,7 @@
                             <input type="hidden" name="id" value="${cash.id}" />
                             <button type="submit">거절</button>
                         </form>
+                        </c:if>
                     </td>
                 </tr>
                 </c:forEach>
