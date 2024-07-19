@@ -8,26 +8,6 @@
     <title>User Home</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/footer.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 70px;
-            background-color: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .container {
-            margin-top: 30px;
-            flex: 1;
-        }
-        .button {
-            margin-bottom: 20px;
-        }
-        .list-container {
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
     <div id="container">
@@ -85,19 +65,11 @@
                 </table>
             </div>
         </div>
+        
+        <!-- 푸터 포함 -->
+       <%@ include file="/WEB-INF/views/admin/includes/footer.jsp" %>
     </div>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-links">
-                <a href="#">사이트 소개</a>
-                <a href="#">team project</a>
-            </div>
-            <div class="footer-copy">
-                &copy; 2024 Admin Panel. All rights reserved.
-            </div>
-        </div>
-    </footer>
-    
+
     <script type="text/javascript">
         function goSearch(type){
             var filter = type === '' ? 'productName' : 'genre';
