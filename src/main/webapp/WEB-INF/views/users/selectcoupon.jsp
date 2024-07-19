@@ -6,19 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>쿠폰 입력</title>
+<script src="<c:url value="/javascript/coupon.js" />"></script>
 </head>
 <body>
 	<h1>쿠폰</h1>
 	
-	<form action="/coupon/validate" method="post">
-	
-        <label for="couponCode">쿠폰 코드:</label>
-        <input type="text" id="couponCode" name="couponCode" required>
-        <button type="submit">유효성 검사</button><br><br>
-        
-        <button type="submit">확인</button>
-        
-    </form>
+	<form id="couponForm" action="/coupon/validate" method="post">
+    	<label for="couponCode">쿠폰 코드:</label>
+    	<input type="text" id="couponCode" name="couponCode" required>
+    	
+    	<button type="button" id="validate-coupon" data-target="/coupon/validate">유효성 검사</button><br><br>
+    	
+    	<button type="submit">확인</button>
+	</form>
 	
 </body>
 </html>

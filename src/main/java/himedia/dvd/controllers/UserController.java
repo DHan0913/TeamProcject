@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.CouponService;
 import himedia.dvd.services.PermissionService;
@@ -186,23 +190,15 @@ public class UserController {
 		return "users/updateform";
 	}
 
-//	 회원정보 수정 액션
+	//비밀번호 변경
 	@PostMapping("/updateform")
-	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError e : list) {
-				System.err.println("Error" + e);
-			}
-			model.addAllAttributes(result.getModel());
-			return "users/updateform";
-		}
-		boolean success = userService.updateUser(vo);
-		if (success) {
-			return "users/updatesuccess";
-		} else {
-			return "users/updateform";
-		}
+	public String updateUserAction(@RequestParam("userNo") Long userNo, @RequestParam("password") String password, Model model) {
+	    boolean success = userService.updatePassword(userNo, password);
+	    if (success) {
+	        return "users/updatesuccess";
+	    } else {
+	        return "users/updateform";
+	    }
 	}
 
 	// 회원 수정 완료 폼
@@ -315,35 +311,42 @@ public class UserController {
 		return "/users/selectcoupon";
 	}
 	
-	// 쿠폰 관련 메서드 통합
-    @PostMapping("/coupon/action")
-    @ResponseBody
-    public Object couponAction(@RequestParam(value = "actionType") String actionType,
-                               @RequestParam(value = "couponCode", required = false, defaultValue = "") String couponCode,
-                               @RequestParam(value = "couponStatus", required = false, defaultValue = "") String couponStatus) {
-        if ("validate".equals(actionType)) {
-            boolean isValid = couponService.isCouponValid(couponCode, couponStatus);
-            Map<String, Object> result = new HashMap<>();
-            result.put("actionType", "validate");
-            result.put("isValid", isValid);
-            return result;
-        } else if ("checkCode".equals(actionType)) {
-            boolean exists = couponService.checkCouponExistence(couponCode);
-            Map<String, Object> result = new HashMap<>();
-            result.put("actionType", "checkCode");
-            result.put("exists", exists);
-            return result;
-        } else {
-            // 알 수 없는 actionType인 경우 처리
-            Map<String, Object> result = new HashMap<>();
-            result.put("error", "Unknown actionType: " + actionType);
-            return result;
-        }
-    }
-	    
+	@PostMapping("/coupon/validate")
+	public ResponseEntity<Map<String, Object>> validateCoupon(@RequestBody CouponVo couponVo, BindingResult result) {
+	    Map<String, Object> response = new HashMap<>();
+
+	    String couponCode = couponVo.getCouponCode();
+	    String expiryYn = couponVo.getExpiryYn();
+
+	    // Perform validation
+	    boolean isValid = userService.isCouponValid(couponCode, expiryYn);
+
+	    if (result.hasErrors()) {
+	        List<ObjectError> errors = result.getAllErrors();
+	        response.put("errors", errors);
+	        return ResponseEntity.badRequest().body(response);
+	    }
+
+	    response.put("couponCode", couponCode);
+	    response.put("expiryYn", expiryYn);
+	    response.put("isValid", isValid);
+
+	    return ResponseEntity.ok(response);
+	}
+    
     // 쿠폰등록 성공 페이지
  	@RequestMapping("/couponsuccess")
  	public String couponsuccess() {
  		return "users/couponsuccess";
  	}
+ 	
+ 	// 240718 예성/////////////////////////////////////////////
+ 	// 쿠폰 리스트로 이동 내 쿠폰 확인
+ 	@GetMapping("/couponlist")
+ 	public String getCouponList(Model model) {
+ 		 List<CouponVo> couponList = couponService.getCouponList();
+         model.addAttribute("coupons", couponList);
+ 		return "users/couponlist";
+ 	}
+
 }
