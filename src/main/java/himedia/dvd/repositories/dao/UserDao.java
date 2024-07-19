@@ -31,4 +31,6 @@ public interface UserDao {
 
 	CouponVo getCouponByCode(String couponCode);
     CouponVo getCouponByCodeAndStatus(Map<String, Object> params);
+    
+    List<Map<String, Object>> getWatchHistory(Long userNo);
 }

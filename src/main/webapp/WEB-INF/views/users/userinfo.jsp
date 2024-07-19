@@ -40,6 +40,7 @@
 			<button type="button" onclick="window.location.href='<c:url value="/" />'">홈으로</button>
 			<button type="button" onclick="location.href='<c:url value="/users/coupon" />'">쿠폰충전</button>
 			<button type="button" onclick="location.href='<c:url value="/users/couponlist" />'">쿠폰관리</button>
+			<button type="button" onclick="location.href='<c:url value="/users/watchhistory?userNo=${authUser.userNo}" />'">시청내역</button>
 		</div>
 		</div>
 	</form:form>
