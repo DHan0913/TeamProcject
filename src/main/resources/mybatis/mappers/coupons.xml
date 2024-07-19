@@ -38,13 +38,13 @@
 	</select>
 
 	<resultMap id="couponResultMap"
-		type="himedia.dvd.repositories.vo.CouponVo">
-		<result property="couponId" column="couponId" />
-		<result property="couponCode" column="couponCode" />
-		<result property="expiryDate" column="expiryDate" />
-		<result property="issuedDate" column="issuedDate" />
-		<result property="expiryYn" column="expiryYn" />
-	</resultMap>
+      type="himedia.dvd.repositories.vo.CouponVo">
+      <result property="couponId" column="coupon_id" />
+        <result property="couponCode" column="coupon_code" />
+        <result property="expiryDate" column="expiry_date" />
+        <result property="issuedDate" column="issued_date" />
+        <result property="expiryYn" column="expiry_yn" />
+   </resultMap>
 
 	<!-- 쿠폰 만료 -->
 	<update id="expiryCoupon" parameterType="Long">
@@ -92,15 +92,17 @@
 
     <!-- 24.07.18 예성 -->
     <!-- 지급받은 쿠폰 리스트 출력하기 -->
-    <select id="getCouponList" resultMap="couponResultMap">
+   <select id="getCouponList" resultMap="couponResultMap">
        SELECT
-          coupon_id AS couponId,
-          coupon_code AS couponCode,
-          expiry_date AS expiryDate,
-          issued_date AS issuedDate,
-          expiry_yn AS expiryYn
+            coupon_id,
+            coupon_code,
+            expiry_date,
+            issued_date,
+            expiry_yn
         FROM coupons
-        WHERE expiry_yn = 'N' </select>
+        WHERE expiry_yn = 'N'
+    </select>
+    
     
 
 </mapper>
