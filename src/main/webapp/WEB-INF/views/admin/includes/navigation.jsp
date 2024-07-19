@@ -12,6 +12,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top shadow">
+    <a class="navbar-brand" href="#"><i class="fas fa-crown"></i> Admin Panel</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,10 +40,10 @@
                 <a class="nav-link" href='<c:url value="/admin/totalrank" />'><i class="fas fa-chart-bar"></i> 통계 관리</a>
             </li>
         </ul>
-    </div>s
+    </div>
 </nav>
 
-<div class="container">
+<div class="container" style="margin-top: 100px;">
     <h1>Admin Dashboard</h1>
     <!-- Admin content goes here -->
 </div>
