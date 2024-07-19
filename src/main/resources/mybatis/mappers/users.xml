@@ -162,5 +162,22 @@
         INSERT INTO cash (id, request_id, amount, request_date, status)
         VALUES (#{id}, #{requestId}, 3000, SYSDATE, '충전완료')
     </insert>
+    
+   <select id="watchhistory" resultType="map">
+    SELECT 
+        up.user_no AS userNo,
+        p.product_no AS productNo,
+        p.productname AS productName,
+        p.img AS img,
+        up.GrantedAt AS grantedAt
+    FROM 
+        UserPermissions up
+    JOIN 
+        products p ON up.Product_No = p.product_no
+    WHERE 
+        up.User_No = #{userNo}
+    ORDER BY 
+        up.GrantedAt DESC
+	</select>
 
 </mapper>

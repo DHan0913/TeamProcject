@@ -1,6 +1,7 @@
 package himedia.dvd.services;
 
 import java.util.List;
+import java.util.Map;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.UserVo;
@@ -45,4 +46,6 @@ public interface UserService {
     boolean isCouponValid(String couponCode, String expiryYn); // 쿠폰 유효성 검사
 
     boolean checkCouponExistence(String couponCode); // 쿠폰 존재 여부 확인
+    
+    List<Map<String, Object>> getWatchHistory(Long userNo);
 }

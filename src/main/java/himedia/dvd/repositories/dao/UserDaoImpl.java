@@ -166,4 +166,9 @@ public class UserDaoImpl implements UserDao {
     public void delete(Long userNo) {
         sqlSession.delete("users.setdeleteUser", userNo);
     }
+
+	@Override
+	public List<Map<String, Object>> getWatchHistory(Long userNo) {
+		 return sqlSession.selectList("users.watchhistory", userNo);
+	}
 }

@@ -348,5 +348,13 @@ public class UserController {
          model.addAttribute("coupons", couponList);
  		return "users/couponlist";
  	}
+ 	
+ 	@GetMapping("/watchhistory")
+ 	public String getwatchhistory(@RequestParam("userNo") Long userNo, Model model) {
+ 		List<Map<String, Object>> watchHistoryList = userService.getWatchHistory(userNo);
+        model.addAttribute("watchHistory", watchHistoryList);
+ 		return "users/watchhistory";
+ 	}
+ 	
 
 }

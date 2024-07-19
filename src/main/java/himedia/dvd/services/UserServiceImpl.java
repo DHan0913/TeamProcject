@@ -150,4 +150,9 @@ public class UserServiceImpl implements UserService {
         CouponVo coupon = userDao.getCouponByCode(couponCode);
         return coupon != null;
     }
+
+	@Override
+	public List<Map<String, Object>> getWatchHistory(Long userNo) {
+		return userDao.getWatchHistory(userNo);
+	}
 }
