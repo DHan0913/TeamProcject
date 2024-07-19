@@ -165,7 +165,7 @@
     
    <select id="watchhistory" resultType="map">
     SELECT 
-        up.user_no AS userNo,
+        up.User_No AS userNo,
         p.product_no AS productNo,
         p.productname AS productName,
         p.img AS img,
