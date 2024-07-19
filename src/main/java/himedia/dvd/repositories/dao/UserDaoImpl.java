@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.UserVo;
 
 @Repository("userDao")
@@ -153,5 +154,14 @@ public class UserDaoImpl implements UserDao {
 		}
 
 	}
+	
+	@Override
+    public CouponVo getCouponByCode(String couponCode) {
+        return sqlSession.selectOne("coupons.getCouponByCode", couponCode);
+    }
 
+	@Override
+    public CouponVo getCouponByCodeAndStatus(Map<String, Object> params) {
+        return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", params);
+    }
 }

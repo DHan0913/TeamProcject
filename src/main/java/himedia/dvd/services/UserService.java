@@ -39,6 +39,7 @@ public interface UserService {
 
 
 	
+	boolean isCouponValid(String couponCode, String expiryYn);
+    boolean checkCouponExistence(String couponCode);
 	
-
 }

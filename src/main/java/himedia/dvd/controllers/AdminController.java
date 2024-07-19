@@ -46,7 +46,7 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
+	@Autowired 
 	private MembershipService membershipService;
 
 	@Autowired
