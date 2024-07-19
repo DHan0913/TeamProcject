@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
@@ -41,8 +38,8 @@ public class UserController {
 	@Autowired
 	private PermissionService permissionService;
 	@Autowired
-    private CouponService couponService;
-	
+	private CouponService couponService;
+
 	// 가입 폼
 	@GetMapping("/join")
 	public String join(@ModelAttribute UserVo userVo) {
@@ -190,15 +187,16 @@ public class UserController {
 		return "users/updateform";
 	}
 
-	//비밀번호 변경
+	// 비밀번호 변경
 	@PostMapping("/updateform")
-	public String updateUserAction(@RequestParam("userNo") Long userNo, @RequestParam("password") String password, Model model) {
-	    boolean success = userService.updatePassword(userNo, password);
-	    if (success) {
-	        return "users/updatesuccess";
-	    } else {
-	        return "users/updateform";
-	    }
+	public String updateUserAction(@RequestParam("userNo") Long userNo, @RequestParam("password") String password,
+			Model model) {
+		boolean success = userService.updatePassword(userNo, password);
+		if (success) {
+			return "users/updatesuccess";
+		} else {
+			return "users/updateform";
+		}
 	}
 
 	// 회원 수정 완료 폼
@@ -296,7 +294,7 @@ public class UserController {
 			if (success) {
 				double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
 				session.setAttribute("approvedCashAmount", approvedCashAmount);
-				  return "redirect:/products/detail?productNo=" + productNo;
+				return "redirect:/products/detail?productNo=" + productNo;
 			}
 			return "redirect:/";
 		}
@@ -304,49 +302,51 @@ public class UserController {
 	}
 
 	// 예성씌 파트 end ----------------------------------------
-	
-	//	쿠폰 입력 창
+
+	// 쿠폰 입력 창
 	@GetMapping("/coupon")
 	public String couponForm() {
 		return "/users/selectcoupon";
 	}
 	
-	@PostMapping("/coupon/validate")
-	public ResponseEntity<Map<String, Object>> validateCoupon(@RequestBody CouponVo couponVo, BindingResult result) {
-	    Map<String, Object> response = new HashMap<>();
+	
+	@ResponseBody
+	@RequestMapping("/validateCoupon")
+	public Object validateCoupon(@RequestParam(value = "couponCode", required = true) String couponCode) {
+	    Map<String, Object> json = new HashMap<>();
+	    try {
+	        long count = userService.getCouponCountByCodeAndStatus(couponCode);
+	        
+	        System.out.println("되냐:"+ count);
+	        boolean exists = count > 0;
 
-	    String couponCode = couponVo.getCouponCode();
-	    String expiryYn = couponVo.getExpiryYn();
-
-	    // Perform validation
-	    boolean isValid = userService.isCouponValid(couponCode, expiryYn);
-
-	    if (result.hasErrors()) {
-	        List<ObjectError> errors = result.getAllErrors();
-	        response.put("errors", errors);
-	        return ResponseEntity.badRequest().body(response);
+	        json.put("result", "success");
+	        json.put("exists", exists);
+	    } catch (Exception e) {
+	        json.put("result", "error");
+	        json.put("message", e.getMessage());
+	        e.printStackTrace(); // 로그에 오류 출력
 	    }
-
-	    response.put("couponCode", couponCode);
-	    response.put("expiryYn", expiryYn);
-	    response.put("isValid", isValid);
-
-	    return ResponseEntity.ok(response);
+	    return json;
 	}
-    
-    // 쿠폰등록 성공 페이지
- 	@RequestMapping("/couponsuccess")
- 	public String couponsuccess() {
- 		return "users/couponsuccess";
- 	}
- 	
- 	// 240718 예성/////////////////////////////////////////////
- 	// 쿠폰 리스트로 이동 내 쿠폰 확인
- 	@GetMapping("/couponlist")
- 	public String getCouponList(Model model) {
- 		 List<CouponVo> couponList = couponService.getCouponList();
-         model.addAttribute("coupons", couponList);
- 		return "users/couponlist";
- 	}
+
+	// 쿠폰 확인
+	
+
+
+	// 쿠폰등록 성공 페이지
+	@RequestMapping("/couponsuccess")
+	public String couponsuccess() {
+		return "users/couponsuccess";
+	}
+
+	// 240718 예성/////////////////////////////////////////////
+	// 쿠폰 리스트로 이동 내 쿠폰 확인
+	@GetMapping("/couponlist")
+	public String getCouponList(Model model) {
+		List<CouponVo> couponList = couponService.getCouponList();
+		model.addAttribute("coupons", couponList);
+		return "users/couponlist";
+	}
 
 }

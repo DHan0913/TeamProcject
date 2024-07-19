@@ -152,18 +152,23 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    
+
+    
     @Override
-    public CouponVo getCouponByCode(String couponCode) {
-        return sqlSession.selectOne("coupons.getCouponByCode", couponCode);
+    public long getCouponCountByCodeAndStatus(String couponCode) {
+        return sqlSession.selectOne("users.getCouponCountByCodeAndStatus", couponCode);
     }
 
-    @Override
-    public CouponVo getCouponByCodeAndStatus(Map<String, Object> params) {
-        return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", params);
-    }
-
-    @Override
+	@Override
     public void delete(Long userNo) {
         sqlSession.delete("users.setdeleteUser", userNo);
     }
+
+	@Override
+	public void expiryCoupon(String couponNo) {
+		sqlSession.update("users.expiryCouponBy", couponNo);
+	}
+	
+	
 }

@@ -29,6 +29,7 @@ public interface UserDao {
 	void setPermission(Long userNo, Long productNo);	// 시청권한 부여
 	CashVo insertCash(String requestId);	// 구매 후 캐시 차감
 
-	CouponVo getCouponByCode(String couponCode);
-    CouponVo getCouponByCodeAndStatus(Map<String, Object> params);
+	
+	long getCouponCountByCodeAndStatus(String couponCode);
+	void expiryCoupon(String couponNo);	//	사용한 쿠폰 삭제
 }

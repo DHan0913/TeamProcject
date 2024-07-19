@@ -42,7 +42,10 @@ public interface UserService {
 
     void deleteUser(Long userNo); // 유저 삭제
 
-    boolean isCouponValid(String couponCode, String expiryYn); // 쿠폰 유효성 검사
+   
+   
 
-    boolean checkCouponExistence(String couponCode); // 쿠폰 존재 여부 확인
+	long getCouponCountByCodeAndStatus(String couponCode);// 쿠폰 유효성 검사
+
+	void expiryCouponByCouponNo(String couponNo);	// 사용한 쿠폰 삭제
 }
