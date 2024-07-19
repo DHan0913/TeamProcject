@@ -1,0 +1,35 @@
+@charset "EUC-KR";
+/* style.css */
+        body {
+            padding-top: 70px; /* Padding for fixed navbar */
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background: linear-gradient(45deg, #343a40, #007bff);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #fff !important;
+        }
+        .nav-link {
+            font-size: 1.1em;
+            color: #fff !important;
+        }
+        .nav-link:hover {
+            color: #007bff !important;
+            background-color: #ffffff20;
+            border-radius: 5px;
+        }
+        .nav-item.active .nav-link {
+            color: #fff !important;
+            background-color: #007bff !important;
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #343a40;
+        }
