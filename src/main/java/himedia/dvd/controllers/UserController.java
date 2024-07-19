@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.CouponService;
 import himedia.dvd.services.PermissionService;
@@ -346,4 +348,14 @@ public class UserController {
  	public String couponsuccess() {
  		return "users/couponsuccess";
  	}
+ 	
+ 	// 240718 예성/////////////////////////////////////////////
+ 	// 쿠폰 리스트로 이동 내 쿠폰 확인
+ 	@GetMapping("/couponlist")
+ 	public String getCouponList(Model model) {
+ 		 List<CouponVo> couponList = couponService.getCouponList();
+         model.addAttribute("coupons", couponList);
+ 		return "users/couponlist";
+ 	}
+
 }

@@ -25,4 +25,8 @@ public interface CouponService {
 	
 	boolean isCouponValid(String couponCode, String expiryYn);
     boolean checkCouponExistence(String couponCode);
+    
+    // 24.07.18 예성
+    // 지급한 쿠폰 리스트 목록
+    List<CouponVo> getCouponList();
 }

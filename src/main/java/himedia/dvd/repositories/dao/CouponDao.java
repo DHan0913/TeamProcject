@@ -2,6 +2,8 @@ package himedia.dvd.repositories.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import himedia.dvd.repositories.vo.CouponVo;
 
 public interface CouponDao {
@@ -25,5 +27,9 @@ public interface CouponDao {
 	
 	CouponVo getCouponByCode(String couponCode);
     CouponVo getCouponByCodeAndStatus(String couponCode, String expiryYn);
+    
+    // 24.07.18 예성
+    // 지급한 쿠폰 목록
+    List<CouponVo> getCouponList();
 }
 

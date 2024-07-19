@@ -28,6 +28,13 @@ public class CouponVo {
 		this.userId = userId;
 		this.expiryYn = expiryYn;
 	}
+	
+	// 24.07.18 예성 // 지급받은 쿠폰 리스트를 위한 생성자
+	public CouponVo(String couponCode, Date expiryDate) {
+		super();
+		this.couponCode = couponCode;
+		this.expiryDate = expiryDate;
+	}
 
 	public Long getCouponId() {
 		return couponId;
