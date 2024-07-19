@@ -62,9 +62,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUser(UserVo vo) {
-		return userDao.update(vo);
-	}
+    public boolean updatePassword(Long userNo, String password) {
+        return userDao.updatePassword(userNo, password) > 0;
+    }
 
 	//탈퇴 요청
 	@Override
