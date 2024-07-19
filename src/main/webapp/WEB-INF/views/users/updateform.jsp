@@ -7,6 +7,7 @@
 <title>회원 정보 수정</title>
 </head>
 <body>
+
 <h1>회원 정보 수정</h1>
 <form id="update-form" name="updateForm" method="POST" action="<c:url value='/users/updateform' />">
     <input type="hidden" id="userNo" name="userNo" value="${authUser.userNo}" />
@@ -25,5 +26,6 @@
     <button type="submit">수정</button>
     <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
 </form>
+
 </body>
 </html>

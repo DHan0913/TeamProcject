@@ -87,5 +87,12 @@ public class CouponDaoImpl implements CouponDao {
         coupon.setExpiryYn(expiryYn);
         return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", coupon);
     }
+
+    // 예성 지급된 쿠폰 리스트 출력하기
+	@Override
+	public List<CouponVo> getCouponList() {
+		List<CouponVo> couponlist = sqlSession.selectList("coupons.getCouponList");
+		return couponlist;
+	}
 	
 }

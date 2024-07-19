@@ -89,4 +89,18 @@
 	WHERE COUPON_CODE = #{couponCode}
 
 </select>
+
+    <!-- 24.07.18 예성 -->
+    <!-- 지급받은 쿠폰 리스트 출력하기 -->
+    <select id="getCouponList" resultMap="couponResultMap">
+       SELECT
+          coupon_id AS couponId,
+          coupon_code AS couponCode,
+          expiry_date AS expiryDate,
+          issued_date AS issuedDate,
+          expiry_yn AS expiryYn
+        FROM coupons
+        WHERE expiry_yn = 'N' </select>
+    
+
 </mapper>
