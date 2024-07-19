@@ -19,7 +19,7 @@ public interface UserService {
 
 	UserVo getUserByEmail(String email); // 이메일로 회원정보 불러오기
 
-	boolean updateUser(UserVo vo); // 회원정보 수정
+	boolean updatePassword(Long userNo, String password);//비밀번호 변경
 
 	boolean deleteUser(String email); // 회원정보 삭제요청
 	
@@ -36,6 +36,8 @@ public interface UserService {
 
 
 	boolean resetPassword(Long userNo); // 유저 비밀번호 초기화
+
+
 	
 	boolean isCouponValid(String couponCode, String expiryYn);
     boolean checkCouponExistence(String couponCode);

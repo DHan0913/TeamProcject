@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
@@ -189,23 +190,15 @@ public class UserController {
 		return "users/updateform";
 	}
 
-//	 회원정보 수정 액션
+	//비밀번호 변경
 	@PostMapping("/updateform")
-	public String updateUserAction(@ModelAttribute UserVo vo, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError e : list) {
-				System.err.println("Error" + e);
-			}
-			model.addAllAttributes(result.getModel());
-			return "users/updateform";
-		}
-		boolean success = userService.updateUser(vo);
-		if (success) {
-			return "users/updatesuccess";
-		} else {
-			return "users/updateform";
-		}
+	public String updateUserAction(@RequestParam("userNo") Long userNo, @RequestParam("password") String password, Model model) {
+	    boolean success = userService.updatePassword(userNo, password);
+	    if (success) {
+	        return "users/updatesuccess";
+	    } else {
+	        return "users/updateform";
+	    }
 	}
 
 	// 회원 수정 완료 폼
@@ -346,4 +339,14 @@ public class UserController {
  	public String couponsuccess() {
  		return "users/couponsuccess";
  	}
+ 	
+ 	// 240718 예성/////////////////////////////////////////////
+ 	// 쿠폰 리스트로 이동 내 쿠폰 확인
+ 	@GetMapping("/couponlist")
+ 	public String getCouponList(Model model) {
+ 		 List<CouponVo> couponList = couponService.getCouponList();
+         model.addAttribute("coupons", couponList);
+ 		return "users/couponlist";
+ 	}
+
 }

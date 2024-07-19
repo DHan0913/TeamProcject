@@ -38,7 +38,8 @@
 			<button type="button" onclick="location.href='<c:url value="/users/updateform" />'">수정하기</button>
 			<button type="button" onclick="location.href='<c:url value="/users/deleteconfirm" />'">탈퇴하기</button>
 			<button type="button" onclick="window.location.href='<c:url value="/" />'">홈으로</button>
-			<button type="button" onclick="location.href='<c:url value="/users/coupon" />'">쿠폰</button>
+			<button type="button" onclick="location.href='<c:url value="/users/coupon" />'">쿠폰충전</button>
+			<button type="button" onclick="location.href='<c:url value="/users/couponlist" />'">쿠폰관리</button>
 		</div>
 		</div>
 	</form:form>
