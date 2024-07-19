@@ -43,9 +43,11 @@ public interface UserService {
 
     void deleteUser(Long userNo); // 유저 삭제
 
-    boolean isCouponValid(String couponCode, String expiryYn); // 쿠폰 유효성 검사
+    long getCouponCountByCodeAndStatus(String couponCode); // 쿠폰 유효성 검사
+
+    void expiryCouponByCouponNo(String couponNo); // 사용한 쿠폰 삭제
 
     boolean checkCouponExistence(String couponCode); // 쿠폰 존재 여부 확인
     
-    List<Map<String, Object>> getWatchHistory(Long userNo);
+    List<Map<String, Object>> getWatchHistory(Long userNo); // 시청 내역 조회
 }
