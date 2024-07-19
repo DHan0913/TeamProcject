@@ -31,322 +31,313 @@ import jakarta.validation.Valid;
 @Controller
 public class UserController {
 
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private ProductService productService;
-	@Autowired
-	private PermissionService permissionService;
-	@Autowired
-	private CouponService couponService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private PermissionService permissionService;
+    @Autowired
+    private CouponService couponService;
 
-	// 가입 폼
-	@GetMapping("/join")
-	public String join(@ModelAttribute UserVo userVo) {
-		return "users/joinform";
-	}
+    // 가입 폼
+    @GetMapping("/join")
+    public String join(@ModelAttribute UserVo userVo) {
+        return "users/joinform";
+    }
 
-	// 가입 처리
-	@PostMapping("/join")
-	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
-		System.out.println("회원 가입 폼: " + userVo);
+    // 가입 처리
+    @PostMapping("/join")
+    public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
+        System.out.println("회원 가입 폼: " + userVo);
 
-		// 비밀번호와 비밀번호 확인 검증
-		if (!userVo.getPassword().equals(userVo.getPasswordConfirm())) {
-			result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
-		}
+        // 비밀번호와 비밀번호 확인 검증
+        if (!userVo.getPassword().equals(userVo.getPasswordConfirm())) {
+            result.rejectValue("passwordConfirm", "error.passwordConfirm", "비밀번호가 일치하지 않습니다.");
+        }
 
-		// 약관 동의 확인 로직 추가
-		if (userVo.getAgree() == null || !userVo.getAgree()) {
-			result.rejectValue("agree", "agree.required");
-		}
+        // 약관 동의 확인 로직 추가
+        if (userVo.getAgree() == null || !userVo.getAgree()) {
+            result.rejectValue("agree", "agree.required");
+        }
 
-		// 검증 결과 확인
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError e : list) {
-				System.err.println("Error" + e);
-			}
-			model.addAllAttributes(result.getModel());
-			return "users/joinform";
-		}
-		boolean success = userService.join(userVo);
-		if (success) { // 가입 성공
-			// 가입 성공 페이지로
-			System.out.println("회원 가입 성공");
-			return "redirect:/users/joinsuccess";
-		} else {
-			// 실패
-			System.err.println("회원 가입 실패");
-			return "redirect:/users/join";
-		}
-	}
+        // 검증 결과 확인
+        if (result.hasErrors()) {
+            List<ObjectError> list = result.getAllErrors();
+            for (ObjectError e : list) {
+                System.err.println("Error" + e);
+            }
+            model.addAllAttributes(result.getModel());
+            return "users/joinform";
+        }
+        boolean success = userService.join(userVo);
+        if (success) { // 가입 성공
+            System.out.println("회원 가입 성공");
+            return "redirect:/users/joinsuccess";
+        } else {
+            // 실패
+            System.err.println("회원 가입 실패");
+            return "redirect:/users/join";
+        }
+    }
 
-	// 가입 성공 페이지
-	@RequestMapping("/joinsuccess")
-	public String joinSuccess() {
-		return "users/joinsuccess";
-	}
+    // 가입 성공 페이지
+    @RequestMapping("/joinsuccess")
+    public String joinSuccess() {
+        return "users/joinsuccess";
+    }
 
-	// 로그인 폼 페이지
-	@GetMapping("/login")
-	public String loginForm() {
-		return "users/loginform";
-	}
+    // 로그인 폼 페이지
+    @GetMapping("/login")
+    public String loginForm() {
+        return "users/loginform";
+    }
 
-	@PostMapping("/login")
-	public String loginAction(@RequestParam(value = "email", required = false, defaultValue = "") String email,
-			@RequestParam(value = "password", required = false, defaultValue = "") String password, HttpSession session,
-			Model model) {
-		System.out.println("email:" + email);
-		System.out.println("password:" + password);
+    @PostMapping("/login")
+    public String loginAction(@RequestParam(value = "email", required = false, defaultValue = "") String email,
+                              @RequestParam(value = "password", required = false, defaultValue = "") String password,
+                              HttpSession session, Model model) {
+        System.out.println("email:" + email);
+        System.out.println("password:" + password);
 
-		// 이메일이나 비밀번호를 입력하지 않은 경우
-		if (email.isEmpty() || password.isEmpty()) {
-			System.out.println("email 혹은 password가 입력되지 않음");
-			model.addAttribute("이메일 또는 비밀번호를 입력해주세요.");
-			return "redirect:/users/login?error=empty";
-		}
+        // 이메일이나 비밀번호를 입력하지 않은 경우
+        if (email.isEmpty() || password.isEmpty()) {
+            System.out.println("email 혹은 password가 입력되지 않음");
+            model.addAttribute("이메일 또는 비밀번호를 입력해주세요.");
+            return "redirect:/users/login?error=empty";
+        }
 
-		// 사용자 인증
-		UserVo authUser = userService.login(email, password);
+        // 사용자 인증
+        UserVo authUser = userService.login(email, password);
 
-		if (authUser != null) {
-			double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
-			session.setAttribute("authUser", authUser);
-			session.setAttribute("approvedCashAmount", approvedCashAmount);
+        if (authUser != null) {
+            double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
+            session.setAttribute("authUser", authUser);
+            session.setAttribute("approvedCashAmount", approvedCashAmount);
 
-			System.out.println("로그인 성공 - Role: " + authUser.getRole());
+            System.out.println("로그인 성공 - Role: " + authUser.getRole());
 
-			if (authUser.getRole() == 1) { // 관리자
-				session.setAttribute("authAdmin", authUser);
-				session.setAttribute("authUser", authUser);
-				System.out.println("관리자로 로그인 성공");
-				return "redirect:/admin/home"; // 관리자 홈으로
-			} else {
-				return "redirect:/"; // 일반 사용자 홈으로
-			}
-		} else {
-			// 로그인 실패시
-			System.out.println("로그인 실패");
-			model.addAttribute("로그인에 실패했습니다.");
-			return "redirect:/users/login?error=fail";
-		}
-	}
+            if (authUser.getRole() == 1) { // 관리자
+                session.setAttribute("authAdmin", authUser);
+                session.setAttribute("authUser", authUser);
+                System.out.println("관리자로 로그인 성공");
+                return "redirect:/admin/home"; // 관리자 홈으로
+            } else {
+                return "redirect:/"; // 일반 사용자 홈으로
+            }
+        } else {
+            // 로그인 실패시
+            System.out.println("로그인 실패");
+            model.addAttribute("로그인에 실패했습니다.");
+            return "redirect:/users/login?error=fail";
+        }
+    }
 
-	// 관리자용 페이지
-	@GetMapping("/admin")
-	public String adminHome() {
-		return "admin/home";
-	}
+    // 관리자용 페이지
+    @GetMapping("/admin")
+    public String adminHome() {
+        return "admin/home";
+    }
 
-	// 로그아웃
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("authUser");
-		session.invalidate();
+    // 로그아웃
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("authUser");
+        session.invalidate();
 
-		return "redirect:/";
-	}
+        return "redirect:/";
+    }
 
-	// 중복 이메일 체크
-	@ResponseBody // -> MessageConverter 사용
-	@RequestMapping("/checkEmail")
-	public Object checkEmail(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
-		UserVo vo = userService.login(email);
-		boolean exists = vo != null ? true : false;
+    // 중복 이메일 체크
+    @ResponseBody
+    @RequestMapping("/checkEmail")
+    public Object checkEmail(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
+        UserVo vo = userService.login(email);
+        boolean exists = vo != null;
 
-		System.out.println("Controller UserVo: " + vo);
+        System.out.println("Controller UserVo: " + vo);
 
-		Map<String, Object> json = new HashMap<>();
-		json.put("result", "success");
-		json.put("exists", exists);
+        Map<String, Object> json = new HashMap<>();
+        json.put("result", "success");
+        json.put("exists", exists);
 
-		return json;
+        return json;
+    }
 
-	}
+    // 회원 상세정보 폼
+    @GetMapping("/{email}/userinfo")
+    public String userInfo(@PathVariable("email") String email, Model model) {
+        model.addAttribute("email", email);
+        return "users/userinfo";
+    }
 
-	/*
-	 * @GetMapping("/{userNo}") public String view(@PathVariable("userNo") Long no,
-	 * Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-	 * UserVo authUser = (UserVo)session.getAttribute("authUser");
-	 * 
-	 * return "updateuser/updateform"; }
-	 */
+    // 회원정보 수정 폼
+    @GetMapping("/updateform")
+    public String updateForm() {
+        return "users/updateform";
+    }
 
-	// 회원 상세정보 폼
-	@GetMapping("/{email}/userinfo")
-	public String userInfo(@PathVariable("email") String email, Model model) {
-		model.addAttribute("email", email);
-		return "users/userinfo";
-	}
+    // 비밀번호 변경
+    @PostMapping("/updateform")
+    public String updateUserAction(@RequestParam("userNo") Long userNo, @RequestParam("password") String password,
+                                   Model model) {
+        boolean success = userService.updatePassword(userNo, password);
+        if (success) {
+            return "users/updatesuccess";
+        } else {
+            return "users/updateform";
+        }
+    }
 
-	// 회원정보 수정 폼
-	@GetMapping("/updateform")
-	public String updateForm() {
-		return "users/updateform";
-	}
+    // 회원 수정 완료 폼
+    @RequestMapping("/updatesuccess")
+    public String updateSuccess() {
+        return "users/updatesuccess";
+    }
 
-	// 비밀번호 변경
-	@PostMapping("/updateform")
-	public String updateUserAction(@RequestParam("userNo") Long userNo, @RequestParam("password") String password,
-			Model model) {
-		boolean success = userService.updatePassword(userNo, password);
-		if (success) {
-			return "users/updatesuccess";
-		} else {
-			return "users/updateform";
-		}
-	}
+    // 회원 탈퇴(삭제) 폼
+    @GetMapping("/deleteconfirm")
+    public String deleteConfirm() {
+        return "users/deleteconfirm";
+    }
 
-	// 회원 수정 완료 폼
-	@RequestMapping("/updatesuccess")
-	public String updateSuccess() {
-		return "users/updatesuccess";
-	}
+    @PostMapping("/{email}/deleteconfirm")
+    public String deleteUserAction(@PathVariable("email") String email, @RequestParam("password") String password,
+                                   HttpSession session) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        if (authUser == null || !authUser.getEmail().equals(email) || !authUser.getPassword().equals(password)) {
+            return "redirect:/users/deleteconfirm?error=fail";
+        }
+        boolean success = userService.deleteUser(email); // 회원 삭제 메서드 호출
+        if (success) {
+            session.invalidate();
+            return "redirect:/users/deletesuccess"; // 회원 삭제 성공시 성공페이지로 리다이렉트
+        } else {
+            return "redirect:/users/deleteconfirm?error=fail"; // 실패시
+        }
+    }
 
-	// 회원 탈퇴(삭제) 폼
-	@GetMapping("/deleteconfirm")
-	public String deleteConfirm() {
-		return "users/deleteconfirm";
-	}
+    // 회원 삭제 완료 폼
+    @RequestMapping("/deletesuccess")
+    public String deleteSuccess() {
+        return "users/deletesuccess";
+    }
 
-	@PostMapping("/{email}/deleteconfirm")
-	public String deleteUserAction(@PathVariable("email") String email, @RequestParam("password") String password,
-			HttpSession session) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null || !authUser.getEmail().equals(email) || !authUser.getPassword().equals(password)) {
-			return "redirect:/users/deleteconfirm?error=fail";
-		}
-		boolean success = userService.deleteUser(email); // 회원 삭제 메서드 호출
-		if (success) {
-			session.invalidate();
-			return "redirect:/users/deletesuccess"; // 회원 삭제 성공시 성공페이지로 리다이렉트
-		} else {
-			return "redirect:/users/deleteconfirm?error=fail"; // 실패시 ......
-		}
-	}
+    // 캐시 충전 요청 폼
+    @GetMapping("/requestcash")
+    public String requestCashForm() {
+        return "users/requestcashform";
+    }
 
-	// 회원 삭제 완료 폼
-	@RequestMapping("/deletesuccess")
-	public String deleteSuccess() {
-		return "users/deletesuccess";
-	}
+    // 충전 요청
+    @PostMapping("/requestcash")
+    public String requestCash(@RequestParam String requestId, @RequestParam Double amount, HttpSession session,
+                              Model model) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        String loggedInEmail = authUser.getEmail();
 
-	// 캐시 충전 요청 폼
-	@GetMapping("/requestcash")
-	public String requestCashForm() {
-		return "users/requestcashform";
-	}
+        if (!requestId.equals(loggedInEmail)) {
+            model.addAttribute("errorMessage", "요청 ID가 로그인된 이메일과 일치하지 않습니다.");
+            return "users/requestcashform";
+        }
 
-	// 충전 요청
-	@PostMapping("/requestcash")
-	public String requestCash(@RequestParam String requestId, @RequestParam Double amount, HttpSession session,
-			Model model) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		String loggedInEmail = authUser.getEmail();
+        boolean success = userService.requestCash(requestId, amount);
 
-		if (!requestId.equals(loggedInEmail)) {
-			model.addAttribute("errorMessage", "요청 ID가 로그인된 이메일과 일치하지 않습니다.");
-			return "users/requestcashform";
-		}
+        if (success) {
+            double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
+            session.setAttribute("approvedCashAmount", approvedCashAmount);
+            model.addAttribute("message", "캐시 충전 요청이 성공적으로 제출되었습니다.");
+            return "redirect:/";
+        } else {
+            model.addAttribute("errorMessage", "캐시 충전 요청에 실패했습니다.");
+            return "users/requestcashform";
+        }
+    }
 
-		boolean success = userService.requestCash(requestId, amount);
+    // 충전 내역
+    @GetMapping("/cashhistory")
+    public String getCashHistory(HttpSession session, Model model) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		if (success) {
-			double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
-			session.setAttribute("approvedCashAmount", approvedCashAmount);
-			model.addAttribute("message", "캐시 충전 요청이 성공적으로 제출되었습니다.");
-			return "redirect:/";
-		} else {
-			model.addAttribute("errorMessage", "캐시 충전 요청에 실패했습니다.");
-			return "users/requestcashform";
-		}
-	}
+        List<CashVo> cashList = userService.getCashHistory(authUser.getEmail());
+        double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
 
-	// 충전 내역
-	@GetMapping("/cashhistory")
-	public String getCashHistory(HttpSession session, Model model) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+        model.addAttribute("cashList", cashList);
+        model.addAttribute("totalAmount", totalAmount);
 
-		List<CashVo> cashList = userService.getCashHistory(authUser.getEmail());
-		double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
+        return "users/cashhistory";
+    }
 
-		model.addAttribute("cashList", cashList);
-		model.addAttribute("totalAmount", totalAmount);
+    // 예성씌 파트 ----------------------------------------
 
-		return "users/cashhistory";
-	}
+    @GetMapping("/payment/{productNo}")
+    public String paymentAction(@PathVariable("productNo") Long productNo, HttpSession session) {
+        UserVo vo = (UserVo) session.getAttribute("authUser");
+        String email = vo.getEmail();
+        List<CashVo> cashList = userService.getCashHistory(email);
+        double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
+        System.out.println("잔액:" + totalAmount);
 
-	// 예성씌 파트 ----------------------------------------
+        if (totalAmount >= 3000) {
+            boolean success = userService.insertCash(email);
+            permissionService.setPermission(vo.getUserNo(), productNo);
+            if (success) {
+                double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
+                session.setAttribute("approvedCashAmount", approvedCashAmount);
+                return "redirect:/products/detail?productNo=" + productNo;
+            }
+            return "redirect:/";
+        }
+        return "redirect:/";
+    }
 
-	@GetMapping("/payment/{productNo}")
-	public String paymentAction(@PathVariable("productNo") Long productNo, HttpSession session) {
-		UserVo vo = (UserVo) session.getAttribute("authUser");
-		String email = vo.getEmail();
-		List<CashVo> cashList = userService.getCashHistory(email);
-		double totalAmount = cashList.stream().mapToDouble(CashVo::getAmount).sum();
-		System.out.println("잔액:" + totalAmount);
+    // 예성씌 파트 end ----------------------------------------
 
-		if (totalAmount >= 3000) {
-			boolean success = userService.insertCash(email);
-			permissionService.setPermission(vo.getUserNo(), productNo);
-			if (success) {
-				double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
-				session.setAttribute("approvedCashAmount", approvedCashAmount);
-				return "redirect:/products/detail?productNo=" + productNo;
-			}
-			return "redirect:/";
-		}
-		return "redirect:/";
-	}
+    // 쿠폰 입력 창
+    @GetMapping("/coupon")
+    public String couponForm() {
+        return "/users/selectcoupon";
+    }
 
-	// 예성씌 파트 end ----------------------------------------
+    @ResponseBody
+    @RequestMapping("/validateCoupon")
+    public Object validateCoupon(@RequestParam(value = "couponCode", required = true) String couponCode) {
+        Map<String, Object> json = new HashMap<>();
+        try {
+            long count = userService.getCouponCountByCodeAndStatus(couponCode);
 
-	// 쿠폰 입력 창
-	@GetMapping("/coupon")
-	public String couponForm() {
-		return "/users/selectcoupon";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping("/validateCoupon")
-	public Object validateCoupon(@RequestParam(value = "couponCode", required = true) String couponCode) {
-	    Map<String, Object> json = new HashMap<>();
-	    try {
-	        long count = userService.getCouponCountByCodeAndStatus(couponCode);
-	        
-	        System.out.println("되냐:"+ count);
-	        boolean exists = count > 0;
+            System.out.println("되냐:" + count);
+            boolean exists = count > 0;
 
-	        json.put("result", "success");
-	        json.put("exists", exists);
-	    } catch (Exception e) {
-	        json.put("result", "error");
-	        json.put("message", e.getMessage());
-	        e.printStackTrace(); // 로그에 오류 출력
-	    }
-	    return json;
-	}
+            json.put("result", "success");
+            json.put("exists", exists);
+        } catch (Exception e) {
+            json.put("result", "error");
+            json.put("message", e.getMessage());
+            e.printStackTrace(); // 로그에 오류 출력
+        }
+        return json;
+    }
 
-	// 쿠폰 확인
-	
+    // 쿠폰등록 성공 페이지
+    @RequestMapping("/couponsuccess")
+    public String couponsuccess() {
+        return "users/couponsuccess";
+    }
 
+    // 240718 예성
+    // 쿠폰 리스트로 이동 내 쿠폰 확인
+    @GetMapping("/couponlist")
+    public String getCouponList(Model model) {
+        List<CouponVo> couponList = couponService.getCouponList();
+        model.addAttribute("coupons", couponList);
+        return "users/couponlist";
+    }
 
-	// 쿠폰등록 성공 페이지
-	@RequestMapping("/couponsuccess")
-	public String couponsuccess() {
-		return "users/couponsuccess";
-	}
-
-	// 240718 예성/////////////////////////////////////////////
-	// 쿠폰 리스트로 이동 내 쿠폰 확인
-	@GetMapping("/couponlist")
-	public String getCouponList(Model model) {
-		List<CouponVo> couponList = couponService.getCouponList();
-		model.addAttribute("coupons", couponList);
-		return "users/couponlist";
-	}
-
+    @GetMapping("/watchhistory")
+    public String getwatchhistory(@RequestParam("userNo") Long userNo, Model model) {
+        List<Map<String, Object>> watchHistoryList = userService.getWatchHistory(userNo);
+        model.addAttribute("watchHistory", watchHistoryList);
+        return "users/watchhistory";
+    }
 }

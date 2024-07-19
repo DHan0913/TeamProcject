@@ -3,212 +3,183 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
 
-	<!-- INSERT (회원 가입) -->
-	<insert id="insert" parameterType="UserVo">
-		<selectKey keyProperty="userNo" resultType="long"
-			order="BEFORE">
-			SELECT user_no_seq.nextval FROM dual
-		</selectKey>
-		INSERT INTO users (user_no, username, birth, email, password, regdate,
-		status)
-		VALUES (#{userNo}, #{username}, #{birth}, #{email},
-		#{password}, SYSDATE,
-		'로그인 가능')
-	</insert>
+    <!-- INSERT (회원 가입) -->
+    <insert id="insert" parameterType="UserVo">
+        <selectKey keyProperty="userNo" resultType="long" order="BEFORE">
+            SELECT user_no_seq.nextval FROM dual
+        </selectKey>
+        INSERT INTO users (user_no, username, birth, email, password, regdate, status)
+        VALUES (#{userNo}, #{username}, #{birth}, #{email}, #{password}, SYSDATE, '로그인 가능')
+    </insert>
 
-	<select id="selectAllUsers" resultType="UserVo">
-		SELECT user_no AS userNo,
-		username, birth, email, regdate, role, status
-		FROM users
-		ORDER BY
-		user_no ASC
-	</select>
+    <select id="selectAllUsers" resultType="UserVo">
+        SELECT user_no AS userNo, username, birth, email, regdate, role, status
+        FROM users
+        ORDER BY user_no ASC
+    </select>
 
-	<select id="selectUsers" parameterType="long"
-		resultType="UserVo">
-		SELECT user_no AS userNo, username, birth, email, regdate,
-		role, status
-		FROM users
-		WHERE user_no=#{userNo}
-	</select>
+    <select id="selectUsers" parameterType="long" resultType="UserVo">
+        SELECT user_no AS userNo, username, birth, email, regdate, role, status
+        FROM users
+        WHERE user_no=#{userNo}
+    </select>
 
-	<select id="selectUserByEmail" parameterType="string"
-		resultType="UserVo">
-		SELECT user_no as userNo, username, birth, email, password,
-		regdate, status
-		FROM users
-		WHERE email=#{value}
-	</select>
+    <select id="selectUserByEmail" parameterType="string" resultType="UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate, status
+        FROM users
+        WHERE email=#{value}
+    </select>
 
-	<!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
-	<select id="selectUserByEmailAndPassword" parameterType="map"
-		resultType="UserVo">
-		SELECT user_no as userNo, username, birth, email, password,
-		regdate, role,
-		status
-		FROM users
-		WHERE email=#{email} AND
-		password=#{password} AND status = '로그인 가능'
-	</select>
+    <!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->
+    <select id="selectUserByEmailAndPassword" parameterType="map" resultType="UserVo">
+        SELECT user_no as userNo, username, birth, email, password, regdate, role, status
+        FROM users
+        WHERE email=#{email} AND password=#{password} AND status = '로그인 가능'
+    </select>
 
-	<!-- UPDATE (사용자 정보 수정) -->
-	<update id="updateUser" parameterType="UserVo">
-		UPDATE users
-		SET
-		email=#{email}, password=#{password}, status='로그인 가능'
-		WHERE
-		user_no=#{userNo}
-	</update>
+    <!-- UPDATE (사용자 정보 수정) -->
+    <update id="updateUser" parameterType="UserVo">
+        UPDATE users
+        SET email=#{email}, password=#{password}, status='로그인 가능'
+        WHERE user_no=#{userNo}
+    </update>
 
-	<!-- DELETE (사용자 상태를 '탈퇴 요청'으로 변경) -->
-	<update id="deleteUser" parameterType="String">
-		UPDATE users SET status =
-		'탈퇴 요청' WHERE email = #{email}
-	</update>
+    <!-- DELETE (사용자 상태를 '탈퇴 요청'으로 변경) -->
+    <update id="deleteUser" parameterType="String">
+        UPDATE users SET status = '탈퇴 요청' WHERE email = #{email}
+    </update>
 
-	<!-- SET DELETE USER (사용자 상태를 '삭제된 회원'으로 변경) -->
-	<update id="setdeleteUser" parameterType="Long">
-		UPDATE users SET
-		password = '삭제된 회원', birth='삭제된 회원', username = '삭제된 회원'
-		WHERE user_no
-		= #{userNo}
-	</update>
+    <!-- SET DELETE USER (사용자 상태를 '삭제된 회원'으로 변경) -->
+    <update id="setdeleteUser" parameterType="Long">
+        UPDATE users SET password = '삭제된 회원', birth='삭제된 회원', username = '삭제된 회원' WHERE user_no = #{userNo}
+    </update>
 
-	<!-- RESET (암호 초기화) -->
-	<update id="resetUser" parameterType="long">
-		UPDATE users
-		SET
-		password='0000', status='로그인 가능'
-		WHERE user_no=#{userNo}
-	</update>
+    <!-- RESET (암호 초기화) -->
+    <update id="resetUser" parameterType="long">
+        UPDATE users
+        SET password='0000', status='로그인 가능'
+        WHERE user_no=#{userNo}
+    </update>
 
-	<!-- 비밀번호 변경 -->
-	<update id="updatePassword" parameterType="map">
-		UPDATE users
-		SET
-		password=#{password}
-		WHERE user_no=#{userNo}
-	</update>
+    <!-- 비밀번호 변경 -->
+    <update id="updatePassword" parameterType="map">
+        UPDATE users
+        SET password=#{password}
+        WHERE user_no=#{userNo}
+    </update>
 
-	<!-- 권한 체크 -->
-	<select id="hasPermission" parameterType="map" resultType="int">
-		SELECT COUNT(*)
-		FROM UserPermissions
-		WHERE User_No = #{userNo} AND
-		Product_No = #{productNo}
-	</select>
+    <!-- 권한 체크 -->
+    <select id="hasPermission" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM UserPermissions
+        WHERE User_No = #{userNo} AND Product_No = #{productNo}
+    </select>
 
-	<!-- 예성씌 파트 -->
-	<!-- 구매후 시청권한 부여 -->
-	<insert id="setPermission" parameterType="map">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			SELECT
-			UserPermissions_seq.nextval FROM dual
-		</selectKey>
-		INSERT INTO UserPermissions (UserPermissionID, User_no, Product_no,
-		GrantedAt)
-		VALUES (#{id}, #{userNo}, #{productNo}, CURRENT_TIMESTAMP)
-	</insert>
+    <!-- 예성씌 파트 -->
+    <!-- 구매후 시청권한 부여 -->
+    <insert id="setPermission" parameterType="map">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT UserPermissions_seq.nextval FROM dual
+        </selectKey>
+        INSERT INTO UserPermissions (UserPermissionID, User_no, Product_no, GrantedAt)
+        VALUES (#{id}, #{userNo}, #{productNo}, CURRENT_TIMESTAMP)
+    </insert>
 
-	<!-- 구매후 캐시 차감 -->
-	<insert id="insertCash" parameterType="CashVo">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			SELECT
-			cash_seq.NEXTVAL FROM dual
-		</selectKey>
-		INSERT INTO cash (id, request_id, amount, request_date, status)
-		VALUES
-		(#{id}, #{requestId}, -3000, SYSDATE, '충전완료')
-	</insert>
+    <!-- 구매후 캐시 차감 -->
+    <insert id="insertCash" parameterType="CashVo">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT cash_seq.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO cash (id, request_id, amount, request_date, status)
+        VALUES (#{id}, #{requestId}, -3000, SYSDATE, '충전완료')
+    </insert>
 
-	<!-- 캐시 요청 -->
-	<insert id="insertCashRequest" parameterType="CashVo">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			SELECT
-			cash_seq.NEXTVAL FROM dual
-		</selectKey>
-		INSERT INTO cash (id, request_id, amount, request_date)
-		VALUES (#{id},
-		#{requestId}, CASE WHEN #{amount} >= 0 THEN #{amount} ELSE 0
-		END,
-		SYSDATE)
-	</insert>
+    <!-- 캐시 요청 -->
+    <insert id="insertCashRequest" parameterType="CashVo">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT cash_seq.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO cash (id, request_id, amount, request_date)
+        VALUES (#{id}, #{requestId}, CASE WHEN #{amount} >= 0 THEN #{amount} ELSE 0 END, SYSDATE)
+    </insert>
 
-	<!-- 요청 확인 -->
-	<select id="selectAllCashRequests" resultType="CashVo">
-		SELECT id,
-		request_id AS requestId, amount, request_date AS requestDate,
-		status
-		FROM cash
-		WHERE amount >= 0
-		ORDER BY requestDate ASC
-	</select>
+    <!-- 요청 확인 -->
+    <select id="selectAllCashRequests" resultType="CashVo">
+        SELECT id, request_id AS requestId, amount, request_date AS requestDate, status
+        FROM cash
+        WHERE amount >= 0
+        ORDER BY requestDate ASC
+    </select>
 
-	<!-- 요청 수락 -->
-	<update id="approveCashRequest" parameterType="CashVo">
-		UPDATE cash
-		SET
-		status = '충전완료', approve_date = SYSDATE
-		WHERE id = #{id} AND status =
-		'요청' AND amount >= 0
-	</update>
+    <!-- 요청 수락 -->
+    <update id="approveCashRequest" parameterType="CashVo">
+        UPDATE cash
+        SET status = '충전완료', approve_date = SYSDATE
+        WHERE id = #{id} AND status = '요청' AND amount >= 0
+    </update>
 
-	<!-- 요청 거절 -->
-	<update id="rejectCashRequest" parameterType="CashVo">
-		UPDATE cash
-		SET
-		status = '거절', approve_date = SYSDATE
-		WHERE id = #{id} AND status =
-		'요청' AND amount >= 0
-	</update>
+    <!-- 요청 거절 -->
+    <update id="rejectCashRequest" parameterType="CashVo">
+        UPDATE cash
+        SET status = '거절', approve_date = SYSDATE
+        WHERE id = #{id} AND status = '요청' AND amount >= 0
+    </update>
 
-	<!-- 충전된 금액 -->
-	<select id="getApprovedCashAmountByEmail" parameterType="string"
-		resultType="double">
-		SELECT SUM(amount)
-		FROM cash
-		WHERE request_id = #{email} AND
-		status = '충전완료'
-	</select>
+    <!-- 충전된 금액 -->
+    <select id="getApprovedCashAmountByEmail" parameterType="string" resultType="double">
+        SELECT SUM(amount)
+        FROM cash
+        WHERE request_id = #{email} AND status = '충전완료'
+    </select>
 
-	<!-- 충전 내역 불러오기 -->
-	<select id="getCashHistory" parameterType="string"
-		resultType="CashVo">
-		SELECT approve_date AS approveDate, amount, status
-		FROM cash
-		WHERE request_id = #{requestId} AND status = '충전완료' AND amount >= 0
-		ORDER BY approve_date DESC
-	</select>
+    <!-- 충전 내역 불러오기 -->
+    <select id="getCashHistory" parameterType="string" resultType="CashVo">
+        SELECT approve_date AS approveDate, amount, status
+        FROM cash
+        WHERE request_id = #{requestId} AND status = '충전완료' AND amount >= 0
+        ORDER BY approve_date DESC
+    </select>
 
-	<!-- 쿠폰 코드 유효성 검사 -->
-	<select id="getCouponCountByCodeAndStatus"
-		parameterType="string" resultType="long">
-		SELECT count(*)
-		FROM coupons
-		WHERE
-		coupon_code = #{couponCode}
-		AND expiry_yn = 'N'
-	</select>
+    <!-- 쿠폰 코드 유효성 검사 -->
+    <select id="getCouponCountByCodeAndStatus" parameterType="string" resultType="long">
+        SELECT count(*)
+        FROM coupons
+        WHERE coupon_code = #{couponCode}
+        AND expiry_yn = 'N'
+    </select>
 
-	<!-- 사용한 쿠폰 삭제 -->
-	<update id="expiryCouponByCoupoonNo" parameterType="string">
-		UPDATE coupons
-		SET
-		expiry_date = SYSDATE,
-		expiry_yn = 'Y'
-		WHERE coupon_no = #{couponNo}
-	</update>
+    <!-- 사용한 쿠폰 삭제 -->
+    <update id="expiryCouponByCoupoonNo" parameterType="string">
+        UPDATE coupons
+        SET expiry_date = SYSDATE, expiry_yn = 'Y'
+        WHERE coupon_no = #{couponNo}
+    </update>
 
-
-	<!-- 유효한 쿠폰이면 자동으로 3000원 캐시 충전 -->
-	<insert id="chargeCashAutomatically" parameterType="map">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			SELECT
-			cash_seq.NEXTVAL FROM dual
-		</selectKey>
-		INSERT INTO cash (id, request_id, amount, request_date, status)
-		VALUES
-		(#{id}, #{requestId}, 3000, SYSDATE, '충전완료')
-	</insert>
+    <!-- 유효한 쿠폰이면 자동으로 3000원 캐시 충전 -->
+    <insert id="chargeCashAutomatically" parameterType="map">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT cash_seq.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO cash (id, request_id, amount, request_date, status)
+        VALUES (#{id}, #{requestId}, 3000, SYSDATE, '충전완료')
+    </insert>
+    
+    <!-- 시청 내역 불러오기 -->
+    <select id="watchhistory" resultType="map">
+        SELECT 
+            up.User_No AS userNo,
+            p.product_no AS productNo,
+            p.productname AS productName,
+            p.img AS img,
+            up.GrantedAt AS grantedAt
+        FROM 
+            UserPermissions up
+        JOIN 
+            products p ON up.Product_No = p.product_no
+        WHERE 
+            up.User_No = #{userNo}
+        ORDER BY 
+            up.GrantedAt DESC
+    </select>
 
 </mapper>

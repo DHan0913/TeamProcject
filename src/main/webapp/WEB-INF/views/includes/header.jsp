@@ -15,8 +15,8 @@
                 <li><a href='<c:url value="/users/${authUser.email}/userinfo" />'>${authUser.username}님 환영합니다</a></li>
                 <c:if test="${empty authAdmin}">
                     <li>
+                        <p><a href="<c:url value='/users/requestcash' />">캐시 충전</a></p>
                         <p>잔액: <a href="<c:url value='/users/cashhistory' />">${sessionScope.approvedCashAmount}</a></p>
-                        <button onclick="location.href='<c:url value='/users/requestcash' />'">캐시 충전</button>
                     </li>
                 </c:if>
             </ul>
