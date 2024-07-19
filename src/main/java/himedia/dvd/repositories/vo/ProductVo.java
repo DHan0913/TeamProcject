@@ -16,8 +16,23 @@ public class ProductVo {
 
     public ProductVo() {
     }
+    
 
-    // 상품 등록용 생성자
+    public ProductVo(Long productNo, String productName, String genre, String releaseDate, String content,
+			String status, String img, String video) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.genre = genre;
+		this.releaseDate = releaseDate;
+		this.content = content;
+		this.status = status;
+		this.img = img;
+		this.video = video;
+	}
+
+
+	// 상품 등록용 생성자
     public ProductVo(String productName, String genre, String releaseDate, String content, String status, String img, String video) {
         this.productName = productName;
         this.genre = genre;
