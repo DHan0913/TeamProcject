@@ -49,4 +49,12 @@
             u.USERNAME
         ORDER BY USERAMT DESC
     </select>
+    
+    <!-- 쿠폰 매출액 -->
+    <select id="totalCoupon" resultType="long">
+    	SELECT count(*) 
+    	FROM coupons
+    	WHERE expiry_yn = 'Y' 
+    </select>
+    
 </mapper>

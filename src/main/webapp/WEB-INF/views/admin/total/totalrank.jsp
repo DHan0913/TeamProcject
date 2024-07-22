@@ -27,6 +27,18 @@
 			</table>
 		</div>
 		
+		<!-- 쿠폰 매출액  -->
+        <div class="list-container" style="margin-bottom:20px; margin-left:10px;">
+            <table border="1" width="25%">
+                <tr>
+                    <th>총 쿠폰 금액</th>
+                </tr>
+                <tr>
+                    <td>${calculatedCouponCount}</td>
+                </tr>
+            </table>
+        </div>
+		
 		<div class="list-container">
 			<table border="1" width="47%" style="float:left; margin-left:10px;">
 				<tr>
