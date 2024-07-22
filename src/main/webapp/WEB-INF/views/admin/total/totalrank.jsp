@@ -19,7 +19,7 @@
 		<div class="list-container" style="margin-bottom:20px; margin-left:10px;">
 			<table border="1" width="25%">
 				<tr>
-					<th>총매출</th>
+					<th>총매출(캐시+쿠폰)</th>
 				</tr>
 				<tr>
 					<td>${totalAmt}</td>
@@ -31,10 +31,21 @@
         <div class="list-container" style="margin-bottom:20px; margin-left:10px;">
             <table border="1" width="25%">
                 <tr>
-                    <th>총 쿠폰 금액</th>
+                    <th>쿠폰 사용 금액</th>
                 </tr>
                 <tr>
                     <td>${calculatedCouponCount}</td>
+                </tr>
+            </table>
+        </div>
+        
+              <div class="list-container" style="margin-bottom:20px; margin-left:10px;">
+            <table border="1" width="25%">
+                <tr>
+                    <th>순매출</th>
+                </tr>
+                <tr>
+                    <td>${totalAmt - calculatedCouponCount}</td>
                 </tr>
             </table>
         </div>
