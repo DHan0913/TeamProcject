@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+/* 전체 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fffaf0; /* 버터 색상 */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+#errorMsg {
+    color: #FF6347; /* 토마토 색상으로 에러 강조 */
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* 폼 그룹 스타일 */
+.form-group {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 레이블 스타일 */
+.block-label {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* 버튼 그룹 스타일 */
+.button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button button {
+    background-color: #f7c548; /* 버터 색상 */
+    color: #333;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 24px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.button button:hover {
+    background-color: #e0b746; /* 더 어두운 버터 색상 */
+    color: #fff;
+}
+
+/* 버튼 사이 여백 추가 */
+.button button + button {
+    margin-left: 10px;
+}
+
+/* 모바일 반응형 디자인 */
+@media (max-width: 768px) {
+    .form-group {
+        padding: 15px;
+    }
+
+    .button button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

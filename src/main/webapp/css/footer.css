@@ -1,19 +1,11 @@
 /* footer.css */
 .footer {
-    background-color: #282c34;
-    color: #ffffff;
-    padding: 20px 0;
+    background-color: #F7E8A0; /* 찐한 버터색 */
+    color: #555555; /* 다크 그레이 텍스트 */
+    padding: 40px 20px;
     text-align: center;
-}
-
-.footer a {
-    color: #61dafb;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.footer a:hover {
-    text-decoration: underline;
+    border-top: 2px solid #F7C548; /* 찐한 버터색과 조금 더 어두운 색상 */
+    margin-top: 40px; /* 푸터와 본문 간의 여백 추가 */
 }
 
 .footer .container {
@@ -29,32 +21,30 @@
     margin-bottom: 10px;
 }
 
-.footer .footer-links {
-    margin-bottom: 10px;
+.footer .text-center {
+    font-size: 1.2em; /* 폰트 크기 조정 */
+    font-weight: bold; /* 텍스트 굵기 */
 }
 
-.footer .footer-links a {
-    display: inline-block;
-    margin: 5px 10px;
-    transition: color 0.3s;
+.footer .separator {
+    display: block;
+    height: 2px;
+    width: 60%;
+    background-color: #F7C548; /* 찐한 버터색의 조금 더 어두운 색상 */
+    margin: 20px auto;
 }
 
-.footer .footer-links a:hover {
-    color: #21a1f1;
+.footer a {
+    color: #555555; /* 다크 그레이 텍스트 */
+    text-decoration: none; /* 밑줄 제거 */
 }
 
-.footer .col-md-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
+.footer a:hover {
+    color: #FFA500; /* 호버 시 오렌지색 */
 }
 
-@media (min-width: 768px) {
-    .footer .row {
-        justify-content: space-between;
-    }
-    
-    .footer .col-md-12 {
-        flex: 0 0 auto;
-        max-width: auto;
+@media (max-width: 768px) {
+    .footer .text-center {
+        font-size: 1em; /* 모바일 화면에서 폰트 크기 조정 */
     }
 }

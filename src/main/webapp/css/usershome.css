@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+/* 전체 컨테이너 스타일 */
+#container {
+    background-color: #fffaf0; /* 버터 색상 */
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* 검색 바 스타일 */
+#search-bar {
+    margin-bottom: 20px;
+}
+
+#search-bar .form-control {
+    border-radius: 25px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+#search-bar .btn-outline-success {
+    border-color: #f7c548; /* 버터 색상 */
+    color: #f7c548;
+    border-radius: 25px;
+}
+
+#search-bar .btn-outline-success:hover {
+    background-color: #f7c548; /* 버터 색상 */
+    color: #fff;
+}
+
+/* 버튼 그룹 스타일 */
+.button-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.button-group .btn {
+    border-radius: 25px;
+    background-color: #f7c548; /* 버터 색상 */
+    color: #333;
+    border: 1px solid #f7c548;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.button-group .btn:hover {
+    background-color: #e0b746; /* 더 어두운 버터 색상 */
+    color: #fff;
+    border-color: #e0b746;
+}
+
+/* 테이블 스타일 */
+.table {
+    border: 1px solid #f7c548; /* 버터 색상 */
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.table thead {
+    background-color: #f7c548; /* 버터 색상 */
+    color: #fff;
+}
+
+.table thead th {
+    border: 1px solid #f7c548; /* 버터 색상 */
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* 헤더 스타일 */
+#header {
+    background-color: #fffaf0; /* 버터 색상 */
+    color: #333; /* 어두운 텍스트 색상 */
+    padding: 20px;
+    text-align: center;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 2rem; /* 제목 크기 */
+}
+
+.header-title a {
+    color: #333; /* 어두운 색상 */
+    text-decoration: none;
+}
+
+.header-title a:hover {
+    text-decoration: underline;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center;
+}
+
+/* 링크 스타일 */
+header a {
+    color: #333; /* 어두운 색상 */
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+/* 미디어 쿼리 - 반응형 디자인 */
+@media (max-width: 768px) {
+    #search-bar .form-control {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .button-group .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
