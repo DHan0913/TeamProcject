@@ -30,9 +30,9 @@
 
 	<select id="selectUserByEmail" parameterType="string"
 		resultType="UserVo">
-		SELECT user_no as userNo, username, birth, email, password, regdate, status
+		SELECT user_no AS userNo, username, birth, email, password, regdate, status
 		FROM users
-		WHERE email=#{value}
+		WHERE email=#{email}
 	</select>
 
 	<!-- SELECT (이메일과 비밀번호로 사용자 정보 조회) -->

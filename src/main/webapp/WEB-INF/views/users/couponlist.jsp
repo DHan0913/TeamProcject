@@ -30,7 +30,7 @@
             </c:forEach>
         </tbody>
     </table>
-    </form>
+    </form><br>
     
 	<button type="button" onclick="window.location.href='<c:url value="/" />'">홈으로</button>
 </body>

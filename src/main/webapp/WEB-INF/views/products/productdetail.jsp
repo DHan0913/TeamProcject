@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 상세 정보</title>
+<script src="<c:url value='/javascript/product.js' />" type="text/javascript"></script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/includes/header.jsp" />
@@ -61,7 +62,7 @@
                         <c:when test="${sessionScope.approvedCashAmount >= 3000}">
                             <p>
                                 <button
-                                    onclick="location.href='<c:url value="/users/payment/${product.productNo}" />'">구매하기</button>
+                                    onclick="confirmPurchase('<c:url value="/users/payment/${product.productNo}" />')">구매하기</button>
                             </p>
                         </c:when>
                         <c:otherwise>

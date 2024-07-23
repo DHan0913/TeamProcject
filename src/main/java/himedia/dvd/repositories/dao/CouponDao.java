@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Param;
 import himedia.dvd.repositories.vo.CouponVo;
 
 public interface CouponDao {
+	
+    List<CouponVo> getAllCoupons();	//	모든 쿠폰 조회
 
-    List<CouponVo> getAllCoupons();
-
-    CouponVo getCouponById(Long couponId);
+    CouponVo getCouponById(Long couponId);	//	
 
     int insertCoupon(CouponVo couponVo);
 

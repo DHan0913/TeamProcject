@@ -14,9 +14,12 @@
         <input type="text" id="couponCode" name="couponCode" required>
         <button type="button" id="validate-coupon" data-target="<c:url value='/users/validateCoupon' />">유효성 검사</button>
         <br><br>
-        <input type="hidden" name="couponCheck" value="n">
-        
-        <button type="submit" id="submit-coupon">확인</button>
+        <input type="hidden" name="couponCheck" id="couponCheck" value="n">   
+             
+        <div class="button-container">
+            <button type="submit" id="submit-coupon">확인</button>
+            <button type="button" onclick="window.history.back();">뒤로가기</button>
+        </div>
     </form>
 
     <!-- JavaScript 코드 포함 -->

@@ -11,6 +11,13 @@ function checkEmail(event) {
 		return;
 	}
    
+   // 이메일 형식 검증
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailPattern.test(email)) {
+        alert("올바른 이메일 형식을 입력하십시오.");
+        return;
+    }
+   
 	//	fetch
 	console.log(`${target}?email=${email}`);
 	fetch(`${target}?email=${email}`)
