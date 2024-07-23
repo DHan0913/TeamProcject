@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+/* 전체 컨테이너 스타일 */
+.joinsuccess-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+/* 카드 스타일 */
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fffaf0; /* 버터 색상 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 사용자 정의 버튼 스타일 */
+.btn-custom {
+    background-color: #f7c548; /* 버터 색상 */
+    color: #333;
+    border-radius: 50px;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #e0b746; /* 버튼 호버 색상 */
+}

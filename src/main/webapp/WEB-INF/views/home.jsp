@@ -8,7 +8,7 @@
 <title>User Home</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> <!-- 사용자 정의 CSS -->
 </head>
 <body>
     <div id="container">
@@ -17,7 +17,7 @@
 
         <c:if test="${authUser != null && authUser.role == 1}">
             <div class="text-center mb-4">
-                <button class="btn btn-primary" onclick="location.href='<c:url value="/admin/home" />'">관리자 화면</button>
+                <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/home'">관리자 화면</button>
             </div>
         </c:if>
 
@@ -25,8 +25,8 @@
             <form id="searchForm" action="${pageContext.request.contextPath}/products/search" method="GET" class="form-inline">
                 <input type="text" name="keyword" class="form-control mr-sm-2" placeholder="검색">
                 <button type="button" class="btn btn-outline-success" onclick="goSearch('')">검색</button>
-                <input type="hidden" name="filter" value=""> 
-                <input type="hidden" id="genre" name="genre"> 
+                <input type="hidden" name="filter" value="">
+                <input type="hidden" id="genre" name="genre">
                 <input type="hidden" id="authorized" name="authorized" value="true">
             </form>
         </div>
@@ -88,7 +88,6 @@
         function goSearch(type) {
             var filter = type === '' ? 'productName' : 'genre';
             var form = document.getElementById("searchForm");
-
             form.genre.value = type;
             form.filter.value = filter;
             form.submit();
