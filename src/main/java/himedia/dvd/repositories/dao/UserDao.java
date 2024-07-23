@@ -28,7 +28,9 @@ public interface UserDao {
 	void setPermission(Long userNo, Long productNo); // 시청 권한 부여
 	CashVo insertCash(String requestId); // 구매 후 캐시 차감
 
-	long getCouponCountByCodeAndStatus(String couponCode); // 쿠폰 코드와 상태로 쿠폰 수 조회
-	void expiryCoupon(String couponNo); // 사용한 쿠폰 만료
+	long getCouponCountByCodeAndStatus(String couponCode); // 쿠폰 유효성 검사
+	void expiryCouponByCouponCode(String couponCode); // 사용한 쿠폰 삭제
+	void chargeCashByCoupon(CashVo cashVo); //  캐시 충전
+	
 	List<Map<String, Object>> getWatchHistory(Long userNo); // 시청 내역 조회
 }

@@ -29,3 +29,4 @@ public interface CouponService {
     // 지급한 쿠폰 리스트 목록
     List<CouponVo> getCouponList();
 }
+ 

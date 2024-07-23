@@ -101,6 +101,7 @@ public class UserServiceImpl implements UserService {
         return userDao.rejectCashRequest(cashVo);
     }
 
+    //	유저 비밀번호 초기화
     @Override
     public boolean resetPassword(Long userNo) {
         return userDao.reset(userNo);
@@ -124,7 +125,7 @@ public class UserServiceImpl implements UserService {
         CashVo cashVo = userDao.insertCash(requestId);
         return cashVo != null;
     }
-
+    // 유저 삭제
     @Override
     public void deleteUser(Long userNo) {
         userDao.delete(userNo);
@@ -138,11 +139,17 @@ public class UserServiceImpl implements UserService {
 
     // 사용한 쿠폰 삭제
     @Override
-    public void expiryCouponByCouponNo(String couponNo) {
-        userDao.expiryCoupon(couponNo);
+    public void expiryCouponByCouponCode(String couponCode) {
+        userDao.expiryCouponByCouponCode(couponCode);
+    }
+    
+    //	캐시 충전
+    @Override
+    public void chargeCashByCoupon(CashVo cashVo) {
+        userDao.chargeCashByCoupon(cashVo);
     }
 
-
+    // 시청 내역 조회
     @Override
     public List<Map<String, Object>> getWatchHistory(Long userNo) {
         return userDao.getWatchHistory(userNo);

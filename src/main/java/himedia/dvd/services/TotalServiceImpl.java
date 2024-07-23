@@ -31,4 +31,10 @@ public class TotalServiceImpl implements TotalService {
 		List<TotalVo> list = totalDao.getUsrList();
 		return list;
 	}
+	
+	@Override
+    public long getCalculatedCouponCount() {
+        long couponCount = totalDao.getCouponCount();
+        return couponCount * 3000; // 쿠폰 카운트에 3000을 곱합니다
+    }
 }

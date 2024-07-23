@@ -10,7 +10,7 @@
 	<h1>쿠폰 등록 성공</h1>
 	
 	<p>
-		<a href="home">홈으로가기</a>
+		<a href='${authUser.email}/userinfo' >내 정보로 이동</a>
 	</p>
 	
 </body>

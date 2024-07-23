@@ -33,5 +33,11 @@ public class TotalDaoImpl implements TotalDao {
     	List<TotalVo> list = sqlSession.selectList("total.selectUsrList");
     	return list;
     }
+    
+    //	쿠폰 매출액
+    @Override
+    public long getCouponCount() {
+        return sqlSession.selectOne("total.totalCoupon"); 
+    }
 
 }

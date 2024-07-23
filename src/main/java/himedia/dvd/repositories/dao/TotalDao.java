@@ -8,4 +8,7 @@ public interface TotalDao {
     List<TotalVo> getTotalRank();
     String getTotalAmt();
 	List<TotalVo> getUsrList();
+	
+	// 쿠폰 카운트 가져오는 메서드
+    long getCouponCount();
 }
