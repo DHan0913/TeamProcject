@@ -40,7 +40,7 @@
         <br>
 
 		<label for="email">이메일</label>
-		<form:input path="email" placeholder="이메일을 입력하십시오" />
+		<form:input path="email" type="email" placeholder="이메일을 입력하십시오" />
 		<input type="button" id="check-email"
 			data-target="<c:url value="/users/checkEmail" />" value="이메일 중복체크" />
 		<input type="hidden" name="emailCheck" value="n" />

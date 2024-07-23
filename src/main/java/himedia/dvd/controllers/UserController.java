@@ -61,6 +61,11 @@ public class UserController {
 			result.rejectValue("agree", "agree.required");
 		}
 
+		/// 이메일 형식 검증
+	    if (!userVo.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+	        result.rejectValue("email", "error.email", "올바른 이메일 형식을 입력하십시오.");
+	    }
+	    
 		// 검증 결과 확인
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -70,6 +75,8 @@ public class UserController {
 			model.addAllAttributes(result.getModel());
 			return "users/joinform";
 		}
+		
+		
 		boolean success = userService.join(userVo);
 		if (success) { // 가입 성공
 			System.out.println("회원 가입 성공");
@@ -152,18 +159,24 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/checkEmail")
 	public Object checkEmail(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
-		UserVo vo = userService.login(email);
-		boolean exists = vo != null;
+	    Map<String, Object> json = new HashMap<>();
 
-		System.out.println("Controller UserVo: " + vo);
+	    // 이메일 형식 검증
+	    if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+	        json.put("result", "error");
+	        json.put("message", "올바른 이메일 형식을 입력하십시오.");
+	        return json;
+	    }
 
-		Map<String, Object> json = new HashMap<>();
-		json.put("result", "success");
-		json.put("exists", exists);
+	    // 이메일 중복 여부 확인
+	    UserVo vo = userService.login(email);
+	    boolean exists = vo != null;
 
-		return json;
+	    json.put("result", "success");
+	    json.put("exists", exists);
+
+	    return json;
 	}
-
 	// 회원 상세정보 폼
 	@GetMapping("/{email}/userinfo")
 	public String userInfo(@PathVariable("email") String email, Model model) {

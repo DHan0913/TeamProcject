@@ -15,12 +15,7 @@
     <a href="${pageContext.request.contextPath}/admin/coupons/add">쿠폰 생성</a>
     <br><br>
     
-    <!-- 쿠폰 발급 링크 -->
-    <a href="${pageContext.request.contextPath}/admin/coupons/issued">쿠폰 지급</a>
-    
-
-    
-    
+   
     <!-- 쿠폰 목록 테이블 -->
     <table border="1">
         <thead>
