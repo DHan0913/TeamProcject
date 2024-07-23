@@ -15,7 +15,7 @@
 	font-weight: bold;
 }
 </style>
-</head> 
+</head>
 <body>
 	<h1>회원 가입</h1>
 
@@ -35,32 +35,34 @@
 		<br>
 
 		<label for="passwordConfirm">비밀번호 확인</label>
-        <form:input path="passwordConfirm" type="password" placeholder="비밀번호를 다시 입력하세요" />
-        <form:errors path="passwordConfirm" cssClass="error" />
-        <br>
+		<form:input path="passwordConfirm" type="password"
+			placeholder="비밀번호를 다시 입력하세요" />
+		<form:errors path="passwordConfirm" cssClass="error" />
+		<br>
 
 		<label for="email">이메일</label>
 		<form:input path="email" type="email" placeholder="이메일을 입력하십시오" />
 		<input type="button" id="check-email"
 			data-target="<c:url value="/users/checkEmail" />" value="이메일 중복체크" />
 		<input type="hidden" name="emailCheck" value="n" />
-		<form:errors path="email" cssClass="error" /><br>
+		<form:errors path="email" cssClass="error" />
+		<br>
 
 		<label for="birth">생년월일</label>
 		<input name="birth" type="date" id="birthInput">
 		<form:errors path="birth" cssClass="error" />
 		<br>
-		
+
 
 		<label for="agree">약관동의</label>
-        <form:checkbox path="agree" id="agree" />
-        <form:errors path="agree" cssClass="error" />
-        <br>
+		<form:checkbox path="agree" id="agree" />
+		<form:errors path="agree" cssClass="error" />
+		<br>
 
 		<input type="submit" value="가입하기" />
 		<input type="reset" value="다시 작성" />
 
 	</form:form>
-
+	<button onclick="location.href='<c:url value="/" />'">home</button>
 </body>
 </html>

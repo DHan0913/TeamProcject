@@ -54,13 +54,13 @@
                                     로그인 가능
                                 </c:when>
 								<c:when test="${user.status == '탈퇴 요청'}">
-                                    <c:if test="${user.username == '삭제된 회원' }"> 
+									<c:if test="${user.username == '삭제된 회원' }"> 
                                     	탈퇴
                                     </c:if>
-                                     <c:if test="${user.username != '삭제된 회원' }"> 
+									<c:if test="${user.username != '삭제된 회원' }"> 
                                     	탈퇴 요청
                                     </c:if>
-                                </c:when>
+								</c:when>
 								<c:otherwise>
                                     알 수 없음
                                 </c:otherwise>
@@ -79,14 +79,7 @@
 
 					</tr>
 				</c:forEach>
-				<tr>
-					<c:if test="${authUser.role == 1 }">
-						<li>
-							<button onclick="location.href='<c:url value="/admin/home" />'">관리자
-								화면</button>
-						</li>
-					</c:if>
-				</tr>
+
 			</table>
 		</div>
 	</div>

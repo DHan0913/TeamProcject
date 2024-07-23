@@ -16,14 +16,15 @@
             <th>상태</th>
         </tr>
         <c:forEach var="cash" items="${cashList}">
-            <tr>
-                <td>${cash.approveDate}</td>
-                <td>${cash.amount}</td>
-                <td>${cash.status}</td>
-            </tr>
+            <c:if test="${cash.amount > 0}">
+                <tr>
+                    <td>${cash.approveDate}</td>
+                    <td>${cash.amount}</td>
+                    <td>${cash.status}</td>
+                </tr>
+            </c:if>
         </c:forEach>
     </table>
-    <h3>총 충전금액: ${totalAmount}</h3>
     <button onclick="location.href='<c:url value="/" />'">홈으로</button>
 </body>
 </html>
