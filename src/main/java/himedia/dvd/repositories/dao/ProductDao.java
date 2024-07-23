@@ -1,6 +1,7 @@
 package himedia.dvd.repositories.dao;
 
 import java.util.List;
+
 import himedia.dvd.repositories.vo.ProductVo;
 
 public interface ProductDao {
@@ -12,5 +13,4 @@ public interface ProductDao {
 	int delete(Long productNo);
 	int modify(ProductVo productVo);
 	ProductVo modifyproduct(Long productNo);
-    
 }

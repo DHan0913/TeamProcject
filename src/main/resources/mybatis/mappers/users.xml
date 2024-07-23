@@ -141,7 +141,7 @@
 		resultType="double">
 		SELECT SUM(amount)
 		FROM cash
-		WHERE request_id = #{email} AND status = '충전완료' or status = '쿠폰'
+		WHERE request_id = #{email} AND status = '충전완료' or status = '쿠폰' 
 	</select>
 
 	<!-- 충전 내역 불러오기 -->
@@ -149,7 +149,7 @@
 		resultType="CashVo">
 		SELECT approve_date AS approveDate, amount, status
 		FROM cash
-		WHERE request_id = #{requestId} AND status = '충전완료' or status ='쿠폰' AND amount >= 0
+		WHERE request_id = #{requestId} AND status = '충전완료' or status ='쿠폰' AND amount > 0
 		ORDER BY approve_date DESC
 	</select>
 
@@ -184,16 +184,16 @@
 		up.User_No AS userNo,
 		p.product_no AS productNo,
 		p.productname AS productName,
-		p.img AS img,
+		p.img AS Img,
 		up.GrantedAt AS grantedAt
 		FROM
-		UserPermissions up
+			UserPermissions up
 		JOIN
-		products p ON up.Product_No = p.product_no
+			products p ON up.Product_No = p.product_no
 		WHERE
-		up.User_No = #{userNo}
+			up.User_No = #{userNo}
 		ORDER BY
-		up.GrantedAt DESC
+			up.GrantedAt DESC
 	</select>
 
 </mapper>

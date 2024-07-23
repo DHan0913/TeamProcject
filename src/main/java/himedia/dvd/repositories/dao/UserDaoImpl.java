@@ -181,8 +181,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Map<String, Object>> getWatchHistory(Long userNo) {
-		// TODO Auto-generated method stub
-		return null;
+		 return sqlSession.selectList("users.watchhistory", userNo);
 	}
 	
 	
