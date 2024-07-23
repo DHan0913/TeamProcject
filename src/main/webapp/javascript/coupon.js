@@ -34,7 +34,7 @@ function validateCoupon(event) {
 function checkCouponBeforeSubmit(event) {
 	const couponCheck = document.getElementById('couponCheck').value;
 	if (couponCheck === "n") {
-		alert('먼저 쿠폰 코드의 유효성 검사를 진행해주세요.');
+		alert('먼저 쿠폰을 등록해 주세요.');
 		event.preventDefault(); // 폼 제출 막기
 	}
 }

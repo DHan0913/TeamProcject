@@ -12,7 +12,7 @@
     <form id="couponForm" action="<c:url value='/users/useCoupon' />" method="post">
         <label for="couponCode">쿠폰 코드:</label>
         <input type="text" id="couponCode" name="couponCode" required>
-        <button type="button" id="validate-coupon" data-target="<c:url value='/users/validateCoupon' />">유효성 검사</button>
+        <button type="button" id="validate-coupon" data-target="<c:url value='/users/validateCoupon' />">등록</button>
         <br><br>
         <input type="hidden" name="couponCheck" id="couponCheck" value="n">   
              

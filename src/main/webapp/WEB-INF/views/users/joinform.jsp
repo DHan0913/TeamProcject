@@ -61,8 +61,8 @@
 
 		<input type="submit" value="가입하기" />
 		<input type="reset" value="다시 작성" />
-
+		<button type="button" onclick="window.history.back();">뒤로가기</button>
 	</form:form>
-	<button onclick="location.href='<c:url value="/" />'">home</button>
+	
 </body>
 </html>

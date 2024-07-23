@@ -29,6 +29,7 @@
 </head>
 <body>
     <h1>구매 내역</h1>
+    <button type="button" onclick="window.history.back();">뒤로가기</button>
     <div>
         <c:forEach var="history" items="${watchHistory}">
             <div class="product-item">

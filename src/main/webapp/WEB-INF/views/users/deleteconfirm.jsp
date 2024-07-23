@@ -23,6 +23,7 @@
     <input type="hidden" name="userNo" value="${userNo}">
     <button type="submit">확인</button>
     <button type="button" onclick="window.location.href='/dvd/'">취소</button>
+    <button type="button" onclick="window.history.back();">뒤로가기</button>
 </form>
 
 </body>

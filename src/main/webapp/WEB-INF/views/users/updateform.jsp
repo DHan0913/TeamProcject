@@ -25,6 +25,7 @@
     </div>
     <button type="submit">수정</button>
     <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
+    <button type="button" onclick="window.history.back();">뒤로가기</button>
 </form>
 
 </body>

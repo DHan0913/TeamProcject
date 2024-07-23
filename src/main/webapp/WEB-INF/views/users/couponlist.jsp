@@ -32,6 +32,6 @@
     </table>
     </form><br>
     
-	<button type="button" onclick="window.location.href='<c:url value="/" />'">홈으로</button>
+	<button type="button" onclick="window.history.back();">뒤로가기</button>
 </body>
 </html>
