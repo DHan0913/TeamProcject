@@ -31,9 +31,6 @@
                 <a class="nav-link" href='<c:url value="/admin/acceptcash" />'><i class="fas fa-money-check-alt"></i> 캐시요청화면</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href='<c:url value="/admin/membership" />'><i class="fas fa-id-card"></i> 멤버쉽 관리</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href='<c:url value="/admin/coupons" />'><i class="fas fa-ticket-alt"></i> 쿠폰 관리</a>
             </li>
             <li class="nav-item">
