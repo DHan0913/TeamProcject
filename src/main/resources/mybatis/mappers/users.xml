@@ -184,16 +184,16 @@
 		up.User_No AS userNo,
 		p.product_no AS productNo,
 		p.productname AS productName,
-		p.img AS img,
+		p.img AS Img,
 		up.GrantedAt AS grantedAt
 		FROM
-		UserPermissions up
+			UserPermissions up
 		JOIN
-		products p ON up.Product_No = p.product_no
+			products p ON up.Product_No = p.product_no
 		WHERE
-		up.User_No = #{userNo}
+			up.User_No = #{userNo}
 		ORDER BY
-		up.GrantedAt DESC
+			up.GrantedAt DESC
 	</select>
 
 </mapper>
