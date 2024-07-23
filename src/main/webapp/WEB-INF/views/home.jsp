@@ -69,13 +69,13 @@
             <!-- 페이징 네비게이션 추가 -->
             <div class="pagination">
                 <c:if test="${currentPage > 1}">
-                    <a href="${pageContext.request.contextPath}/main?page=${currentPage - 1}">Previous</a>
+                    <a href="${pageContext.request.contextPath}/main?page=${currentPage - 1}" class="page-link">Previous</a>
                 </c:if>
                 <c:forEach var="i" begin="1" end="${totalPages}">
-                    <a href="${pageContext.request.contextPath}/main?page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                    <a href="${pageContext.request.contextPath}/main?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}">${i}</a>
                 </c:forEach>
                 <c:if test="${currentPage < totalPages}">
-                    <a href="${pageContext.request.contextPath}/main?page=${currentPage + 1}">Next</a>
+                    <a href="${pageContext.request.contextPath}/main?page=${currentPage + 1}" class="page-link">Next</a>
                 </c:if>
             </div>
         </div>
