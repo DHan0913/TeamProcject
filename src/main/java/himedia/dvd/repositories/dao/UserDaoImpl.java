@@ -173,10 +173,10 @@ public class UserDaoImpl implements UserDao {
         sqlSession.insert("users.chargeCashByCoupon", cashVo);
     }
 
-    // ?
+    // 탈퇴 시 회원정보 가림 처리
 	@Override
 	public void delete(Long userNo) {
-		// TODO Auto-generated method stub
+		sqlSession.update("users.setdeleteUser", userNo);
 		
 	}
 
