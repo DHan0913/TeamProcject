@@ -27,7 +27,7 @@ public class MainController {
     @Autowired
     private UserService userService;
     
-    private static final int PAGE_SIZE = 10; // 페이지당 항목 수를 상수로 정의
+    private static final int PAGE_SIZE = 9; // 페이지당 항목 수를 상수로 정의
 
     @GetMapping({ "/", "/main" })
     public String main(@RequestParam(defaultValue = "1") int page, Model model) {

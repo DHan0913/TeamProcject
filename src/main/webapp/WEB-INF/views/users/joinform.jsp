@@ -8,8 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <title>VOD 회원 가입</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="<c:url value='/css/joinform.css' />" rel="stylesheet">
     <script src="<c:url value='/javascript/user.js' />"></script>
 </head>
@@ -59,14 +57,10 @@
                 <form:errors path="agree" cssClass="error" />
             </div>
 
-            <button type="submit" class="btn btn-primary btn-custom btn-block">가입하기</button>
+            <button type="submit" class="btn btn-warning btn-block">가입하기</button>
             <button type="reset" class="btn btn-warning btn-block">다시 작성</button>
+	        <button onclick="location.href='<c:url value='/' />'" class="btn btn-warning btn-block">처음으로</button>
         </form:form>
-        <button onclick="location.href='<c:url value='/' />'" class="btn btn-secondary btn-block mt-2">Home</button>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

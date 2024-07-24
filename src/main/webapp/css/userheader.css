@@ -1,0 +1,121 @@
+/* 헤더 스타일 */
+#header {
+    background-color: #444;
+    padding: 20px;
+    color: #fff;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.site-title a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.site-title a i {
+    margin-right: 8px;
+    font-size: 28px;
+}
+
+/* 네비게이션 리스트 스타일링 */
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-item {
+    background-color: #666;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.user-welcome {
+    font-weight: bold;
+}
+
+.cash-item {
+    display: flex;
+    align-items: center;
+}
+
+.cash-balance {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.cash-amount {
+    color: #00bfae;
+    font-weight: bold;
+}
+
+/* 버튼 그룹 스타일링 */
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-login {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.btn-signup {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-signup:hover {
+    background-color: #218838;
+}
+
+/* 공지사항 스타일링 */
+/* .notice {
+    margin-top: 20px;
+    background-color: #ffcc00;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.notice p {
+    margin: 0;
+} */

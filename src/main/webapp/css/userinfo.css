@@ -1,83 +1,84 @@
-@charset "UTF-8";
+/* userinfo.css */
 
-/* 전체 스타일 */
+/* 기본 스타일 */
 body {
     font-family: Arial, sans-serif;
-    background-color: #fffaf0; /* 버터 색상 */
-    color: #333;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
 }
 
 /* 헤더 스타일 */
-#errorMsg {
-    color: #FF6347; /* 토마토 색상으로 에러 강조 */
-    font-weight: bold;
+#header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
     text-align: center;
-    margin: 20px 0;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
+#header h1 {
+    margin: 0;
+}
+
+/* 오류 메시지 스타일 */
+#errorMsg {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 주요 콘텐츠 스타일 */
+#main-content {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* 폼 그룹 스타일 */
 .form-group {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-/* 레이블 스타일 */
+/* 라벨 스타일 */
 .block-label {
     display: block;
-    margin: 10px 0;
+    margin-bottom: 10px;
     font-weight: bold;
-    font-size: 1.1rem;
-    color: #333;
 }
 
 /* 버튼 그룹 스타일 */
-.button {
-    text-align: center;
-    margin-top: 20px;
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.button button {
-    background-color: #f7c548; /* 버터 색상 */
-    color: #333;
-    border: none;
-    border-radius: 25px;
-    padding: 12px 24px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.button button:hover {
-    background-color: #e0b746; /* 더 어두운 버터 색상 */
+/* 버튼 스타일 */
+.button-group button {
+    background-color: #333;
     color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-/* 버튼 사이 여백 추가 */
-.button button + button {
-    margin-left: 10px;
+.button-group button:hover {
+    background-color: #0056b3;
 }
 
-/* 모바일 반응형 디자인 */
-@media (max-width: 768px) {
-    .form-group {
-        padding: 15px;
-    }
+.button-group button:focus {
+    outline: none;
+}
 
-    .button button {
-        width: 100%;
-        margin: 5px 0;
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .button-group {
+        flex-direction: column;
     }
 }

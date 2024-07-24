@@ -1,10 +1,42 @@
-@charset "UTF-8";
+/* 기본 리셋 및 박스 사이징 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* 전체 컨테이너 스타일 */
+body {
+    font-family: Arial, sans-serif;
+}
+
 #container {
-    background-color: #fff; 
     padding: 20px;
-    min-height: 100vh;
+}
+
+/* 버튼 스타일링 */
+.btn.custom-btn {
+    background-color: #212529;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.btn.custom-btn:hover {
+    background-color: #0056b3;
+}
+
+/* 관리자 버튼 스타일링 */
+.admin-btn {
+    background-color: #28a745;
+}
+
+.admin-btn:hover {
+    background-color: #218838;
 }
 
 /* 검색 바 스타일 */
@@ -12,118 +44,78 @@
     margin-bottom: 20px;
 }
 
-#search-bar .form-control {
-    border-radius: 25px;
-    border: 1px solid #e0e0e0;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
-#search-bar .btn-outline-success {
-    border-color: #f7c548; /* 버터 색상 */
-    color: #f7c548;
-    border-radius: 25px;
+/* 검색 입력 필드 */
+.search-input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 200px; /* 검색 입력 필드의 최대 너비 */
 }
 
-#search-bar .btn-outline-success:hover {
-    background-color: #f7c548; /* 버터 색상 */
-    color: #fff;
-}
-
-/* 버튼 그룹 스타일 */
+/* 버튼 그룹 스타일링 */
 .button-group {
     display: flex;
-    align-items: center;
-    justify-content: flex-start; /* 왼쪽 정렬 */
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-.button-group .btn {
-    border-radius: 25px;
-    background-color: #f7c548; /* 버터 색상 */
-    color: #333;
-    border: 1px solid #f7c548;
-    margin: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
+/* 제품 목록 컨테이너 스타일 */
+.list-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
 }
 
-.button-group .btn:hover {
-    background-color: #e0b746; /* 더 어두운 버터 색상 */
-    color: #fff;
-    border-color: #e0b746;
+.list-container .item {
+	text-align: center; /* 텍스트중앙정렬 */
+    width: calc(33.333% - 16px); /* 3개씩 나오는 행에서 간격을 고려한 너비 */
+    margin-bottom: 16px; /* 항목 간의 간격 */
+    border: 1px solid #e1e1e1; /* 항목의 경계선 */
+    border-radius: 4px;
+    overflow: hidden; /* 자식 요소가 컨테이너를 넘지 않도록 */
+    background-color: #fff; /* 배경색 */
+    padding: 10px; /* 패딩 추가 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
-/* 테이블 스타일 */
-.table {
-    border: 1px solid #f7c548; /* 버터 색상 */
-    border-radius: 8px;
-    background-color: #fff;
+/* 이미지 스타일 */
+.list-container img {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* 이미지 최대 높이 설정 */
+    object-fit: cover; /* 이미지 비율 유지하면서 컨테이너에 맞추기 */
+    border-radius: 4px;
 }
 
-.table thead {
-    background-color: #f7c548; /* 버터 색상 */
-    color: #fff;
-}
-
-.table thead th {
-    border: 1px solid #f7c548; /* 버터 색상 */
-}
-
-.table tbody tr {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.table tbody tr:hover {
-    background-color: #f9f9f9;
-}
-
-/* 헤더 스타일 */
-#header {
-    background-color: #fff; /* 버터 색상 */
-    color: #333; /* 어두운 텍스트 색상 */
-    padding: 20px;
+/* 페이징 네비게이션 스타일링 */
+.pagination {
+    margin-top: 20px;
     text-align: center;
 }
 
-.header-title {
-    margin: 0;
-    font-size: 2rem; /* 제목 크기 */
-}
-
-.header-title a {
-    color: #333; /* 어두운 색상 */
+.page-link {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 4px;
+    border: 1px solid #dee2e6;
+    color: #333;
     text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.header-title a:hover {
-    text-decoration: underline;
-}
-
-.header-actions {
-    display: flex;
-    justify-content: flex-end; /* 왼쪽 정렬 */
-    align-items: center;
-}
-
-/* 링크 스타일 */
-header a {
-    color: #333; /* 어두운 색상 */
-    text-decoration: none;
-}
-
-header a:hover {
-    text-decoration: underline;
-}
-
-/* 미디어 쿼리 - 반응형 디자인 */
-@media (max-width: 768px) {
-    #search-bar .form-control {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .button-group .btn {
-        width: 100%;
-        margin: 5px 0;
-    }
+.page-link.active {
+    background-color: #333;
+    color: #fff;
 }

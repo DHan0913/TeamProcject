@@ -1,50 +1,49 @@
 /* footer.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
 .footer {
-    background-color: #F7E8A0; /* 찐한 버터색 */
-    color: #555555; /* 다크 그레이 텍스트 */
-    padding: 40px 20px;
-    text-align: center;
-    border-top: 2px solid #F7C548; /* 찐한 버터색과 조금 더 어두운 색상 */
-    margin-top: 40px; /* 푸터와 본문 간의 여백 추가 */
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
-.footer .container {
-    max-width: 1200px;
+.container {
+    width: 90%;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
-.footer .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 10px;
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
-.footer .text-center {
-    font-size: 1.2em; /* 폰트 크기 조정 */
-    font-weight: bold; /* 텍스트 굵기 */
+.footer-list li {
+    display: inline;
+    margin: 0 15px;
 }
 
-.footer .separator {
-    display: block;
-    height: 2px;
-    width: 60%;
-    background-color: #F7C548; /* 찐한 버터색의 조금 더 어두운 색상 */
-    margin: 20px auto;
+.footer-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
 }
 
-.footer a {
-    color: #555555; /* 다크 그레이 텍스트 */
-    text-decoration: none; /* 밑줄 제거 */
+.footer-link:hover {
+    color: #f39c12;
 }
 
-.footer a:hover {
-    color: #FFA500; /* 호버 시 오렌지색 */
-}
-
-@media (max-width: 768px) {
-    .footer .text-center {
-        font-size: 1em; /* 모바일 화면에서 폰트 크기 조정 */
+@media (max-width: 600px) {
+    .footer-list li {
+        display: block;
+        margin: 10px 0;
     }
 }

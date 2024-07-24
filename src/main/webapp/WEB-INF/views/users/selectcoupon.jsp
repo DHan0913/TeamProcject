@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>쿠폰 입력</title>
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/selectcoupon.css' />">
 </head>
 <body>
     <h1>쿠폰</h1>
