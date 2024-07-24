@@ -24,10 +24,10 @@
         <label class="block-label">비밀번호</label>
         <input name="password" type="password" placeholder="비밀번호 입력">
     </div>
-    <div class="form-group">
-        <button type="submit">수정</button>
-        <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
-    </div>
+    <button type="submit">수정</button>
+    <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
+    <button type="button" onclick="window.history.back();">뒤로가기</button>
+
 </form>
 
 </body>

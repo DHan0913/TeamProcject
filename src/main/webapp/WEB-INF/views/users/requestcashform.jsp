@@ -29,8 +29,10 @@
             </div>
             <input type="hidden" id="userNo" name="userNo" value="<%= ((UserVo) session.getAttribute("authUser")).getUserNo() %>">
             <input type="hidden" id="email" name="email" value="<%= ((UserVo) session.getAttribute("authUser")).getEmail() %>">
+            <br>
             <div>
                 <button type="submit">충전 요청</button>
+                <button type="button" onclick="window.history.back();">뒤로가기</button>
             </div>
         </form>
         <div id="error-message" style="color: red;"></div>

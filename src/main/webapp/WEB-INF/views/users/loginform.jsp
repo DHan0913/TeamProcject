@@ -22,6 +22,7 @@
             <p class="error-message">로그인에 실패했습니다.</p>
         </c:if>
 
+
         <form action="${pageContext.request.contextPath}/users/login" method="post" class="login-form">
             <div class="form-group">
                 <label for="email">이메일:</label>
@@ -36,8 +37,9 @@
 
         <div class="text-center mt-3">
             <button class="btn btn-secondary" onclick="location.href='<c:url value="/users/join" />'">회원가입</button>
-            <button class="btn btn-secondary" onclick="location.href='<c:url value="/" />'">홈</button>
+            <button class="btn btn-secondary" onclick="window.history.back();">뒤로가기</button>
         </div>
     </div>
+
 </body>
 </html>
