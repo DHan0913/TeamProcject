@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.CouponService;
 import himedia.dvd.services.PermissionService;
@@ -388,4 +389,9 @@ public class UserController {
 		model.addAttribute("watchHistory", watchHistoryList);
 		return "users/watchhistory";
 	}
+	
+	@ModelAttribute("latestNotice")
+    public NoticeVo getLatestNotice() {
+        return userService.getLatestNotice();
+    }
 }

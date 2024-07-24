@@ -36,6 +36,9 @@
             <li class="nav-item">
                 <a class="nav-link" href='<c:url value="/admin/totalrank" />'><i class="fas fa-chart-bar"></i> 통계 관리</a>
             </li>
+            <li class="nav-item">
+            	<a class="nav-link" href='<c:url value="/admin/notice"/>'><i class="fas fa-notice"></i>공지사항</a>
+            </li>
         </ul>
     </div>
 </nav>

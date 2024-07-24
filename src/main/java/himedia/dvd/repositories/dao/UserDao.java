@@ -5,6 +5,7 @@ import java.util.Map;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 
 public interface UserDao {
@@ -33,4 +34,8 @@ public interface UserDao {
 	void chargeCashByCoupon(CashVo cashVo); //  캐시 충전
 	
 	List<Map<String, Object>> getWatchHistory(Long userNo); // 시청 내역 조회
+	
+	int insertNotice(NoticeVo notice); //공지사항 추가
+	List<NoticeVo> getAllNotices(); //공지사항 출력
+	NoticeVo getLatestNotice();
 }

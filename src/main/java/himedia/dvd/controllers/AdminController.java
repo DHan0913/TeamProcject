@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.repositories.vo.TotalVo;
 import himedia.dvd.repositories.vo.UserVo;
@@ -301,6 +302,30 @@ public class AdminController {
 		model.addAttribute("calculatedCouponCount", calculatedCouponCount); // 모델에 쿠폰 금액 추가
 		return "admin/total/totalrank";
 	}
+	
+	@GetMapping("/notice")
+    public String getNoticeList(Model model) {
+        List<NoticeVo> notices = userService.getAllNotices();
+        model.addAttribute("notices", notices);
+        return "admin/notice/noticelist";
+    }
+
+    @GetMapping("/notice/add")
+    public String addNoticeForm() {
+        return "admin/notice/addnotice";
+    }
+
+    @PostMapping("/notice/add")
+    public String addNotice(@ModelAttribute NoticeVo notice, RedirectAttributes redirectAttributes) {
+        notice.setCreatedDate(new Date());
+        boolean success = userService.addNotice(notice);
+        if (success) {
+            redirectAttributes.addFlashAttribute("successMessage", "공지사항이 성공적으로 등록되었습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "공지사항 등록에 실패했습니다.");
+        }
+        return "redirect:/admin/notice";
+    }
 
 	
 
