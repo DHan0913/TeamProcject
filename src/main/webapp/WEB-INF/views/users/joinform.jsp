@@ -65,17 +65,8 @@
         <button onclick="location.href='<c:url value='/' />'" class="btn btn-secondary btn-block mt-2">Home</button>
     </div>
 
-
-		<label for="agree">약관동의</label>
-		<form:checkbox path="agree" id="agree" />
-		<form:errors path="agree" cssClass="error" />
-		<br>
-
-		<input type="submit" value="가입하기" />
-		<input type="reset" value="다시 작성" />
-		<button type="button" onclick="window.history.back();">뒤로가기</button>
-	</form:form>
-	
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
