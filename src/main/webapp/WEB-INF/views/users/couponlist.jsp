@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>MY COUPON LIST</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/cpuponlist.css/.css' />">
+ <link href="<c:url value='/css/cpuponlist.css' />" rel="stylesheet">
 </head>
 <body>
 
@@ -18,16 +18,12 @@
         <thead>
             <tr>
                 <th>쿠폰 코드</th>
-                <th>만료일</th>
-                <th>사용여부</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="coupon" items="${coupons}">
                 <tr>
                     <td>${coupon.couponCode}</td>
-                    <td><fmt:formatDate value="${coupon.expiryDate}" pattern="yyyy-MM-dd"/></td>
-                    <td>${coupon.used ? '사용됨' : '미사용'}</td>
                 </tr>
             </c:forEach>
         </tbody>

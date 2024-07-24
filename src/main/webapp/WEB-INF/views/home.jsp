@@ -40,7 +40,8 @@
                 <button type="button" class="btn btn-secondary" onclick="goSearch('로맨스')">로맨스</button>
                 <button type="button" class="btn btn-secondary" onclick="goSearch('액션')">액션</button>
                 <button type="button" class="btn btn-secondary" onclick="goSearch('SF')">SF</button>
-                <button type="button" class="btn btn-secondary" onclick="goSearch('')">필터해제</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='${pageContext.request.contextPath}/'" >필터해제</button>
+
             </div>
 
             <div class="list-container table-responsive">
