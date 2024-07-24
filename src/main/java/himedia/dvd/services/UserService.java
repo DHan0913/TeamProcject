@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -50,4 +51,10 @@ public interface UserService {
 	
 
 	List<Map<String, Object>> getWatchHistory(Long userNo); // 시청 내역 조회
+	
+	
+	boolean addNotice(NoticeVo notice);
+	List<NoticeVo> getAllNotices();
+	NoticeVo getLatestNotice();
+
 }

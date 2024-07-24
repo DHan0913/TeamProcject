@@ -2,5 +2,6 @@ eclipse.preferences.version=1
 encoding//src/main/resources/messages/messages_ko.properties=UTF-8
 encoding//src/main/resources/mybatis/mappers/products.xml=UTF-8
 encoding//src/main/resources/mybatis/mappers/users.xml=UTF-8
+encoding//src/main/webapp/WEB-INF/views/admin/notice/addnotice.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/users/joinform.jsp=UTF-8
 encoding/pom.xml=UTF-8

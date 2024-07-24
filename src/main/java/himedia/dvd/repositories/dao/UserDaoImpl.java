@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 
 @Repository("userDao")
@@ -182,6 +183,23 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<Map<String, Object>> getWatchHistory(Long userNo) {
 		 return sqlSession.selectList("users.watchhistory", userNo);
+	}
+
+	@Override
+	public int insertNotice(NoticeVo notice) {
+		int result = sqlSession.insert("users.insertNotice", notice);
+		return result;
+	}
+
+	@Override
+	public List<NoticeVo> getAllNotices() {
+		List<NoticeVo> list = sqlSession.selectList("users.selectAllNotices");
+		return list;
+	}
+
+	@Override
+	public NoticeVo getLatestNotice() {
+		return sqlSession.selectOne("users.selectLatestNotice");
 	}
 	
 	

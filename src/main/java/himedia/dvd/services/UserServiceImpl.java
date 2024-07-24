@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import himedia.dvd.repositories.dao.UserDao;
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -154,6 +155,21 @@ public class UserServiceImpl implements UserService {
     public List<Map<String, Object>> getWatchHistory(Long userNo) {
         return userDao.getWatchHistory(userNo);
     }
+
+	@Override
+	public boolean addNotice(NoticeVo notice) {
+		return userDao.insertNotice(notice) > 0;
+	}
+
+	@Override
+	public List<NoticeVo> getAllNotices() {
+		return userDao.getAllNotices();
+	}
+
+	@Override
+	public NoticeVo getLatestNotice() {
+		return userDao.getLatestNotice();
+	}
 
 
 }

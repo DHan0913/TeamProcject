@@ -195,5 +195,26 @@
 		ORDER BY
 			up.GrantedAt DESC
 	</select>
+	
+	<!-- 공지사항 관련 쿼리 추가 -->
+    <insert id="insertNotice" parameterType="NoticeVo">
+        INSERT INTO notices (id, title, content, created_date)
+        VALUES (notices_seq.NEXTVAL, #{title}, #{content}, #{createdDate})
+    </insert>
+
+	<!-- 공지사항 목록 -->
+    <select id="selectAllNotices" resultType="NoticeVo">
+        SELECT id, title, content, created_date AS createdDate
+        FROM notices
+        ORDER BY created_date DESC
+    </select>
+
+	<!-- 최신 공지사항 한 개 조회 -->
+    <select id="selectLatestNotice" resultType="himedia.dvd.repositories.vo.NoticeVo">
+        SELECT id, title, content, created_date AS createdDate
+        FROM notices
+        ORDER BY created_date DESC
+        FETCH FIRST 1 ROWS ONLY
+    </select>
 
 </mapper>
