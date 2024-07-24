@@ -53,8 +53,9 @@ public interface UserService {
 	List<Map<String, Object>> getWatchHistory(Long userNo); // 시청 내역 조회
 	
 	
-	boolean addNotice(NoticeVo notice);
-	List<NoticeVo> getAllNotices();
-	NoticeVo getLatestNotice();
+	boolean addNotice(NoticeVo notice); // 공지사항 등록
+	List<NoticeVo> getAllNotices(); // 공지사항 목록
+	NoticeVo getLatestNotice(); // 최근공지사항 띄우기
+	boolean deleteNotice(Long id); // 공지사항 삭제
 
 }

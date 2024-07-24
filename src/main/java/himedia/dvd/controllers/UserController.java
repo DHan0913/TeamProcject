@@ -382,7 +382,7 @@ public class UserController {
 		model.addAttribute("coupons", couponList);
 		return "users/couponlist";
 	}
-
+	//시청내역
 	@GetMapping("/watchhistory")
 	public String getwatchhistory(@RequestParam("userNo") Long userNo, Model model) {
 		List<Map<String, Object>> watchHistoryList = userService.getWatchHistory(userNo);
@@ -390,8 +390,4 @@ public class UserController {
 		return "users/watchhistory";
 	}
 	
-	@ModelAttribute("latestNotice")
-    public NoticeVo getLatestNotice() {
-        return userService.getLatestNotice();
-    }
 }

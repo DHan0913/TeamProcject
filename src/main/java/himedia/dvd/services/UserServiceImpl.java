@@ -171,5 +171,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.getLatestNotice();
 	}
 
+	@Override
+	public boolean deleteNotice(Long id) {
+		return userDao.deleteNotice(id) > 0;
+	}
+
 
 }

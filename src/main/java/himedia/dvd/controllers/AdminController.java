@@ -327,6 +327,12 @@ public class AdminController {
         return "redirect:/admin/notice";
     }
 
+    @GetMapping("/notice/{id}/delete")
+    public String deleteNoticeAction(@PathVariable("id") Long id) {
+    	userService.deleteNotice(id);
+    	
+    	return "redirect:/admin/notice";
+    }
 	
 
 }
