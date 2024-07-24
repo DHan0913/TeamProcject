@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
 		</tr>
 		<tr>
 			<th>출시일</th>
-			<td>${product.releaseDate}</td>
+			<td>${fn:substring(product.releaseDate, 0, 10)}</td>
 		</tr>
 		<tr>
 			<th>대여가능여부</th>
