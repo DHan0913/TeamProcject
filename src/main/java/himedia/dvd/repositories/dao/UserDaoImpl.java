@@ -214,8 +214,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<CommentVo> selectCommentsByNoticeId(Long noticeId) {
-		return sqlSession.selectList("users.selectCommentsByNoticeId", noticeId);
+	public List<CommentVo> selectCommentsByNoticeId(Long id) {
+		return sqlSession.selectList("users.selectCommentsByNoticeId",id);
 	}
 
 	@Override

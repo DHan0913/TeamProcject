@@ -41,6 +41,6 @@ public interface UserDao {
 	NoticeVo getLatestNotice(); //최근 공지사항 띄우기
 	int deleteNotice(Long id); // 공지사항 삭제
 	NoticeVo selectNoticeById(Long id); //공지사항 조회
-	List<CommentVo> selectCommentsByNoticeId(Long noticeId); // 댓글 조회
+	List<CommentVo> selectCommentsByNoticeId(Long id); // 댓글 조회
 	int insertComment(CommentVo commentVo); // 댓글달기
 }

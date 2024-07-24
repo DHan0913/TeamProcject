@@ -184,8 +184,8 @@ public class UserServiceImpl implements UserService {
 	
 	//댓글 보기
 	@Override
-	public List<CommentVo> getComment(Long noticeId) {
-	   return userDao.selectCommentsByNoticeId(noticeId);
+	public List<CommentVo> getComment(Long id) {
+	   return userDao.selectCommentsByNoticeId(id);
 	 }
 	
 	//댓글 달기
