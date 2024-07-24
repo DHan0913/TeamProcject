@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 정보 수정</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/updateform.css' />">
 </head>
 <body>
 
@@ -26,6 +27,7 @@
     <button type="submit">수정</button>
     <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
     <button type="button" onclick="window.history.back();">뒤로가기</button>
+
 </form>
 
 </body>

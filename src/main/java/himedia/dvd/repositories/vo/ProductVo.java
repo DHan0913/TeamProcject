@@ -1,9 +1,5 @@
 package himedia.dvd.repositories.vo;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class ProductVo {
     private Long productNo;      // 상품 번호
     private String productName;  // 상품 이름
