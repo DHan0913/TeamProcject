@@ -8,7 +8,7 @@
 <title>User Home</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> <!-- 사용자 정의 CSS -->
+    <link href="<c:url value='/css/usershome.css' />" rel="stylesheet"> <!-- 사용자 정의 CSS -->
 </head>
 <body>
     <div id="container">
