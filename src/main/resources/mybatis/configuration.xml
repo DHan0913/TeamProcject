@@ -17,6 +17,7 @@
       	<typeAlias type="himedia.dvd.repositories.vo.CashVo" alias="CouponVo" />
       	<typeAlias type="himedia.dvd.repositories.vo.TotalVo" alias="TotalVo" />
       	<typeAlias type="himedia.dvd.repositories.vo.NoticeVo" alias="NoticeVo" />
+      	<typeAlias type="himedia.dvd.repositories.vo.CommentVo" alias="CommentVo" />
     </typeAliases>
     
     <mappers>

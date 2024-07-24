@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 import jakarta.servlet.http.HttpServletRequest;
@@ -57,5 +58,11 @@ public interface UserService {
 	List<NoticeVo> getAllNotices(); // 공지사항 목록
 	NoticeVo getLatestNotice(); // 최근공지사항 띄우기
 	boolean deleteNotice(Long id); // 공지사항 삭제
+	NoticeVo getNoticedetail(Long id); // 공지사항 상세조회
+ 
+	List<CommentVo> getComment(Long noticeId); // 댓글 리스트
+    boolean addComment(CommentVo commentVo); // 댓글 추가
+
+
 
 }

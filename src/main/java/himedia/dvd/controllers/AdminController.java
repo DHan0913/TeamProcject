@@ -336,6 +336,14 @@ public class AdminController {
         userService.deleteNotice(id);
         return "redirect:/admin/notice";
     }
+    
+    // 공지사항 상세조회
+    @GetMapping("/notice/{id}")
+    public String getNoticeDetail(@PathVariable("id") Long id, Model model) {
+        NoticeVo notice = userService.getNoticedetail(id);
+        model.addAttribute("notice", notice);
+        return "admin/notice/noticedetail";
+    }
 	
 
 }

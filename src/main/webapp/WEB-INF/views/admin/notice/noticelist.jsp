@@ -27,7 +27,7 @@
         <tbody>
             <c:forEach var="notice" items="${notices}">
                 <tr>
-                    <td>${notice.title}</td>
+                    <td><a href="<c:url value='/admin/notice/${notice.id}' />">${notice.title}</a></td>
                     <td>${notice.content}</td>
                     <td>${notice.createdDate}</td>
                     <td>
