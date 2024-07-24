@@ -28,5 +28,6 @@
 
 </form>
 
+<script src="<c:url value='/javascript/deleteform.js' />"></script>
 </body>
 </html>
