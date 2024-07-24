@@ -6,9 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Modify Product</title>
+    <script src="<c:url value='/javascript/modify.js' />" type="text/javascript"></script>
 </head>
 <body>
-    <form method="post" action="<c:url value='/admin/modify'/>">
+    <form method="post" action="<c:url value='/admin/modify'/>" onsubmit="return confirmSubmit();"> 
         <input type="hidden" name="productNo" value="${productVo.productNo }"/>
         <table border="1" width="100%">
             <tr>
