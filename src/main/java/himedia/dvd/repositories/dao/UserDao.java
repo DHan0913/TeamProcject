@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
@@ -39,4 +40,7 @@ public interface UserDao {
 	List<NoticeVo> getAllNotices(); //공지사항 출력
 	NoticeVo getLatestNotice(); //최근 공지사항 띄우기
 	int deleteNotice(Long id); // 공지사항 삭제
+	NoticeVo selectNoticeById(Long id); //공지사항 조회
+	List<CommentVo> selectCommentsByNoticeId(Long noticeId); // 댓글 조회
+	int insertComment(CommentVo commentVo); // 댓글달기
 }

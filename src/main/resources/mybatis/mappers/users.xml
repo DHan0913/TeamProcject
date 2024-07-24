@@ -260,5 +260,28 @@
         DELETE FROM notices WHERE id = #{id}
     </delete>
     
+    <!-- 공지사항 상세조회 -->
+    <select id="selectNoticedetail" parameterType="long" resultType="NoticeVo">
+        SELECT id, title, content, created_date AS createdDate
+        FROM notices
+        WHERE id = #{id}
+    </select>
+    
+    <!-- 댓글 목록 조회 -->
+    <select id="selectCommentsByNoticeId" parameterType="long" resultType="CommentVo">
+        SELECT c.id, c.notice_id, c.user_id, c.content, c.created_date, c.secret, u.username
+        FROM comments c
+        JOIN users u ON c.user_id = u.user_no
+        WHERE c.notice_id = #{noticeId}
+        ORDER BY c.created_date DESC
+    </select>
 
+    <insert id="insertComment" parameterType="CommentVo">
+    <selectKey keyProperty="id" resultType="long" order="BEFORE">
+        SELECT comments_seq.NEXTVAL FROM dual
+    </selectKey>
+    INSERT INTO comments (id, notice_id, user_id, content, created_date, secret)
+    VALUES (#{id}, #{noticeId}, #{userId}, #{content}, SYSDATE, #{secret})
+	</insert>
+    
 </mapper>

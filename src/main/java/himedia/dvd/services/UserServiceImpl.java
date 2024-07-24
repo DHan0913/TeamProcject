@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import himedia.dvd.repositories.dao.UserDao;
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
@@ -175,6 +176,24 @@ public class UserServiceImpl implements UserService {
 	public boolean deleteNotice(Long id) {
 		return userDao.deleteNotice(id) > 0;
 	}
+
+	@Override
+	public NoticeVo getNoticedetail(Long id) {
+		return userDao.selectNoticeById(id);
+	}
+	
+	//댓글 보기
+	@Override
+	public List<CommentVo> getComment(Long noticeId) {
+	   return userDao.selectCommentsByNoticeId(noticeId);
+	 }
+	
+	//댓글 달기
+	@Override
+	public boolean addComment(CommentVo commentVo) {
+	   return userDao.insertComment(commentVo) > 0;
+	}
+
 
 
 }

@@ -10,26 +10,21 @@
 </head>
 <body>
     <div id="container">
-        <c:import url="/WEB-INF/views/admin/includes/header.jsp" />
-        <c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
+        <c:import url="/WEB-INF/views/includes/header.jsp" />
     </div>
     <h1>공지사항 목록</h1>
-    <a href="<c:url value='/admin/notice/add' />">공지사항 추가</a>
     <table>
         <thead>
             <tr>
                 <th>제목</th>
                 <th>내용</th>
-                <th>작성일</th>
-                <th>삭제</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="notice" items="${notices}">
                 <tr>
-                    <td>${notice.title}</td>
+                    <td><a href="<c:url value='/board/noticelist/${notice.id}' />">${notice.title}</a></td>
                     <td>${notice.content}</td>
-                    <td>${notice.createdDate}</td>
                 </tr>
             </c:forEach>
         </tbody>

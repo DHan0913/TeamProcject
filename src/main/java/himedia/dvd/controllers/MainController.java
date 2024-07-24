@@ -7,12 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.ProductVo;
+import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -66,8 +71,52 @@ public class MainController {
         return "home";
     }
     
+    //최근 공지사항 띄우기
     @ModelAttribute("latestNotice")
     public NoticeVo getLatestNotice() {
         return userService.getLatestNotice();
+    }
+    
+    //공지사항 리스트 이동
+    @GetMapping("/board/noticelist")
+    public String noticeList(Model model) {
+        List<NoticeVo> notices = userService.getAllNotices();
+        model.addAttribute("notices", notices);
+        return "board/noticelist";
+    }
+    
+    //공지사항 상세조회
+    @GetMapping("/board/noticelist/{id}")
+    public String getNoticeDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
+        NoticeVo notice = userService.getNoticedetail(id);
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        List<CommentVo> comments = userService.getComment(id);
+
+        if (authUser != null) {
+            comments.removeIf(comment -> comment.getSecret() == 'Y' && 
+                !comment.getUserId().equals(authUser.getUserNo()));
+        } else {
+            comments.removeIf(comment -> comment.getSecret() == 'Y');
+        }
+
+        model.addAttribute("notice", notice);
+        model.addAttribute("comments", comments);
+        return "board/noticedetail";
+    }
+    
+    //비밀댓글 추가
+    @PostMapping("/board/noticelist/{id}/addComment")
+    public String addComment(@PathVariable("id") Long noticeId, @RequestParam("comment") String comment,
+                             @RequestParam(value = "secret", defaultValue = "N") String secret, HttpSession session) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        if (authUser != null) {
+            CommentVo commentVo = new CommentVo();
+            commentVo.setNoticeId(noticeId);
+            commentVo.setUserId(authUser.getUserNo());
+            commentVo.setContent(comment);
+            commentVo.setSecret(secret.charAt(0));
+            userService.addComment(commentVo);
+        }
+        return "redirect:/board/noticelist/" + noticeId;
     }
 }

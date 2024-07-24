@@ -43,7 +43,9 @@
         </div>
         <div class="notice">
             <c:if test="${not empty latestNotice}">
-                <p><strong>공지사항:</strong> ${latestNotice.title}</p>
+                <p><strong>공지사항:</strong> 
+                    <a href="<c:url value='/board/noticelist' />">${latestNotice.title}</a>
+                </p>
             </c:if>
         </div>
     </header>

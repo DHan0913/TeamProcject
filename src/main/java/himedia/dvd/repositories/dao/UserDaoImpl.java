@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
@@ -205,6 +206,21 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int deleteNotice(Long id) {
 		return sqlSession.delete("users.deleteNotice",id);
+	}
+
+	@Override
+	public NoticeVo selectNoticeById(Long id) {
+		return sqlSession.selectOne("users.selectNoticedetail", id);
+	}
+
+	@Override
+	public List<CommentVo> selectCommentsByNoticeId(Long noticeId) {
+		return sqlSession.selectList("users.selectCommentsByNoticeId", noticeId);
+	}
+
+	@Override
+	public int insertComment(CommentVo commentVo) {
+		return sqlSession.insert("users.insertComment", commentVo);
 	}
 	
 	
