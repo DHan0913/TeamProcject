@@ -92,29 +92,20 @@ public class MainController {
         UserVo authUser = (UserVo) session.getAttribute("authUser");
         List<CommentVo> comments = userService.getComment(id);
 
-        if (authUser != null) {
-            comments.removeIf(comment -> comment.getSecret() == 'Y' && 
-                !comment.getUserId().equals(authUser.getUserNo()));
-        } else {
-            comments.removeIf(comment -> comment.getSecret() == 'Y');
-        }
-
         model.addAttribute("notice", notice);
         model.addAttribute("comments", comments);
         return "board/noticedetail";
     }
     
-    //비밀댓글 추가
+    //댓글 추가
     @PostMapping("/board/noticelist/{id}/addComment")
-    public String addComment(@PathVariable("id") Long noticeId, @RequestParam("comment") String comment,
-                             @RequestParam(value = "secret", defaultValue = "N") String secret, HttpSession session) {
+    public String addComment(@PathVariable("id") Long noticeId, @RequestParam("comment") String comment, HttpSession session) {
         UserVo authUser = (UserVo) session.getAttribute("authUser");
         if (authUser != null) {
             CommentVo commentVo = new CommentVo();
             commentVo.setNoticeId(noticeId);
             commentVo.setUserId(authUser.getUserNo());
             commentVo.setContent(comment);
-            commentVo.setSecret(secret.charAt(0));
             userService.addComment(commentVo);
         }
         return "redirect:/board/noticelist/" + noticeId;

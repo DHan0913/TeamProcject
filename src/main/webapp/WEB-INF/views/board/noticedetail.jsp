@@ -24,12 +24,13 @@
     </table>
     <a href="<c:url value='/board/noticelist' />">목록으로 돌아가기</a>
 
-    <h2>비밀댓글</h2>
+    <h2>댓글</h2>
     <c:if test="${not empty authUser}">
         <form action="<c:url value='/board/noticelist/${notice.id}/addComment' />" method="post">
             <label for="comment">댓글:</label>
             <textarea id="comment" name="comment" required></textarea>
-            <label for="secret">비밀댓글:</label>
+            <br>
+            <label for="secret">비밀댓글</label>
             <input type="checkbox" id="secret" name="secret" value="Y">
             <button type="submit">댓글달기</button>
         </form>
@@ -40,9 +41,18 @@
 
     <h3>댓글 목록</h3>
     <c:forEach var="comment" items="${comments}">
-        <div>
-            <p><strong>${comment.username}</strong>: ${comment.content}</p>
-        </div>
+        <c:choose>
+            <c:when test="${comment.secret == 'N'}">
+                <div>
+                    <p><strong>${comment.username}</strong>: ${comment.content}</p>
+                </div>
+            </c:when>
+            <c:when test="${comment.secret == 'Y' && authUser != null && (comment.userId == authUser.id || authUser.role == 1)}">
+                <div>
+                    <p><strong>${comment.username}</strong>: ${comment.content}</p>
+                </div>
+            </c:when>
+        </c:choose>
     </c:forEach>
 </body>
 </html>
