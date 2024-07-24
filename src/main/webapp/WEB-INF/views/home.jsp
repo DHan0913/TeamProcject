@@ -24,8 +24,8 @@
         <div id="search-bar" class="container">
             <form id="searchForm" action="${pageContext.request.contextPath}/products/search" method="GET" class="form-inline">
                 <input type="text" name="keyword" class="form-control mr-sm-2" placeholder="검색">
-                <button type="button" class="btn btn-outline-success" onclick="goSearch('')">검색</button>
-                <input type="hidden" name="filter" value="">
+          		<button type="submit" class="btn btn-outline-success">검색</button>
+                <input type="hidden" name="filter" value="productName">
                 <input type="hidden" id="genre" name="genre">
                 <input type="hidden" id="authorized" name="authorized" value="true">
             </form>
