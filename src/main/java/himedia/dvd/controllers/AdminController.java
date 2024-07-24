@@ -303,18 +303,21 @@ public class AdminController {
 		return "admin/total/totalrank";
 	}
 	
+	//공지사항 목록 이동
 	@GetMapping("/notice")
     public String getNoticeList(Model model) {
         List<NoticeVo> notices = userService.getAllNotices();
         model.addAttribute("notices", notices);
         return "admin/notice/noticelist";
     }
-
+	
+	//공지사항 추가
     @GetMapping("/notice/add")
     public String addNoticeForm() {
         return "admin/notice/addnotice";
     }
 
+    //공지사항 추가
     @PostMapping("/notice/add")
     public String addNotice(@ModelAttribute NoticeVo notice, RedirectAttributes redirectAttributes) {
         notice.setCreatedDate(new Date());
@@ -327,11 +330,11 @@ public class AdminController {
         return "redirect:/admin/notice";
     }
 
-    @GetMapping("/notice/{id}/delete")
+    //공지사항 삭제
+    @PostMapping("/notice/{id}/delete")
     public String deleteNoticeAction(@PathVariable("id") Long id) {
-    	userService.deleteNotice(id);
-    	
-    	return "redirect:/admin/notice";
+        userService.deleteNotice(id);
+        return "redirect:/admin/notice";
     }
 	
 

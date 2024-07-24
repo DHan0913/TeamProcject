@@ -44,7 +44,6 @@
         <div class="notice">
             <c:if test="${not empty latestNotice}">
                 <p><strong>공지사항:</strong> ${latestNotice.title}</p>
-                <p>${latestNotice.content}</p>
             </c:if>
         </div>
     </header>

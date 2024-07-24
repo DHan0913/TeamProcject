@@ -30,11 +30,6 @@
                     <td>${notice.title}</td>
                     <td>${notice.content}</td>
                     <td>${notice.createdDate}</td>
-                    <td>
-                        <form action="<c:url value='/admin/notice/${notice.id}/delete' />" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-                            <button type="submit">삭제</button>
-                        </form>
-                    </td>
                 </tr>
             </c:forEach>
         </tbody>
