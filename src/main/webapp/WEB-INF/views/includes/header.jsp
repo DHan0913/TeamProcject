@@ -7,11 +7,11 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>헤더</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value='/css/header.css' />">
+    <link href="<c:url value='/css/userheader.css' />" rel="stylesheet">
 </head>
 <body>
     <header id="header">
-        <div class="container">
+        <div class="headerContainer">
             <c:if test="${not empty errorMsg}">
                 <div class="error-message">${errorMsg}</div>
             </c:if>
@@ -21,21 +21,28 @@
                     <c:when test="${not empty authUser}">
                         <nav>
                             <ul class="nav-list">
-                                <li><a href="<c:url value='/users/logout' />" class="nav-link">로그아웃</a></li>
-                                <li><a href="<c:url value='/users/${authUser.email}/userinfo' />" class="nav-link">${authUser.username}님 환영합니다</a></li>
-                                <c:if test="${empty authAdmin}">
-                                    <li>
-                                        <p><a href="<c:url value='/users/requestcash' />" class="nav-link">캐시 충전</a></p>
-                                        <p>잔액: <a href="<c:url value='/users/cashhistory' />" class="nav-link">${sessionScope.approvedCashAmount}</a></p>
-                                    </li>
-                                </c:if>
-                            </ul>
+							    <li class="nav-item">
+							        <a href="<c:url value='/users/logout' />" class="nav-link">로그아웃</a>
+							    </li>
+							    <li class="nav-item">
+							        <a href="<c:url value='/users/${authUser.email}/userinfo' />" class="nav-link user-welcome">${authUser.username}님 [마이페이지]</a>
+							    </li>
+							    <c:if test="${empty authAdmin}">
+							        <li class="nav-item">
+							            <a href="<c:url value='/users/requestcash' />" class="nav-link">캐시 충전</a>
+							        </li>
+							        <li class="nav-item cash-item">
+							            <span class="cash-balance">잔액: </span>
+							            <a href="<c:url value='/users/cashhistory' />" class="nav-link cash-amount">${sessionScope.approvedCashAmount}</a>
+							        </li>
+							    </c:if>
+							</ul>
                         </nav>
                     </c:when>
                     <c:otherwise>
                         <div class="button-group">
-                            <button onclick="location.href='<c:url value="/users/login" />'" class="btn btn-login">로그인</button>
-                            <button onclick="location.href='<c:url value="/users/join" />'" class="btn btn-signup">회원가입</button>
+                            <button onclick="location.href='<c:url value="/users/login" />'" class="btn btn-login" style="background-color:#333;">로그인</button>
+                            <button onclick="location.href='<c:url value="/users/join" />'" class="btn btn-signup" style="background-color:#333;">회원가입</button>
                         </div>
                     </c:otherwise>
                 </c:choose>

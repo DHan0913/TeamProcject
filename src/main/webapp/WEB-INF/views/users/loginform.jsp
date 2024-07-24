@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoD 로그인</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="<c:url value='/css/joinform.css' />" rel="stylesheet"> <!-- 사용자 정의 CSS -->
 </head>
 <body>
@@ -22,14 +21,13 @@
             <p class="error-message">로그인에 실패했습니다.</p>
         </c:if>
 
-
         <form action="${pageContext.request.contextPath}/users/login" method="post" class="login-form">
             <div class="form-group">
-                <label for="email">이메일:</label>
+                <label for="email">이메일</label>
                 <input type="text" id="email" name="email" class="form-control">
             </div>
             <div class="form-group">
-                <label for="password">비밀번호:</label>
+                <label for="password">비밀번호</label>
                 <input type="password" id="password" name="password" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary">로그인</button>
@@ -40,6 +38,5 @@
             <button class="btn btn-secondary" onclick="window.history.back();">뒤로가기</button>
         </div>
     </div>
-
 </body>
 </html>

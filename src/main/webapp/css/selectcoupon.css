@@ -1,4 +1,4 @@
-/* delete.css */
+/* coupon.css */
 
 /* 전체 페이지 기본 스타일 */
 body {
@@ -19,7 +19,7 @@ h1 {
 
 /* 폼 스타일 */
 form {
-    max-width: 500px;
+    max-width: 400px;
     margin: 30px auto;
     padding: 20px;
     background-color: #ffffff;
@@ -35,8 +35,8 @@ label {
     color: #555;
 }
 
-input[type="password"] {
-    width: 100%;
+input[type="text"] {
+    width: calc(100% - 22px); /* padding과 border를 고려하여 너비 조정 */
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
@@ -47,7 +47,7 @@ input[type="password"] {
 
 /* 버튼 스타일 */
 button {
-    background-color: #d9534f; /* 경고 색상 */
+    background-color: #333; /* 버튼 색상 통일 */
     color: #ffffff;
     border: none;
     padding: 10px 15px;
@@ -59,7 +59,7 @@ button {
 }
 
 button:hover {
-    background-color: #333;
+    background-color: #0056b3;
     transform: translateY(-2px);
 }
 
@@ -67,19 +67,21 @@ button:focus {
     outline: none;
 }
 
-/* 취소 및 뒤로가기 버튼 스타일 */
+/* 버튼 컨테이너 스타일 */
+.button-container {
+    text-align: center;
+}
+
+/* 뒤로가기 버튼 스타일 */
 button[type="button"] {
-    background-color: #6c757d;
+    background-color: #333; /* 취소 버튼 색상 */
 }
 
 button[type="button"]:hover {
-    background-color: #5a6268;
+    background-color: #333;
 }
 
-/* 에러 메시지 스타일 */
-p {
-    text-align: center;
-    color: #d9534f;
-    font-size: 16px;
-    margin: 20px 0;
+/* 빈 공간 및 여백 조정 */
+br {
+    margin-bottom: 20px;
 }
