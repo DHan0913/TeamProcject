@@ -60,7 +60,7 @@ public interface UserService {
 	boolean deleteNotice(Long id); // 공지사항 삭제
 	NoticeVo getNoticedetail(Long id); // 공지사항 상세조회
  
-	List<CommentVo> getComment(Long noticeId); // 댓글 리스트
+	List<CommentVo> getComment(Long id); // 댓글 리스트
     boolean addComment(CommentVo commentVo); // 댓글 추가
 
 

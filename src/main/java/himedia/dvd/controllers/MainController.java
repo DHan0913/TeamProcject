@@ -1,5 +1,6 @@
 package himedia.dvd.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +90,7 @@ public class MainController {
     @GetMapping("/board/noticelist/{id}")
     public String getNoticeDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
         NoticeVo notice = userService.getNoticedetail(id);
-        UserVo authUser = (UserVo) session.getAttribute("authUser");
+
         List<CommentVo> comments = userService.getComment(id);
 
         model.addAttribute("notice", notice);
@@ -99,13 +100,18 @@ public class MainController {
     
     //댓글 추가
     @PostMapping("/board/noticelist/{id}/addComment")
-    public String addComment(@PathVariable("id") Long noticeId, @RequestParam("comment") String comment, HttpSession session) {
+    public String addComment(@PathVariable("id") Long noticeId, 
+                             @RequestParam("comment") String comment, 
+                             @RequestParam(value = "secret", required = false, defaultValue = "N") String secret, 
+                             HttpSession session) {
         UserVo authUser = (UserVo) session.getAttribute("authUser");
         if (authUser != null) {
             CommentVo commentVo = new CommentVo();
             commentVo.setNoticeId(noticeId);
             commentVo.setUserId(authUser.getUserNo());
             commentVo.setContent(comment);
+            commentVo.setSecret("N"); // secret을 char로 설정
+            commentVo.setCreatedDate(new Date());  // createdDate 설정
             userService.addComment(commentVo);
         }
         return "redirect:/board/noticelist/" + noticeId;
