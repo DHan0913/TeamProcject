@@ -30,5 +30,6 @@
 
 </form>
 
+<script src="<c:url value='/javascript/updateform.js' />"></script>
 </body>
 </html>
