@@ -269,7 +269,7 @@
     
     <!-- 댓글 목록 조회 -->
     <select id="selectCommentsByNoticeId" parameterType="long" resultType="CommentVo">
-        SELECT id, notice_id, user_id, content, created_date
+        SELECT id, notice_id, user_id as userId , content, created_date, secret
         FROM comments
         WHERE notice_id = #{noticeId}
         ORDER BY created_date DESC

@@ -9,12 +9,12 @@ public class CommentVo {
     private String content;
     private Date createdDate;
     private String username;
-    private char secret;
+    private String secret;
 
     public CommentVo() {
     }
 
-    public CommentVo(Long id, Long noticeId, Long userId, String content, Date createdDate, char secret, String username) {
+    public CommentVo(Long id, Long noticeId, Long userId, String content, Date createdDate, String secret, String username) {
         this.id = id;
         this.noticeId = noticeId;
         this.userId = userId;
@@ -72,11 +72,11 @@ public class CommentVo {
         this.username = username;
     }
 
-    public char getSecret() {
+    public String getSecret() {
         return secret;
     }
 
-    public void setSecret(char secret) {
+    public void setSecret(String secret) {
         this.secret = secret;
     }
 

@@ -90,12 +90,11 @@ public class MainController {
     @GetMapping("/board/noticelist/{id}")
     public String getNoticeDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
         NoticeVo notice = userService.getNoticedetail(id);
-        UserVo authUser = (UserVo) session.getAttribute("authUser");
+
         List<CommentVo> comments = userService.getComment(id);
 
         model.addAttribute("notice", notice);
         model.addAttribute("comments", comments);
-        model.addAttribute("authUser", authUser);
         return "board/noticedetail";
     }
     
@@ -111,7 +110,7 @@ public class MainController {
             commentVo.setNoticeId(noticeId);
             commentVo.setUserId(authUser.getUserNo());
             commentVo.setContent(comment);
-            commentVo.setSecret(secret.charAt(0)); // secret을 char로 설정
+            commentVo.setSecret("N"); // secret을 char로 설정
             commentVo.setCreatedDate(new Date());  // createdDate 설정
             userService.addComment(commentVo);
         }
