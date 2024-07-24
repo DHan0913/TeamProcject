@@ -6,16 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.ProductVo;
 import himedia.dvd.services.ProductService;
+import himedia.dvd.services.UserService;
 
 @Controller
 public class MainController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
     
     private static final int PAGE_SIZE = 10; // 페이지당 항목 수를 상수로 정의
 
@@ -59,5 +64,10 @@ public class MainController {
         
         model.addAttribute("products", products);
         return "home";
+    }
+    
+    @ModelAttribute("latestNotice")
+    public NoticeVo getLatestNotice() {
+        return userService.getLatestNotice();
     }
 }

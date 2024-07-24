@@ -37,5 +37,6 @@ public interface UserDao {
 	
 	int insertNotice(NoticeVo notice); //공지사항 추가
 	List<NoticeVo> getAllNotices(); //공지사항 출력
-	NoticeVo getLatestNotice();
+	NoticeVo getLatestNotice(); //최근 공지사항 띄우기
+	int deleteNotice(Long id); // 공지사항 삭제
 }

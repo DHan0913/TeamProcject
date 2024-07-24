@@ -9,6 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="container">
+		<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+		
+		<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
+	</div>
     <h1>공지사항 목록</h1>
     <a href="<c:url value='/admin/notice/add' />">공지사항 추가</a>
     <table>

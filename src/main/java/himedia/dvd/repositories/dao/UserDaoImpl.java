@@ -201,6 +201,11 @@ public class UserDaoImpl implements UserDao {
 	public NoticeVo getLatestNotice() {
 		return sqlSession.selectOne("users.selectLatestNotice");
 	}
+
+	@Override
+	public int deleteNotice(Long id) {
+		return sqlSession.delete("users.deleteNotice",id);
+	}
 	
 	
 }

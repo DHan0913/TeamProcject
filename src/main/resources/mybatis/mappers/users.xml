@@ -248,11 +248,17 @@
     </select>
 
 	<!-- 최신 공지사항 한 개 조회 -->
-    <select id="selectLatestNotice" resultType="himedia.dvd.repositories.vo.NoticeVo">
+    <select id="selectLatestNotice" resultType="NoticeVo">
         SELECT id, title, content, created_date AS createdDate
         FROM notices
         ORDER BY created_date DESC
         FETCH FIRST 1 ROWS ONLY
     </select>
+
+    <!-- 공지사항 삭제 -->
+    <delete id="deleteNotice" parameterType="long">
+        DELETE FROM notices WHERE id = #{id}
+    </delete>
+    
 
 </mapper>
