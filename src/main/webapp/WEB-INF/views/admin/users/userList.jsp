@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사용자 관리</title>
+	<script src="<c:url value='/javascript/userlist.js' />" type="text/javascript"></script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
@@ -70,7 +71,8 @@
 
 
 						<td><c:if test="${user.status == '로그인 가능' }">
-								<a href="<c:url value='/admin/users/${user.userNo}/reset' />">암호초기화</a>
+								<a href="<c:url value='/admin/users/${user.userNo}/reset' />"
+									onclick="return confirmReset();">암호초기화</a>
 							</c:if> <c:if test="${user.birth != '삭제된 회원' }">
 								<c:if test="${user.status == '탈퇴 요청' }">
 									<a href="<c:url value='/admin/users/${user.userNo}/delete' />">탈퇴</a>

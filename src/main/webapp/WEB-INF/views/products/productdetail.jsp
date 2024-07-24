@@ -81,12 +81,14 @@
                 <p>로그인 후 이용해주세요.</p>
                 <p>
                     <button onclick="location.href='<c:url value="/users/login" />'">로그인</button>
+                    
                 </p>
             </c:otherwise>
         </c:choose>
     </td>
 </tr>
 
-	</table>
+	</table><br>
+	<button type="button" onclick="window.location.href='<c:url value="/" />'">홈으로</button>
 </body>
 </html>

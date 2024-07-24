@@ -11,6 +11,7 @@
 <body>
 
     <c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+    <c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
     <h1>쿠폰 관리</h1>
     
     <!-- 쿠폰 생성 링크 -->

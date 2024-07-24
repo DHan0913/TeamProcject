@@ -33,7 +33,7 @@
 						<td>${product.releaseDate}</td>
 						<td>
 						<a href="<c:url value="/admin/${product.productNo }/modify" />">수정</a>
-						<a href="<c:url value="/admin/${product.productNo }/delete" />">삭제</a>
+						
 						</td>
 					</tr>
 				</c:forEach>
