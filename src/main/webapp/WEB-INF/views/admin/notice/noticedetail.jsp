@@ -24,6 +24,7 @@
             <td>${notice.content}</td>
         </tr>
     </table>
+    
     <a href="<c:url value='/admin/notice' />">목록으로 돌아가기</a>
 </body>
 </html>

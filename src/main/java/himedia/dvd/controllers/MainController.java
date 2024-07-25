@@ -90,9 +90,13 @@ public class MainController {
     @GetMapping("/board/noticelist/{id}")
     public String getNoticeDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
         NoticeVo notice = userService.getNoticedetail(id);
-
         List<CommentVo> comments = userService.getComment(id);
-
+        
+        for (CommentVo comment : comments) {
+            List<CommentVo> replies = userService.getReplies(comment.getId());
+            comment.setReplies(replies);
+        }
+        
         model.addAttribute("notice", notice);
         model.addAttribute("comments", comments);
         return "board/noticedetail";
@@ -110,9 +114,30 @@ public class MainController {
             commentVo.setNoticeId(noticeId);
             commentVo.setUserId(authUser.getUserNo());
             commentVo.setContent(comment);
-            commentVo.setSecret("N"); // secret을 char로 설정
+            commentVo.setSecret(secret); // secret 값을 설정
             commentVo.setCreatedDate(new Date());  // createdDate 설정
             userService.addComment(commentVo);
+        }
+        return "redirect:/board/noticelist/" + noticeId;
+    }
+    
+    //대댓글 추가
+    @PostMapping("/board/noticelist/{id}/addReply")
+    public String addReply(@PathVariable("id") Long noticeId, 
+                           @RequestParam("reply") String reply, 
+                           @RequestParam("commentId") Long commentId,
+                           @RequestParam(value = "secretReply", required = false, defaultValue = "N") String secretReply,
+                           HttpSession session) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        if (authUser != null) {
+            CommentVo commentVo = new CommentVo();
+            commentVo.setNoticeId(noticeId);
+            commentVo.setUserId(authUser.getUserNo());
+            commentVo.setContent(reply);
+            commentVo.setCommentId(commentId);
+            commentVo.setSecret(secretReply);
+            commentVo.setCreatedDate(new Date());
+            userService.addReply(commentVo);
         }
         return "redirect:/board/noticelist/" + noticeId;
     }

@@ -222,6 +222,27 @@ public class UserDaoImpl implements UserDao {
 	public int insertComment(CommentVo commentVo) {
 		return sqlSession.insert("users.insertComment", commentVo);
 	}
+
+	@Override
+	public int insertReply(CommentVo commentVo) {
+		return sqlSession.insert("users.insertReply", commentVo);
+	}
+
+	@Override
+	public List<CommentVo> selectRepliesByCommentId(Long commentId) {
+		return sqlSession.selectList("users.selectRepliesByCommentId",commentId);
+	}
 	
+	@Override
+    public CommentVo selectCommentById(Long id) {
+        return sqlSession.selectOne("users.selectCommentById", id);
+    }
 	
+	@Override
+    public int updateReplies(Long commentId, List<CommentVo> replies) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commentId", commentId);
+        params.put("replies", replies);
+        return sqlSession.update("users.updateReplies", params);
+    }
 }

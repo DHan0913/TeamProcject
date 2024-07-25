@@ -266,19 +266,43 @@
         FROM notices
         WHERE id = #{id}
     </select>
-    
-    <!-- 댓글 목록 조회 -->
-    <select id="selectCommentsByNoticeId" parameterType="long" resultType="CommentVo">
-        SELECT id, notice_id, user_id as userId , content, created_date, secret
-        FROM comments
-        WHERE notice_id = #{noticeId}
-        ORDER BY created_date DESC
-    </select>
 
     <!-- 댓글 추가 -->
     <insert id="insertComment" parameterType="CommentVo">
-        INSERT INTO comments (id, notice_id, user_id, content, created_date)
-        VALUES (comments_seq.NEXTVAL, #{noticeId}, #{userId}, #{content}, SYSDATE)
+        INSERT INTO comments (id, notice_id, user_id, content, created_date, secret)
+        VALUES (comments_seq.NEXTVAL, #{noticeId}, #{userId}, #{content}, SYSDATE, #{secret})
     </insert>
-    
+
+    <!-- 대댓글 추가 -->
+    <insert id="insertReply" parameterType="CommentVo">
+        INSERT INTO comments (id, notice_id, user_id, content, created_date, secret, comment_id)
+        VALUES (comments_seq.NEXTVAL, #{noticeId}, #{userId}, #{content}, SYSDATE, #{secret}, #{commentId})
+    </insert>
+
+    <!-- 댓글 목록 조회 -->
+    <select id="selectCommentsByNoticeId" parameterType="long" resultType="CommentVo">
+        SELECT c.id, c.notice_id, c.user_id as userId, u.username, c.content, c.created_date, c.secret
+        FROM comments c
+        JOIN users u ON c.user_id = u.user_no
+        WHERE c.notice_id = #{noticeId}
+        AND c.comment_id IS NULL
+        ORDER BY c.created_date ASC
+    </select>
+
+    <!-- 대댓글 조회 -->
+    <select id="selectRepliesByCommentId" parameterType="long" resultType="CommentVo">
+        SELECT c.id, c.notice_id, c.user_id as userId, u.username, c.content, c.created_date, c.secret, c.comment_id
+        FROM comments c
+        JOIN users u ON c.user_id = u.user_no
+        WHERE c.comment_id = #{commentId}
+        ORDER BY c.created_date ASC
+    </select>
+
+    <select id="selectCommentById" parameterType="long" resultType="CommentVo">
+        SELECT c.id, c.notice_id, c.user_id as userId, u.username, c.content, c.created_date, c.secret, c.comment_id
+        FROM comments c
+        JOIN users u ON c.user_id = u.user_no
+        WHERE c.id = #{id}
+    </select>
+	    
 </mapper>

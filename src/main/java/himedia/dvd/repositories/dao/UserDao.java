@@ -43,4 +43,8 @@ public interface UserDao {
 	NoticeVo selectNoticeById(Long id); //공지사항 조회
 	List<CommentVo> selectCommentsByNoticeId(Long id); // 댓글 조회
 	int insertComment(CommentVo commentVo); // 댓글달기
+	int insertReply(CommentVo commentVo); // 대댓글 추가
+	List<CommentVo> selectRepliesByCommentId(Long commentId);
+	CommentVo selectCommentById(Long id);
+	int updateReplies(Long commentId, List<CommentVo> replies);
 }
