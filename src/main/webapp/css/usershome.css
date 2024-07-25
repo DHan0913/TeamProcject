@@ -1,121 +1,180 @@
-/* 기본 리셋 및 박스 사이징 설정 */
-* {
+body {
+    font-family: 'Malgun Gothic', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 전체 화면 높이 설정 */
 }
 
-body {
-    font-family: Arial, sans-serif;
-}
-
-#container {
-    padding: 20px;
-}
-
-/* 버튼 스타일링 */
-.btn.custom-btn {
-    background-color: #212529;
+#sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    background-color: #333;
     color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    text-align: center;
     transition: background-color 0.3s;
 }
 
-.btn.custom-btn:hover {
-    background-color: #0056b3;
+#sidebar-toggle:hover {
+    background-color: #555;
 }
 
-/* 관리자 버튼 스타일링 */
-.admin-btn {
-    background-color: #28a745;
-}
-
-.admin-btn:hover {
-    background-color: #218838;
-}
-
-/* 검색 바 스타일 */
-#search-bar {
-    margin-bottom: 20px;
-}
-
-.search-form {
+#container {
     display: flex;
-    gap: 8px;
-    align-items: center;
+    flex-direction: column;
+    flex: 1; /* 컨텐츠가 화면 높이를 채우도록 설정 */
 }
 
-/* 검색 입력 필드 */
-.search-input {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    width: 100%;
-    max-width: 200px; /* 검색 입력 필드의 최대 너비 */
+#sidebar {
+    width: 250px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 1000;
 }
 
-/* 버튼 그룹 스타일링 */
-.button-group {
+#sidebar.open {
+    left: 0;
+}
+
+/* 사이드바 내 버튼 스타일 */
+.category-buttons {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
 }
 
-/* 제품 목록 컨테이너 스타일 */
-.list-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
+.category-buttons .btn {
+    margin-bottom: 10px;
 }
 
-.list-container .item {
-	text-align: center; /* 텍스트중앙정렬 */
-    width: calc(33.333% - 16px); /* 3개씩 나오는 행에서 간격을 고려한 너비 */
-    margin-bottom: 16px; /* 항목 간의 간격 */
-    border: 1px solid #e1e1e1; /* 항목의 경계선 */
+#content {
+    flex: 1; /* 콘텐츠가 남은 공간을 채우도록 설정 */
+    margin-left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.img-container {
+    flex: 1 0 calc(20% - 20px);
+    margin: 10px;
+    box-sizing: border-box;
     border-radius: 4px;
-    overflow: hidden; /* 자식 요소가 컨테이너를 넘지 않도록 */
-    background-color: #fff; /* 배경색 */
-    padding: 10px; /* 패딩 추가 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-}
-
-/* 이미지 스타일 */
-.list-container img {
-    width: 100%;
-    height: auto;
-    max-height: 200px; /* 이미지 최대 높이 설정 */
-    object-fit: cover; /* 이미지 비율 유지하면서 컨테이너에 맞추기 */
-    border-radius: 4px;
-}
-
-/* 페이징 네비게이션 스타일링 */
-.pagination {
-    margin-top: 20px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.page-link {
-    display: inline-block;
-    padding: 8px 16px;
-    margin: 0 4px;
-    border: 1px solid #dee2e6;
+.img-container img {
+    width: 100%;
+    height: auto;
+}
+
+.img-container .text-container {
+    padding: 5px 10px;
+}
+
+.img-container h2 {
+    font-size: 14px;
+    margin: 0;
     color: #333;
-    text-decoration: none;
+}
+
+.list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #333;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px; /* 버튼 크기 줄임 */
+    font-size: 14px; /* 글씨 크기 줄임 */
+    cursor: pointer;
     border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-login {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.btn-signup {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-signup:hover {
+    background-color: #218838;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.page-link {
+    padding: 10px;
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
 }
 
 .page-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-link:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+/* 푸터 스타일 */
+footer {
     background-color: #333;
     color: #fff;
+    padding: 20px 0; /* 푸터의 높이 설정 */
+    text-align: center;
+    width: 100%;
 }

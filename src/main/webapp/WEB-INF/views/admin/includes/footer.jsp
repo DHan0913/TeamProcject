@@ -12,7 +12,7 @@
     <footer class="footer">
         <div>
             <ul class="footer-list">
-                <li><a href="#" class="footer-link">됐냐?</a></li>
+                <li><a href="#" class="footer-link">TOP ↑</a></li>
             </ul>
         </div>
     </footer>
