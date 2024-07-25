@@ -59,7 +59,8 @@
 
             <button type="submit" class="btn btn-warning btn-block">가입하기</button>
             <button type="reset" class="btn btn-warning btn-block">다시 작성</button>
-	        <button onclick="location.href='<c:url value='/' />'" class="btn btn-warning btn-block">처음으로</button>
+	        <button type="button" class="btn btn-warning btn-block" onclick="location.href='<c:url value="/" />'">홈으로</button>
+
         </form:form>
     </div>
 </body>

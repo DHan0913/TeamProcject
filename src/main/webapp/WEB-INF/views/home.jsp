@@ -7,14 +7,11 @@
 <title>User Home</title>
 <link href="<c:url value='/css/usershome.css' />" rel="stylesheet">
 <link href="<c:url value='/css/footer.css' />" rel="stylesheet">
+<link href="<c:url value='/css/userheader.css' />" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <c:import url="/WEB-INF/views/includes/header.jsp" />
-    <!-- 사이드바 토글 버튼 -->
-    <div id="sidebar-toggle" class="btn custom-btn" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i> 메뉴
-    </div>
     <div id="container">
         <!-- 사이드바 -->
         <div id="sidebar" class="hidden">
@@ -55,7 +52,9 @@
                     </div>
                 </c:forEach>
             </div>
-       <!-- 페이징 네비게이션 추가 -->
+            
+            
+            <!-- 페이징 네비게이션 추가 -->
             <div class="pagination">
                 <c:if test="${currentPage > 1}">
                     <a href="${pageContext.request.contextPath}/main?page=${currentPage - 1}" class="page-link">이전</a>
@@ -81,7 +80,7 @@
                 content.style.marginLeft = "250px";
                 sidebarToggle.style.opacity = 0; // 사이드바 열릴 때 버튼 숨김
             } else {
-                content.style.marginLeft = "0";
+                content.style.marginLeft = "0";  
                 sidebarToggle.style.opacity = 1; // 사이드바 닫힐 때 버튼 표시
             }
         }

@@ -10,7 +10,7 @@ body {
 
 /* 헤더 스타일 */
 #header {
-    background-color: #333;
+    background-color: #121212;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -58,7 +58,7 @@ body {
 
 /* 버튼 스타일 */
 .button-group button {
-    background-color: #333;
+    background-color: #121212;
     color: #fff;
     border: none;
     padding: 10px 15px;
