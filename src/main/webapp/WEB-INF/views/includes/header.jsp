@@ -16,6 +16,13 @@
                 <div class="error-message">${errorMsg}</div>
             </c:if>
             <h1 class="site-title"><a href="<c:url value='/' />">VOD</a></h1>
+            <c:if test="${not empty latestNotice}">
+                <div class="notice">
+                    <p><strong>공지사항:</strong> 
+                        <a href="<c:url value='/board/noticelist' />">${latestNotice.title}</a>
+                    </p>
+                </div>
+            </c:if>
             <div class="header-actions">
                 <c:choose>
                     <c:when test="${not empty authUser}">
@@ -41,19 +48,12 @@
                     </c:when>
                     <c:otherwise>
                         <div class="button-group">
-                            <button onclick="location.href='<c:url value="/users/login" />'" class="btn btn-login" style="background-color:#333;">로그인</button>
-                            <button onclick="location.href='<c:url value="/users/join" />'" class="btn btn-signup" style="background-color:#333;">회원가입</button>
+                            <button onclick="location.href='<c:url value="/users/login" />'" class="btn btn-login" style="background-color:#121212;">로그인</button>
+                            <button onclick="location.href='<c:url value="/users/join" />'" class="btn btn-signup" style="background-color:#121212;">회원가입</button>
                         </div>
                     </c:otherwise>
                 </c:choose>
             </div>
-        </div>
-        <div class="notice">
-            <c:if test="${not empty latestNotice}">
-                <p><strong>공지사항:</strong> 
-                    <a href="<c:url value='/board/noticelist' />">${latestNotice.title}</a>
-                </p>
-            </c:if>
         </div>
     </header>
 </body>

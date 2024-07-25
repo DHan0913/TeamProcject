@@ -21,7 +21,7 @@ h1 {
     font-size: 26px; /* 제목 크기 줄임 */
     margin-bottom: 20px;
     text-align: center;
-    color: #333;
+    color: #FFFFFF;
 }
 
 /* 테이블 스타일 */
@@ -101,7 +101,7 @@ button:hover {
 /* 권한 없는 경우 메시지 스타일 */
 p {
     font-size: 16px;
-    color: #666;
+    color: #ffffff;
     text-align: center;
     margin: 20px 0;
 }

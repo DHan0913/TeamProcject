@@ -1,12 +1,11 @@
+/* 푸터 스타일 */
 .footer {
-    background-color: #333;
+    background-color: #000000;
     color: #fff;
     padding: 20px 0; /* 푸터의 높이 설정 */
     width: 100%;
-    left: 0;
-    text-align: center;
+    text-align: right; /* 내용 오른쪽 정렬 */
     z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
-    /* position 속성 제거 - 페이지의 흐름에 따라 자연스럽게 위치하도록 변경 */
 }
 
 /* 푸터 내용의 스타일 */
@@ -14,7 +13,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    text-align: center;
+    text-align: right; /* 리스트 항목 오른쪽 정렬 */
 }
 
 .footer-list li {
@@ -34,6 +33,10 @@
 }
 
 @media (max-width: 600px) {
+    .footer-list {
+        text-align: center; /* 모바일에서 중앙 정렬 */
+    }
+
     .footer-list li {
         display: block;
         margin: 10px 0;

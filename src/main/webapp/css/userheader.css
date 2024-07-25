@@ -1,26 +1,29 @@
 /* 헤더 스타일 */
 #header {
-    background-color: #444;
+    background-color: #121212;
     padding: 20px;
     color: #fff;
-    display: flex; /* Flexbox를 사용하여 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    display: flex; /* Flexbox를 사용하여 레이아웃 정렬 */
+    justify-content: space-between; /* 왼쪽과 오른쪽에 콘텐츠 배치 */
     align-items: center; /* 수직 중앙 정렬 */
+    position: fixed; /* 헤더를 고정시킴 */
+    top: 0;
+    width: 100%; /* 전체 너비 사용 */
+    z-index: 1001; /* 다른 요소보다 높게 설정 */
 }
 
+/* 헤더 컨테이너 스타일 */
 .headerContainer {
     display: flex;
-    flex-direction: column; /* 제목과 네비게이션을 세로로 배치 */
-    align-items: center; /* 중앙 정렬 */
+    align-items: center; /* 수직 정렬 */
     width: 100%; /* 전체 너비 사용 */
+    justify-content: space-between; /* 왼쪽과 오른쪽 콘텐츠 배치 */
 }
 
 /* 제목 스타일링 */
 .site-title {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
-    display: flex;
-    align-items: center;
     margin: 0; /* 기본 여백 제거 */
 }
 
@@ -33,14 +36,26 @@
 
 .site-title a i {
     margin-right: 8px;
-    font-size: 28px;
+    font-size: 36px;
+}
+
+/* 공지사항 스타일 */
+.notice {
+    margin-top: 10px; /* 제목과 공지사항 사이 여백 설정 */
+    background-color: #0056b3; /* 공지사항 배경색 */
+    color: #ffffff; /* 공지사항 텍스트 색상 */
+    text-align: center; /* 가운데 정렬 */
+    width: 60%; /* 너비를 80%로 설정 (조정 가능) */
+    max-width: 1000px; /* 최대 너비 설정 (조정 가능) */
+    margin: 10px auto; /* 상하 여백 및 중앙 정렬 */
+    border-radius: 5px; /* 모서리 둥글게 */
 }
 
 /* 네비게이션 리스트 스타일링 */
 .nav-list {
     list-style-type: none;
     padding: 0;
-    margin: 20px 0 0; /* 제목과 네비게이션 사이 여백 설정 */
+    margin: 0; /* 제목과 네비게이션 사이 여백 제거 */
     display: flex;
     gap: 20px;
     align-items: center;
@@ -86,6 +101,7 @@
 .button-group {
     display: flex;
     gap: 10px;
+    margin-left: auto;
 }
 
 .btn {
@@ -97,7 +113,7 @@
 }
 
 .btn-login {
-    background-color: #007bff;
+    background-color: #0056b3;
     color: #fff;
 }
 
@@ -106,22 +122,10 @@
 }
 
 .btn-signup {
-    background-color: #28a745;
+    background-color: #0056b3;
     color: #fff;
 }
 
 .btn-signup:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
-
-/* 공지사항 스타일링 */
-/* .notice {
-    margin-top: 20px;
-    background-color: #ffcc00;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.notice p {
-    margin: 0;
-} */
