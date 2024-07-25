@@ -62,6 +62,10 @@ public interface UserService {
  
 	List<CommentVo> getComment(Long id); // 댓글 리스트
     boolean addComment(CommentVo commentVo); // 댓글 추가
+    boolean addReply(CommentVo commentVo);// 대댓글 추가
+    List<CommentVo> getReplies(Long commentId); // 대댓글 리스트
+    boolean updateReplies(Long commentId, List<CommentVo> replies);
+
 
 
 

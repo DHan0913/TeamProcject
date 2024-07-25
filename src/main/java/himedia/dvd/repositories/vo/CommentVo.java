@@ -1,6 +1,7 @@
 package himedia.dvd.repositories.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class CommentVo {
     private Long id;
@@ -10,6 +11,8 @@ public class CommentVo {
     private Date createdDate;
     private String username;
     private String secret;
+    private Long commentId;
+    private List<CommentVo> replies;
 
     public CommentVo() {
     }
@@ -79,14 +82,32 @@ public class CommentVo {
     public void setSecret(String secret) {
         this.secret = secret;
     }
+    
+	public Long getCommentId() {
+		return commentId;
+	}
 
-    @Override
-    public String toString() {
-        return "CommentVo [id=" + id + ", noticeId=" + noticeId + ", userId=" + userId + ", content=" + content
-                + ", createdDate=" + createdDate + ", username=" + username + ", secret=" + secret + ", getId()="
-                + getId() + ", getNoticeId()=" + getNoticeId() + ", getUserId()=" + getUserId() + ", getContent()="
-                + getContent() + ", getCreatedDate()=" + getCreatedDate() + ", getUsername()=" + getUsername()
-                + ", getSecret()=" + getSecret() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-                + ", toString()=" + super.toString() + "]";
-    }
+	public void setCommentId(Long commentId) {
+		this.commentId = commentId;
+	}
+	
+    public List<CommentVo> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<CommentVo> replies) {
+		this.replies = replies;
+	}
+
+	@Override
+	public String toString() {
+		return "CommentVo [id=" + id + ", noticeId=" + noticeId + ", userId=" + userId + ", content=" + content
+				+ ", createdDate=" + createdDate + ", username=" + username + ", secret=" + secret + ", commentId="
+				+ commentId + ", replies=" + replies + ", getId()=" + getId() + ", getNoticeId()=" + getNoticeId()
+				+ ", getUserId()=" + getUserId() + ", getContent()=" + getContent() + ", getCreatedDate()="
+				+ getCreatedDate() + ", getUsername()=" + getUsername() + ", getSecret()=" + getSecret()
+				+ ", getCommentId()=" + getCommentId() + ", getReplies()=" + getReplies() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+
 }

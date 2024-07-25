@@ -8,6 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import himedia.dvd.repositories.dao.UserDao;
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CommentVo;
@@ -22,6 +25,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    private ObjectMapper objectMapper = new ObjectMapper();	
+    
     @Override
     public boolean join(UserVo vo) {
         if (userDao.selectUserByEmail(vo.getEmail()) != null) {
@@ -194,6 +199,19 @@ public class UserServiceImpl implements UserService {
 	   return userDao.insertComment(commentVo) > 0;
 	}
 
+	@Override
+    public boolean addReply(CommentVo commentVo) {
+        return userDao.insertReply(commentVo) > 0;
+    }
+	
+	@Override
+	public List<CommentVo> getReplies(Long commentId) {
+		return userDao.selectRepliesByCommentId(commentId);
+	}
+	
+	 @Override
+	    public boolean updateReplies(Long commentId, List<CommentVo> replies) {
+	        return userDao.updateReplies(commentId, replies) > 0;
+	    }
+	}
 
-
-}
