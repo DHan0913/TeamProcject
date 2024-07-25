@@ -1,23 +1,15 @@
-/* footer.css */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
 .footer {
     background-color: #333;
     color: #fff;
-    padding: 20px 0;
-    position: fixed;
-    bottom: 0;
+    padding: 20px 0; /* 푸터의 높이 설정 */
     width: 100%;
+    left: 0;
+    text-align: center;
+    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+    /* position 속성 제거 - 페이지의 흐름에 따라 자연스럽게 위치하도록 변경 */
 }
 
-.container {
-    width: 90%;
-    margin: 0 auto;
-}
-
+/* 푸터 내용의 스타일 */
 .footer-list {
     list-style: none;
     padding: 0;

@@ -3,19 +3,25 @@
     background-color: #444;
     padding: 20px;
     color: #fff;
+    display: flex; /* Flexbox를 사용하여 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
 }
 
 .headerContainer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* 제목과 네비게이션을 세로로 배치 */
+    align-items: center; /* 중앙 정렬 */
+    width: 100%; /* 전체 너비 사용 */
 }
 
+/* 제목 스타일링 */
 .site-title {
     font-size: 24px;
     font-weight: bold;
     display: flex;
     align-items: center;
+    margin: 0; /* 기본 여백 제거 */
 }
 
 .site-title a {
@@ -34,7 +40,7 @@
 .nav-list {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: 20px 0 0; /* 제목과 네비게이션 사이 여백 설정 */
     display: flex;
     gap: 20px;
     align-items: center;
