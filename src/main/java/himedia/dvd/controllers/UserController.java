@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import himedia.dvd.repositories.vo.CashVo;
 import himedia.dvd.repositories.vo.CouponVo;
-import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 import himedia.dvd.services.CouponService;
+import himedia.dvd.services.IamportService;
 import himedia.dvd.services.PermissionService;
 import himedia.dvd.services.ProductService;
 import himedia.dvd.services.UserService;
@@ -40,6 +40,8 @@ public class UserController {
 	private PermissionService permissionService;
 	@Autowired
 	private CouponService couponService;
+	@Autowired
+	private IamportService iamportService;
 
 	// 가입 폼
 	@GetMapping("/join")
@@ -63,10 +65,10 @@ public class UserController {
 		}
 
 		/// 이메일 형식 검증
-	    if (!userVo.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-	        result.rejectValue("email", "error.email", "올바른 이메일 형식을 입력하십시오.");
-	    }
-	    
+		if (!userVo.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+			result.rejectValue("email", "error.email", "올바른 이메일 형식을 입력하십시오.");
+		}
+
 		// 검증 결과 확인
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -76,8 +78,7 @@ public class UserController {
 			model.addAllAttributes(result.getModel());
 			return "users/joinform";
 		}
-		
-		
+
 		boolean success = userService.join(userVo);
 		if (success) { // 가입 성공
 			System.out.println("회원 가입 성공");
@@ -160,24 +161,25 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/checkEmail")
 	public Object checkEmail(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
-	    Map<String, Object> json = new HashMap<>();
+		Map<String, Object> json = new HashMap<>();
 
-	    // 이메일 형식 검증
-	    if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-	        json.put("result", "error");
-	        json.put("message", "올바른 이메일 형식을 입력하십시오.");
-	        return json;
-	    }
+		// 이메일 형식 검증
+		if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+			json.put("result", "error");
+			json.put("message", "올바른 이메일 형식을 입력하십시오.");
+			return json;
+		}
 
-	    // 이메일 중복 여부 확인
-	    UserVo vo = userService.login(email);
-	    boolean exists = vo != null;
+		// 이메일 중복 여부 확인
+		UserVo vo = userService.login(email);
+		boolean exists = vo != null;
 
-	    json.put("result", "success");
-	    json.put("exists", exists);
+		json.put("result", "success");
+		json.put("exists", exists);
 
-	    return json;
+		return json;
 	}
+
 	// 회원 상세정보 폼
 	@GetMapping("/{email}/userinfo")
 	public String userInfo(@PathVariable("email") String email, Model model) {
@@ -245,28 +247,44 @@ public class UserController {
 
 	// 충전 요청
 	@PostMapping("/requestcash")
-	public String requestCash(@RequestParam String requestId, @RequestParam Double amount, HttpSession session,
-			Model model) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		String loggedInEmail = authUser.getEmail();
+	public String requestCash(@RequestParam String requestId, @RequestParam Double amount, HttpSession session, Model model) {
+	    UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		if (!requestId.equals(loggedInEmail)) {
-			model.addAttribute("errorMessage", "요청 ID가 로그인된 이메일과 일치하지 않습니다.");
-			return "users/requestcashform";
-		}
+	    if (authUser == null) {
+	        model.addAttribute("errorMessage", "세션이 만료되었거나 로그인 상태가 아닙니다. 다시 로그인 해주세요.");
+	        return "redirect:/login"; // 로그인 페이지로 리디렉션
+	    }
 
-		boolean success = userService.requestCash(requestId, amount);
+	    String loggedInEmail = authUser.getEmail();
 
-		if (success) {
-			double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
-			session.setAttribute("approvedCashAmount", approvedCashAmount);
-			model.addAttribute("message", "캐시 충전 요청이 성공적으로 제출되었습니다.");
-			return "redirect:/";
-		} else {
-			model.addAttribute("errorMessage", "캐시 충전 요청에 실패했습니다.");
-			return "users/requestcashform";
-		}
+	    if (!requestId.equals(loggedInEmail)) {
+	        model.addAttribute("errorMessage", "요청 ID가 로그인된 이메일과 일치하지 않습니다.");
+	        return "users/requestcashform";
+	    }
+
+	    if (amount == null || amount <= 0) {
+	        model.addAttribute("errorMessage", "충전 금액은 0보다 커야 합니다.");
+	        return "users/requestcashform";
+	    }
+
+	    try {
+	        // 요청 ID와 금액만으로 캐시 충전 처리
+	        boolean success = userService.requestCash(requestId, amount);
+	        if (success) {
+	            double approvedCashAmount = userService.getApprovedCashAmountByEmail(authUser.getEmail());
+	            session.setAttribute("approvedCashAmount", approvedCashAmount);
+	            model.addAttribute("message", "캐시 충전 요청이 성공적으로 제출되었습니다.");
+	            return "redirect:/";
+	        } else {
+	            model.addAttribute("errorMessage", "캐시 충전 요청에 실패했습니다.");
+	        }
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "시스템 오류가 발생했습니다. 다시 시도해 주세요.");
+	        e.printStackTrace(); // 오류 로그 출력
+	    }
+	    return "users/requestcashform";
 	}
+
 
 	// 충전 내역
 	@GetMapping("/cashhistory")
@@ -342,22 +360,22 @@ public class UserController {
 			if (count > 0) {
 				// 쿠폰 만료
 				userService.expiryCouponByCouponCode(couponCode);
-					
+
 				// 현재 로그인된 유저의 이메일을 가져옵니다.
-	            UserVo authUser = (UserVo) session.getAttribute("authUser");
-	            String email = authUser.getEmail();
-	            
-	            // 캐시 충전
-	            CashVo cashVo = new CashVo();
-	            cashVo.setRequestId(email);
-	            cashVo.setAmount(3000.0);
-	            
-	            userService.chargeCashByCoupon(cashVo);
-	            
-	            double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
-	            session.setAttribute("approvedCashAmount", approvedCashAmount);
-	            model.addAttribute("message", "쿠폰이 성공적으로 사용되었으며, 3000원이 충전되었습니다.");
-	            
+				UserVo authUser = (UserVo) session.getAttribute("authUser");
+				String email = authUser.getEmail();
+
+				// 캐시 충전
+				CashVo cashVo = new CashVo();
+				cashVo.setRequestId(email);
+				cashVo.setAmount(3000.0);
+
+				userService.chargeCashByCoupon(cashVo);
+
+				double approvedCashAmount = userService.getApprovedCashAmountByEmail(email);
+				session.setAttribute("approvedCashAmount", approvedCashAmount);
+				model.addAttribute("message", "쿠폰이 성공적으로 사용되었으며, 3000원이 충전되었습니다.");
+
 				return "redirect:/users/couponsuccess";
 			} else {
 				return "redirect:/users/coupon?error=invalid";
@@ -382,12 +400,13 @@ public class UserController {
 		model.addAttribute("coupons", couponList);
 		return "users/couponlist";
 	}
-	//시청내역
+
+	// 시청내역
 	@GetMapping("/watchhistory")
 	public String getwatchhistory(@RequestParam("userNo") Long userNo, Model model) {
 		List<Map<String, Object>> watchHistoryList = userService.getWatchHistory(userNo);
 		model.addAttribute("watchHistory", watchHistoryList);
 		return "users/watchhistory";
 	}
-	
+
 }
