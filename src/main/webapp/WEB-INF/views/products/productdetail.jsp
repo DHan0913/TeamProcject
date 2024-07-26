@@ -25,7 +25,7 @@
 				<td>${product.productNo}</td>
 			</tr>
 			<tr>
-				<th>상품이름</th>
+				<th>제목</th>
 				<td>${product.productName}</td>
 			</tr>
 			<tr>
@@ -35,10 +35,6 @@
 			<tr>
 				<th>출시일</th>
 				<td>${fn:substring(product.releaseDate, 0, 10)}</td>
-			</tr>
-			<tr>
-				<th>대여가능여부</th>
-				<td>${product.status}</td>
 			</tr>
 			<tr>
 				<th>줄거리</th>
