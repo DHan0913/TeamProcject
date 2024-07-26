@@ -247,9 +247,9 @@ public class UserDaoImpl implements UserDao {
     }
 
 	@Override
-
 	public List<CommentVo> selectCommentFromAdmin(Long userNo) {
 		return sqlSession.selectList("users.selectCommentFromAdmin", userNo);
+	}
 
 	public int updateComment(Map<String, Object> params) {
 	    return sqlSession.update("users.updateComment", params);
