@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoD 로그인</title>
-    <link href="<c:url value='/css/joinform.css' />" rel="stylesheet"> <!-- 사용자 정의 CSS -->
+    <link href="<c:url value='/css/loginform.css' />" rel="stylesheet"> <!-- 사용자 정의 CSS -->
 </head>
 <body>
     <div class="container">
