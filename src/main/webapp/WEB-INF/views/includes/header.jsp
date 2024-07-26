@@ -18,9 +18,7 @@
             <h1 class="site-title"><a href="<c:url value='/' />">VOD</a></h1>
             <c:if test="${not empty latestNotice}">
                 <div class="notice">
-                    <p><strong>공지사항:</strong> 
-                        <a href="<c:url value='/board/noticelist' />">${latestNotice.title}</a>
-                    </p>
+                        <a href="<c:url value='/board/noticelist' />">공지사항</a>
                 </div>
             </c:if>
             <div class="header-actions">

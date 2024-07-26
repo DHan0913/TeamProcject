@@ -66,6 +66,10 @@ public interface UserService {
     List<CommentVo> getReplies(Long commentId); // 대댓글 리스트
     boolean updateReplies(Long commentId, List<CommentVo> replies);
 
+	boolean updateComment(Map<String, Object> params);
+	boolean updateReply(Map<String, Object> params);
+
+
 
 
 

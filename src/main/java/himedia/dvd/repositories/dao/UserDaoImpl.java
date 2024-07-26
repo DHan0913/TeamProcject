@@ -245,4 +245,14 @@ public class UserDaoImpl implements UserDao {
         params.put("replies", replies);
         return sqlSession.update("users.updateReplies", params);
     }
+
+	@Override
+	public int updateComment(Map<String, Object> params) {
+	    return sqlSession.update("users.updateComment", params);
+	}
+
+	@Override
+	public int updateReply(Map<String, Object> params) {
+		return sqlSession.update("users.updateReply", params);
+	}
 }
