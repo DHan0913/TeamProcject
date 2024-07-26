@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="<c:url value='/css/addnotice.css' />" rel="stylesheet">
     <title>Add Notice</title>
 </head>
 <body>
