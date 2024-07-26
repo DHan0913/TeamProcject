@@ -21,17 +21,6 @@ body {
     padding: 150px;
 }
 
-/* 헤더 및 내비게이션 바 */
-header {
-    background-color: #1e1e1e; /* 헤더 배경색 */
-    padding: 10px;
-    text-align: center;
-}
-
-nav {
-    background-color: #1e1e1e; /* 내비게이션 배경색 */
-    padding: 10px;
-}
 
 /* 제목 스타일 */
 h1, h2 {
