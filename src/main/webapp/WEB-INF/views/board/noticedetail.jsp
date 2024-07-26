@@ -126,10 +126,10 @@
     </script>
 </head>
 <body>
-    <div id="container">
-        <c:import url="/WEB-INF/views/includes/header.jsp" />
-    </div>
-    <div class="content-container">
+    <div class="container">
+        <!-- Header는 CSS로 숨겼으므로 제거 -->
+        <!-- <c:import url="/WEB-INF/views/includes/header.jsp" /> -->
+
         <h1>공지사항</h1>
         <div class="notice-detail">
             <div class="notice-title">
@@ -277,7 +277,7 @@
                                 </div>
                             </c:if>
                             <c:if test="${reply.secret == 'D'}">
-                                <div id="reply-${reply.id}" class="deleted-reply">
+                                <div id="reply-${reply.id}" class="deleted">
                                     <p>삭제된 댓글입니다</p>
                                 </div>
                             </c:if>
@@ -302,7 +302,7 @@
                     </div>
                 </c:if>
                 <c:if test="${comment.secret == 'D'}">
-                    <div id="comment-${comment.id}" class="deleted-comment">
+                    <div id="comment-${comment.id}" class="deleted">
                         <p>삭제된 댓글입니다</p>
                     </div>
                 </c:if>
