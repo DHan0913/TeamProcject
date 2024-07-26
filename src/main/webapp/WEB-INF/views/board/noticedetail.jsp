@@ -123,6 +123,14 @@
                 alert('댓글 삭제 중 오류가 발생했습니다.');
             });
         }
+
+        function showReplyForm(commentId) {
+            document.querySelector('#comment-' + commentId + ' .reply-form').style.display = 'block';
+        }
+
+        function hideReplyForm(commentId) {
+            document.querySelector('#comment-' + commentId + ' .reply-form').style.display = 'none';
+        }
     </script>
 </head>
 <body>
@@ -173,6 +181,7 @@
                                         <c:if test="${comment.userId == authUser.userNo}">
                                             <button onclick="showEditForm(${comment.id})">수정</button>
                                             <button onclick="deleteComment(${comment.id})">삭제</button>
+                                            <button onclick="showReplyForm(${comment.id})">답글달기</button>
                                         </c:if>
                                     </div>
                                     <div class="edit-content" style="display:none;">
@@ -202,6 +211,7 @@
                                     <c:if test="${comment.userId == authUser.userNo}">
                                         <button onclick="showEditForm(${comment.id})">수정</button>
                                         <button onclick="deleteComment(${comment.id})">삭제</button>
+                                        <button onclick="showReplyForm(${comment.id})">답글달기</button>
                                     </c:if>
                                 </div>
                                 <div class="edit-content" style="display:none;">
@@ -284,21 +294,20 @@
                         </c:forEach>
 
                         <!-- 대댓글 입력 폼 -->
-                        <c:if test="${not empty authUser}">
-                            <div class="reply-form">
-                                <form action="<c:url value='/board/noticelist/${notice.id}/addReply' />" method="post">
-                                    <input type="hidden" name="commentId" value="${comment.id}">
-                                    <label for="reply">댓글:</label>
-                                    <textarea id="reply" name="reply" required rows="3" cols="40"></textarea>
-                                    <br>
-                                    <label for="secretReply">비밀댓글:</label>
-                                    <input type="checkbox" id="secretReply" name="secretReply" value="Y">
-                                    <input type="hidden" name="_secretReply" value="N">
-                                    <br>
-                                    <button type="submit">댓글달기</button>
-                                </form>
-                            </div>
-                        </c:if>
+                        <div class="reply-form" style="display:none;">
+                            <form action="<c:url value='/board/noticelist/${notice.id}/addReply' />" method="post">
+                                <input type="hidden" name="commentId" value="${comment.id}">
+                                <label for="reply">댓글:</label>
+                                <textarea id="reply" name="reply" required rows="3" cols="40"></textarea>
+                                <br>
+                                <label for="secretReply">비밀댓글:</label>
+                                <input type="checkbox" id="secretReply" name="secretReply" value="Y">
+                                <input type="hidden" name="_secretReply" value="N">
+                                <br>
+                                <button type="submit">댓글달기</button>
+                                <button type="button" onclick="hideReplyForm(${comment.id})">취소</button>
+                            </form>
+                        </div>
                     </div>
                 </c:if>
                 <c:if test="${comment.secret == 'D'}">
