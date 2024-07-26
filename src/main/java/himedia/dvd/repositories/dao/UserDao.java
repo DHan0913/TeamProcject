@@ -46,6 +46,8 @@ public interface UserDao {
 	int insertReply(CommentVo commentVo); // 대댓글 추가
 	List<CommentVo> selectRepliesByCommentId(Long commentId);
 	CommentVo selectCommentById(Long id);
+	List<CommentVo> selectCommentFromAdmin(Long userNo);
+
 	int updateReplies(Long commentId, List<CommentVo> replies); //대댓글 리스트
 	int updateComment(Map<String, Object> params); // 댓글 수정
 	int updateReply(Map<String, Object> params);  // 대댓글 수정

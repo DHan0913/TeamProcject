@@ -305,6 +305,14 @@
         WHERE c.id = #{id}
     </select>
     
+    <!-- 관리자 페이지에서 유저 댓글 조회 -->
+    <select id="selectCommentFromAdmin" parameterType="long" resultType="CommentVo">
+    	SELECT content, created_date as createdDate, notice_id as noticeId, id, user_id as userId
+    	FROM comments
+    	WHERE user_id = #{userNo}
+    </select>
+	    
+
      <!-- 댓글 수정 -->
 	<update id="updateComment" parameterType="map">
 	    UPDATE comments
@@ -319,5 +327,6 @@
 	    SET content = '삭제된 댓글입니다', secret = 'D'
 	    WHERE id = #{id}
     </update>
+
 
 </mapper>

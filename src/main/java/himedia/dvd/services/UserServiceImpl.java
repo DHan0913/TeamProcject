@@ -214,6 +214,12 @@ public class UserServiceImpl implements UserService {
 	        return userDao.updateReplies(commentId, replies) > 0;
 	    }
 
+
+	@Override
+	public List<CommentVo> getCommentFromAdmin(Long userNo) {
+		return userDao.selectCommentFromAdmin(userNo);
+	}
+
 	 @Override
 	    public boolean updateComment(Map<String, Object> params) {
 	        int result = userDao.updateComment(params);
