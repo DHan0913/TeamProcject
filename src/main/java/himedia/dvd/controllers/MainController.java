@@ -186,7 +186,7 @@ public class MainController {
             Map<String, Object> params = new HashMap<>();
             params.put("id", id);
             params.put("secret", "D");
-            userService.updateComment(params);
+            userService.deleteComment(params);
         }
         return "redirect:/board/noticelist/" + id;
     }
@@ -199,7 +199,7 @@ public class MainController {
             Map<String, Object> params = new HashMap<>();
             params.put("id", id);
             params.put("secret", "D");
-            userService.updateReply(params);
+            userService.deleteReply(params);
         }
         return "redirect:/board/noticelist/" + id;
     }

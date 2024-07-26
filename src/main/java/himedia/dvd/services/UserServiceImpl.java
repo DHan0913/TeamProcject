@@ -232,5 +232,17 @@ public class UserServiceImpl implements UserService {
 	        return result > 0;
 	    }
 
+	@Override
+	public boolean deleteComment(Map<String, Object> params) {
+		int result = userDao.deleteComment(params);
+        return result > 0;
+	}
+
+	@Override
+	public boolean deleteReply(Map<String, Object> params) {
+		int result = userDao.deleteReply(params);
+        return result > 0;
+	}
+
 	}
 

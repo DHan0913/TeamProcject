@@ -51,4 +51,6 @@ public interface UserDao {
 	int updateReplies(Long commentId, List<CommentVo> replies); //대댓글 리스트
 	int updateComment(Map<String, Object> params); // 댓글 수정
 	int updateReply(Map<String, Object> params);  // 대댓글 수정
+	int deleteComment(Map<String, Object> params);
+	int deleteReply(Map<String, Object> params);
 }
