@@ -130,7 +130,7 @@ public class UserController {
 				session.setAttribute("authAdmin", authUser);
 				session.setAttribute("authUser", authUser);
 				System.out.println("관리자로 로그인 성공");
-				return "redirect:/admin/home"; // 관리자 홈으로
+				return "redirect:/admin/users"; // 관리자 홈으로
 			} else {
 				return "redirect:/"; // 일반 사용자 홈으로
 			}
