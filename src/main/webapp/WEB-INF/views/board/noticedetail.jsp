@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>공지사항</title>
+    <link href="<c:url value='/css/noticedetail.css' />" rel="stylesheet">
     <script>
         function showEditForm(commentId) {
             document.querySelector('#comment-' + commentId + ' .display-content').style.display = 'none';
@@ -128,102 +129,130 @@
     <div id="container">
         <c:import url="/WEB-INF/views/includes/header.jsp" />
     </div>
-    <h1>공지사항</h1>
-    <table>
-        <tr>
-            <th>제목</th>
-            <td>${notice.title}</td>
-        </tr>
-        <tr>
-            <th>내용</th>
-            <td>${notice.content}</td>
-        </tr>
-    </table>
+    <div class="content-container">
+        <h1>공지사항</h1>
+        <div class="notice-detail">
+            <div class="notice-title">
+                <span>제목:</span> ${notice.title}
+            </div>
+            <div class="notice-content">
+                <span>내용:</span> ${notice.content}
+            </div>
+        </div>
 
-    <h2>댓글</h2>
-    <c:if test="${not empty authUser}">
-        <form action="<c:url value='/board/noticelist/${notice.id}/addComment' />" method="post">
-            <label for="comment">댓글:</label>
-            <textarea id="comment" name="comment" required rows="1" cols="20"></textarea>
-            <br>
-            <label for="secret">비밀댓글:</label>
-            <input type="checkbox" id="secret" name="secret" value="Y">
-            <input type="hidden" name="_secret" value="N">
-            <br>
-            <button type="submit">댓글달기</button>
-        </form>
-    </c:if>
-    <c:if test="${empty authUser}">
-        <p>
-            로그인된 사용자만 댓글을 달 수 있습니다. <a href="<c:url value='/users/login' />">로그인</a>
-        </p>
-    </c:if>
+        <h2>댓글</h2>
+        <c:if test="${not empty authUser}">
+            <form action="<c:url value='/board/noticelist/${notice.id}/addComment' />" method="post" class="comment-form">
+                <label for="comment">댓글:</label>
+                <textarea id="comment" name="comment" required rows="3" cols="40"></textarea>
+                <br>
+                <label for="secret">비밀댓글:</label>
+                <input type="checkbox" id="secret" name="secret" value="Y">
+                <input type="hidden" name="_secret" value="N">
+                <br>
+                <button type="submit">댓글달기</button>
+            </form>
+        </c:if>
+        <c:if test="${empty authUser}">
+            <p class="login-message">
+                로그인된 사용자만 댓글을 달 수 있습니다. <a href="<c:url value='/users/login' />">로그인</a>
+            </p>
+        </c:if>
 
-    <c:forEach var="comment" items="${comments}">
-        <c:if test="${comment.secret != 'D'}">
-            <div id="comment-${comment.id}">
-                <c:choose>
-                    <c:when test="${comment.secret == 'Y'}">
-                        <c:if test="${comment.userId == authUser.userNo || authUser.role == 1}">
-                            <div class="display-content">
-                                <p>
-                                    <strong>${comment.username}</strong>: ${comment.content}
-                                </p>
-                                <c:if test="${comment.userId == authUser.userNo}">
-                                    <button onclick="showEditForm(${comment.id})">수정</button>
-                                    <button onclick="deleteComment(${comment.id})">삭제</button>
+        <div class="comments-container">
+            <c:forEach var="comment" items="${comments}">
+                <c:if test="${comment.secret != 'D'}">
+                    <div id="comment-${comment.id}" class="comment">
+                        <c:choose>
+                            <c:when test="${comment.secret == 'Y'}">
+                                <c:if test="${comment.userId == authUser.userNo || authUser.role == 1}">
+                                    <div class="display-content">
+                                        <p>
+                                            <strong>${comment.username}</strong>: ${comment.content}
+                                        </p>
+                                        <c:if test="${comment.userId == authUser.userNo}">
+                                            <button onclick="showEditForm(${comment.id})">수정</button>
+                                            <button onclick="deleteComment(${comment.id})">삭제</button>
+                                        </c:if>
+                                    </div>
+                                    <div class="edit-content" style="display:none;">
+                                        <textarea name="content" required rows="3" cols="40">${comment.content}</textarea>
+                                        <br>
+                                        <label for="secret">비밀댓글:</label>
+                                        <input type="checkbox" name="secret" value="Y" <c:if test="${comment.secret == 'Y'}">checked</c:if>>
+                                        <input type="hidden" name="_secret" value="N">
+                                        <br>
+                                        <button onclick="updateComment(${comment.id})">수정하기</button>
+                                        <button onclick="hideEditForm(${comment.id})">취소</button>
+                                    </div>
                                 </c:if>
-                            </div>
-                            <div class="edit-content" style="display:none;">
-                                <textarea name="content" required rows="1" cols="20">${comment.content}</textarea>
-                                <br>
-                                <label for="secret">비밀댓글:</label>
-                                <input type="checkbox" name="secret" value="Y" <c:if test="${comment.secret == 'Y'}">checked</c:if>>
-                                <input type="hidden" name="_secret" value="N">
-                                <br>
-                                <button onclick="updateComment(${comment.id})">수정하기</button>
-                                <button onclick="hideEditForm(${comment.id})">취소</button>
-                            </div>
-                        </c:if>
-                        <c:if test="${comment.userId != authUser.userNo && authUser.role != 1}">
-                            <div class="display-content">
-                                <p>
-                                    <strong>${comment.username}</strong>: 비밀댓글입니다
-                                </p>
-                            </div>
-                        </c:if>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="display-content">
-                            <p>
-                                <strong>${comment.username}</strong>: ${comment.content}
-                            </p>
-                            <c:if test="${comment.userId == authUser.userNo}">
-                                <button onclick="showEditForm(${comment.id})">수정</button>
-                                <button onclick="deleteComment(${comment.id})">삭제</button>
-                            </c:if>
-                        </div>
-                        <div class="edit-content" style="display:none;">
-                            <textarea name="content" required rows="1" cols="20">${comment.content}</textarea>
-                            <br>
-                            <label for="secret">비밀댓글:</label>
-                            <input type="checkbox" name="secret" value="Y" <c:if test="${comment.secret == 'Y'}">checked</c:if>>
-                            <input type="hidden" name="_secret" value="N">
-                            <br>
-                            <button onclick="updateComment(${comment.id})">수정하기</button>
-                            <button onclick="hideEditForm(${comment.id})">취소</button>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
+                                <c:if test="${comment.userId != authUser.userNo && authUser.role != 1}">
+                                    <div class="display-content">
+                                        <p>
+                                            <strong>${comment.username}</strong>: 비밀댓글입니다
+                                        </p>
+                                    </div>
+                                </c:if>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="display-content">
+                                    <p>
+                                        <strong>${comment.username}</strong>: ${comment.content}
+                                    </p>
+                                    <c:if test="${comment.userId == authUser.userNo}">
+                                        <button onclick="showEditForm(${comment.id})">수정</button>
+                                        <button onclick="deleteComment(${comment.id})">삭제</button>
+                                    </c:if>
+                                </div>
+                                <div class="edit-content" style="display:none;">
+                                    <textarea name="content" required rows="3" cols="40">${comment.content}</textarea>
+                                    <br>
+                                    <label for="secret">비밀댓글:</label>
+                                    <input type="checkbox" name="secret" value="Y" <c:if test="${comment.secret == 'Y'}">checked</c:if>>
+                                    <input type="hidden" name="_secret" value="N">
+                                    <br>
+                                    <button onclick="updateComment(${comment.id})">수정하기</button>
+                                    <button onclick="hideEditForm(${comment.id})">취소</button>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
 
-                <!-- 대댓글 목록 -->
-                <c:forEach var="reply" items="${comment.replies}">
-                    <c:if test="${reply.secret != 'D'}">
-                        <div id="reply-${reply.id}">
-                            <c:choose>
-                                <c:when test="${reply.secret == 'Y'}">
-                                    <c:if test="${reply.userId == authUser.userNo || authUser.role == 1 || comment.userId == authUser.userNo}">
-                                        <div style="margin-left: 20px;">
+                        <!-- 대댓글 목록 -->
+                        <c:forEach var="reply" items="${comment.replies}">
+                            <c:if test="${reply.secret != 'D'}">
+                                <div id="reply-${reply.id}" class="reply">
+                                    <c:choose>
+                                        <c:when test="${reply.secret == 'Y'}">
+                                            <c:if test="${reply.userId == authUser.userNo || authUser.role == 1 || comment.userId == authUser.userNo}">
+                                                <div class="display-content">
+                                                    <p>
+                                                        <strong>${reply.username}</strong>: ${reply.content}
+                                                    </p>
+                                                    <c:if test="${reply.userId == authUser.userNo}">
+                                                        <button onclick="showEditReplyForm(${reply.id})">수정</button>
+                                                        <button onclick="deleteReply(${reply.id})">삭제</button>
+                                                    </c:if>
+                                                </div>
+                                                <div class="edit-content" style="display:none;">
+                                                    <textarea name="content" required rows="3" cols="40">${reply.content}</textarea>
+                                                    <br>
+                                                    <label for="secret">비밀댓글:</label>
+                                                    <input type="checkbox" name="secret" value="Y" <c:if test="${reply.secret == 'Y'}">checked</c:if>>
+                                                    <input type="hidden" name="_secret" value="N">
+                                                    <br>
+                                                    <button onclick="updateReply(${reply.id})">수정하기</button>
+                                                    <button onclick="hideEditReplyForm(${reply.id})">취소</button>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${reply.userId != authUser.userNo && authUser.role != 1 && comment.userId != authUser.userNo}">
+                                                <div class="display-content">
+                                                    <p>
+                                                        <strong>${reply.username}</strong>: 비밀댓글입니다
+                                                    </p>
+                                                </div>
+                                            </c:if>
+                                        </c:when>
+                                        <c:otherwise>
                                             <div class="display-content">
                                                 <p>
                                                     <strong>${reply.username}</strong>: ${reply.content}
@@ -234,7 +263,7 @@
                                                 </c:if>
                                             </div>
                                             <div class="edit-content" style="display:none;">
-                                                <textarea name="content" required rows="1" cols="20">${reply.content}</textarea>
+                                                <textarea name="content" required rows="3" cols="40">${reply.content}</textarea>
                                                 <br>
                                                 <label for="secret">비밀댓글:</label>
                                                 <input type="checkbox" name="secret" value="Y" <c:if test="${reply.secret == 'Y'}">checked</c:if>>
@@ -243,80 +272,43 @@
                                                 <button onclick="updateReply(${reply.id})">수정하기</button>
                                                 <button onclick="hideEditReplyForm(${reply.id})">취소</button>
                                             </div>
-                                        </div>
-                                    </c:if>
-                                    <c:if test="${reply.userId != authUser.userNo && authUser.role != 1 && comment.userId != authUser.userNo}">
-                                        <div style="margin-left: 20px;">
-                                            <p>
-                                                <strong>${reply.username}</strong>: 비밀댓글입니다
-                                            </p>
-                                        </div>
-                                    </c:if>
-                                </c:when>
-                                <c:otherwise>
-                                    <div style="margin-left: 20px;">
-                                        <div class="display-content">
-                                            <p>
-                                                <strong>${reply.username}</strong>: ${reply.content}
-                                            </p>
-                                            <c:if test="${reply.userId == authUser.userNo}">
-                                                <button onclick="showEditReplyForm(${reply.id})">수정</button>
-                                                <button onclick="deleteReply(${reply.id})">삭제</button>
-                                            </c:if>
-                                        </div>
-                                        <div class="edit-content" style="display:none;">
-                                            <textarea name="content" required rows="1" cols="20">${reply.content}</textarea>
-                                            <br>
-                                            <label for="secret">비밀댓글:</label>
-                                            <input type="checkbox" name="secret" value="Y" <c:if test="${reply.secret == 'Y'}">checked</c:if>>
-                                            <input type="hidden" name="_secret" value="N">
-                                            <br>
-                                            <button onclick="updateReply(${reply.id})">수정하기</button>
-                                            <button onclick="hideEditReplyForm(${reply.id})">취소</button>
-                                        </div>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </c:if>
-                    <c:if test="${reply.secret == 'D'}">
-                        <div id="reply-${reply.id}" style="margin-left: 20px;">
-                            <p>삭제된 댓글입니다</p>
-                        </div>
-                    </c:if>
-                </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </c:if>
+                            <c:if test="${reply.secret == 'D'}">
+                                <div id="reply-${reply.id}" class="deleted-reply">
+                                    <p>삭제된 댓글입니다</p>
+                                </div>
+                            </c:if>
+                        </c:forEach>
 
-                <!-- 대댓글 입력 폼 -->
-                <c:if test="${not empty authUser}">
-                    <div style="margin-left: 20px;">
-                        <form action="<c:url value='/board/noticelist/${notice.id}/addReply' />" method="post">
-                            <input type="hidden" name="commentId" value="${comment.id}">
-                            <label for="reply">댓글:</label>
-                            <textarea id="reply" name="reply" required rows="1" cols="20"></textarea>
-                            <br>
-                            <input type="hidden" id="secretReply" name="secretReply" value="Y">
-                            <br>
-                            <c:choose>
-                                <c:when test="${comment.secret == 'Y' && authUser.role != 1 && comment.userId != authUser.userNo}">
-                                    <button type="button" disabled>댓글달기</button>
-                                </c:when>
-                                <c:otherwise>
+                        <!-- 대댓글 입력 폼 -->
+                        <c:if test="${not empty authUser}">
+                            <div class="reply-form">
+                                <form action="<c:url value='/board/noticelist/${notice.id}/addReply' />" method="post">
+                                    <input type="hidden" name="commentId" value="${comment.id}">
+                                    <label for="reply">댓글:</label>
+                                    <textarea id="reply" name="reply" required rows="3" cols="40"></textarea>
+                                    <br>
+                                    <label for="secretReply">비밀댓글:</label>
+                                    <input type="checkbox" id="secretReply" name="secretReply" value="Y">
+                                    <input type="hidden" name="_secretReply" value="N">
+                                    <br>
                                     <button type="submit">댓글달기</button>
-                                </c:otherwise>
-                            </c:choose>
-                        </form>
+                                </form>
+                            </div>
+                        </c:if>
                     </div>
                 </c:if>
-            </div>
-        </c:if>
-        <c:if test="${comment.secret == 'D'}">
-            <div id="comment-${comment.id}">
-                <p>삭제된 댓글입니다</p>
-            </div>
-        </c:if>
-    </c:forEach>
-
-    <a href="<c:url value='/board/noticelist' />">목록으로 돌아가기</a>
-
+                <c:if test="${comment.secret == 'D'}">
+                    <div id="comment-${comment.id}" class="deleted-comment">
+                        <p>삭제된 댓글입니다</p>
+                    </div>
+                </c:if>
+            </c:forEach>
+        </div>
+        <a href="<c:url value='/board/noticelist' />" class="back-to-list">목록으로 돌아가기</a>
+    </div>
 </body>
 </html>

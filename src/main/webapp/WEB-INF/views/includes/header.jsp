@@ -12,36 +12,28 @@
 <body>
     <header id="header">
         <div class="headerContainer">
-            <c:if test="${not empty errorMsg}">
-                <div class="error-message">${errorMsg}</div>
-            </c:if>
             <h1 class="site-title"><a href="<c:url value='/' />">VOD</a></h1>
-            <c:if test="${not empty latestNotice}">
-                <div class="notice">
-                        <a href="<c:url value='/board/noticelist' />">공지사항</a>
-                </div>
-            </c:if>
             <div class="header-actions">
                 <c:choose>
                     <c:when test="${not empty authUser}">
                         <nav>
                             <ul class="nav-list">
-							    <li class="nav-item">
-							        <a href="<c:url value='/users/logout' />" class="nav-link">로그아웃</a>
-							    </li>
-							    <li class="nav-item">
-							        <a href="<c:url value='/users/${authUser.email}/userinfo' />" class="nav-link user-welcome">${authUser.username}님 [마이페이지]</a>
-							    </li>
-							    <c:if test="${empty authAdmin}">
-							        <li class="nav-item">
-							            <a href="<c:url value='/users/requestcash' />" class="nav-link">캐시 충전</a>
-							        </li>
-							        <li class="nav-item cash-item">
-							            <span class="cash-balance">잔액: </span>
-							            <a href="<c:url value='/users/cashhistory' />" class="nav-link cash-amount">${sessionScope.approvedCashAmount}</a>
-							        </li>
-							    </c:if>
-							</ul>
+                                <li class="nav-item">
+                                    <a href="<c:url value='/users/logout' />" class="nav-link">로그아웃</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<c:url value='/users/${authUser.email}/userinfo' />" class="nav-link user-welcome">${authUser.username}님 [마이페이지]</a>
+                                </li>
+                                <c:if test="${empty authAdmin}">
+                                    <li class="nav-item">
+                                        <a href="<c:url value='/users/requestcash' />" class="nav-link">캐시 충전</a>
+                                    </li>
+                                    <li class="nav-item cash-item">
+                                        <span class="cash-balance">잔액: </span>
+                                        <a href="<c:url value='/users/cashhistory' />" class="nav-link cash-amount">${sessionScope.approvedCashAmount}</a>
+                                    </li>
+                                </c:if>
+                            </ul>
                         </nav>
                     </c:when>
                     <c:otherwise>
@@ -51,6 +43,11 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+                <c:if test="${not empty latestNotice}">
+                    <div class="notice">
+                        <a href="<c:url value='/board/noticelist' />">공지사항</a>
+                    </div>
+                </c:if>
             </div>
         </div>
     </header>
