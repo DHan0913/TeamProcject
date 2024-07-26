@@ -4,9 +4,14 @@
 /* 전체 페이지 기본 스타일 */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #121212;
     margin: 0;
     padding: 0;
+    display: flex; /* 화면 중앙에 내용 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    height: 130vh; /* 화면 높이 전체 사용 */
+    color: #fff;
 }
 
 /* 헤더 스타일 */
@@ -16,7 +21,7 @@ header {
 }
 
 h1 {
-    color: #333;
+    color: #fff;
     font-size: 2em;
     margin: 0;
 }
@@ -36,7 +41,7 @@ h1 {
 }
 
 .btn-back:hover {
-    background-color: #333;
+    background-color: #0056b3;
     transform: translateY(-2px);
 }
 
@@ -49,6 +54,9 @@ main {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    
 }
 
 /* 제품 카드 스타일 */

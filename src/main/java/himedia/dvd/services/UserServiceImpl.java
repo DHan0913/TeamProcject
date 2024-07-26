@@ -210,13 +210,27 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	 @Override
-	    public boolean updateReplies(Long commentId, List<CommentVo> replies) {
+	 public boolean updateReplies(Long commentId, List<CommentVo> replies) {
 	        return userDao.updateReplies(commentId, replies) > 0;
 	    }
+
 
 	@Override
 	public List<CommentVo> getCommentFromAdmin(Long userNo) {
 		return userDao.selectCommentFromAdmin(userNo);
 	}
+
+	 @Override
+	    public boolean updateComment(Map<String, Object> params) {
+	        int result = userDao.updateComment(params);
+	        return result > 0;
+	    }
+	 
+	 @Override
+	    public boolean updateReply(Map<String, Object> params) {
+	        int result = userDao.updateReply(params);
+	        return result > 0;
+	    }
+
 	}
 

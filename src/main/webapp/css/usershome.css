@@ -50,7 +50,7 @@ body {
 }
 
 .category-buttons .btn:hover {
-    background-color: #555;
+    background-color: #0056b3;
 }
 
 /* 검색창 스타일 */
@@ -69,7 +69,7 @@ body {
     margin-bottom: 10px; /* 입력창과 버튼 사이의 간격 설정 */
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #222326; /* 입력창 배경색 설정 */
+    background-color: #444; /* 입력창 배경색 설정 */
     color: #ffffff; /* 입력창 글자 색 설정 */
 }
 
@@ -85,7 +85,7 @@ body {
 }
 
 .search-form button:hover {
-    background-color: #555;
+    background-color: #0056b3;
 }
 
 #content {
@@ -118,7 +118,8 @@ body {
 .img-container h2 {
     font-size: 14px;
     margin: 0;
-    color: #333;
+    text-align: center;
+    color: #fff;
 }
 
 .list-container {
@@ -141,7 +142,7 @@ button {
 }
 
 button:hover {
-    background-color: #555;
+    background-color: #0056b3;
 }
 
 .button-group {

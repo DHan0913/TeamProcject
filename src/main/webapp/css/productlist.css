@@ -1,0 +1,57 @@
+@charset "UTF-8";
+/* style.css */
+
+/* 전체 페이지 배경색 */
+body {
+    background-color: #121212;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 컨테이너 스타일 */
+#container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 콘텐츠 영역 스타일 */
+#content {
+    margin: 20px;
+    padding: 150px;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e; /* 테이블 배경색 */
+}
+
+th, td {
+    border: 1px solid #333; /* 테이블 경계선 색상 */
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #2c2c2c; /* 헤더 배경색 */
+}
+
+tr:nth-child(even) {
+    background-color: #1a1a1a; /* 짝수 행 배경색 */
+}
+
+tr:nth-child(odd) {
+    background-color: #121212; /* 홀수 행 배경색 */
+}
+
+a {
+    color: #4caf50; /* 링크 색상 */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,43 +1,24 @@
-/* 전체 페이지 스타일 초기화 */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: #333;
-}
+/* navigation.css */
 
 /* 사이드 네비게이션 바 스타일 */
 .sidebar {
+    width: 150px;
+    background-color: #121212;
+    color: #fff;
     position: fixed;
+    height: 100%;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 175px; /* 사이드바 너비 */
-    background-color: #343a40;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    padding-bottom: 600px;
-}
-
-/* 사이드바 헤더 스타일 */
-.sidebar-header {
-    padding: 20px;
-    border-bottom: 1px solid #495057;
-    text-align: center;
-    background-color: #212529;
+    padding-top: 20px;
+    box-shadow: none; /* 회색 줄 제거 */
 }
 
 .sidebar-header h3 {
     margin: 0;
-    font-size: 18px;
+    padding: 0;
+    text-align: center;
 }
 
-.sidebar-header i {
-    margin-right: 10px;
-}
-
-/* 사이드바 메뉴 스타일 */
 .sidebar-menu {
     list-style: none;
     padding: 0;
@@ -45,53 +26,20 @@ body {
 }
 
 .sidebar-menu li {
-    border-bottom: 1px solid #495057;
+    margin: 0;
 }
 
-.sidebar-menu a {
+.sidebar-menu li a {
     display: block;
-    color: #ffffff;
-    padding: 15px 20px;
+    color: #fff;
+    padding: 15px;
     text-decoration: none;
     font-size: 16px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.sidebar-menu a.active {
-    background-color: #495057;
-    color: #ffffff;
-}
-
-.sidebar-menu a:hover {
-    background-color: #495057;
-    color: #ffffff;
-}
-
-/* 콘텐츠 영역 스타일 */
-.content {
-    margin-left: 250px; /* 사이드바 너비와 같아야 함 */
-    padding: 20px;
-}
-
-/* 모바일에서 사이드바 숨기기 및 콘텐츠 영역 조정 */
-@media screen and (max-width: 768px) {
-    .sidebar {
-        width: 100%; /* 모바일에서 사이드바 너비 100%로 설정 */
-        height: auto; /* 모바일에서 사이드바 높이 자동 조정 */
-        position: static; /* 모바일에서 사이드바를 흐름에 따라 배치 */
-        display: none; /* 사이드바 숨김 */
-    }
-
-    .content {
-        margin-left: 0; /* 사이드바가 숨겨졌으므로 마진 제거 */
-    }
-
-    .sidebar-toggle {
-        display: block; /* 사이드바 토글 버튼 표시 */
-        padding: 10px;
-        cursor: pointer;
-        background-color: #343a40;
-        color: #ffffff;
         text-align: center;
-    }
 }
+
+.sidebar-menu li a:hover {
+    background-color: #575757;
+}
+
+

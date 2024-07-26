@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="<c:url value='/css/acceptcash.css' />" rel="stylesheet">
     <meta charset="UTF-8">
     <title>캐시 충전 요청 목록</title>
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />">
