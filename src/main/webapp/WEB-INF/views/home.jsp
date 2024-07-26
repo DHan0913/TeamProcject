@@ -34,7 +34,7 @@
                 <button type="button" class="btn custom-btn" onclick="goSearch('SF')">SF</button>
                 <button type="button" class="btn custom-btn" onclick="window.location.href='${pageContext.request.contextPath}/'">필터해제</button>
                 <c:if test="${authUser != null && authUser.role == 1}">
-                    <button class="btn custom-btn admin-btn" onclick="location.href='${pageContext.request.contextPath}/admin/home'">관리자 화면</button>
+                    <button class="btn custom-btn admin-btn" onclick="location.href='${pageContext.request.contextPath}/admin/users'">관리자 화면</button>
                 </c:if>
             </div>
         </div>
