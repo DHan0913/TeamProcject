@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="<c:url value='/css/commentdetaill.css' />" rel="stylesheet">
 <meta charset="UTF-8">
 <title>댓글</title>
 </head>
