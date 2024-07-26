@@ -250,7 +250,8 @@ public class UserDaoImpl implements UserDao {
 	public List<CommentVo> selectCommentFromAdmin(Long userNo) {
 		return sqlSession.selectList("users.selectCommentFromAdmin", userNo);
 	}
-
+	
+	@Override
 	public int updateComment(Map<String, Object> params) {
 	    return sqlSession.update("users.updateComment", params);
 	}
@@ -258,5 +259,15 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int updateReply(Map<String, Object> params) {
 		return sqlSession.update("users.updateReply", params);
+	}
+
+	@Override
+	public int deleteComment(Map<String, Object> params) {
+		return sqlSession.delete("users.deleteComment", params);
+	}
+
+	@Override
+	public int deleteReply(Map<String, Object> params) {
+		return sqlSession.delete("users.deleteComment", params);
 	}
 }

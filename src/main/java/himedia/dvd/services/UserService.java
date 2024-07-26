@@ -70,6 +70,9 @@ public interface UserService {
 	boolean updateComment(Map<String, Object> params);
 	boolean updateReply(Map<String, Object> params);
 
+	boolean deleteComment(Map<String, Object> params);
+	boolean deleteReply(Map<String, Object> params);
+
 
 
 
