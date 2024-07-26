@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>캐시 충전 요청</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/requestcash.css' />">
 </head>
 <body>
     <div class="container">
@@ -32,7 +32,7 @@
             <br>
             <div>
                 <button type="submit">충전 요청</button>
-                <button type="button" onclick="window.history.back();">뒤로가기</button>
+                
             </div>
         </form>
         <div id="error-message" style="color: red;"></div>

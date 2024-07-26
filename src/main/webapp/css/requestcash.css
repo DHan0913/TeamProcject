@@ -1,0 +1,120 @@
+@charset "UTF-8";
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff; /* 기본 텍스트 색상 설정 */
+}
+
+.container {
+    background-color: #1e1e1e; /* 컨테이너 배경색 설정 */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff; /* 제목 색상 설정 */
+}
+
+.message, .error-message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.message {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.error-message {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* 폼 스타일 */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 중앙 정렬 */
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #fff; /* 라벨 색상 설정 */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="hidden"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #fff; /* 입력 필드의 텍스트 색상 설정 */
+    background-color: #333; /* 입력 필드 배경색 설정 */
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #333; /* 기본 버튼 색상 설정 */
+    color: #ffffff; /* 버튼 텍스트 색상 설정 */
+    border: none;
+    padding: 12px 20px; /* 버튼 내부 여백 설정 */
+    font-size: 16px; /* 버튼 폰트 크기 설정 */
+    cursor: pointer; /* 버튼 클릭 시 포인터 설정 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 설정 */
+    transition: background-color 0.3s, transform 0.3s; /* 배경색과 변형 애니메이션 설정 */
+    margin-right: 10px; /* 버튼 오른쪽 여백 설정 */
+}
+
+button:hover {
+    background-color: #0056b3; /* 버튼 호버 시 배경색 설정 */
+    transform: translateY(-2px); /* 버튼 호버 시 위치 변형 설정 */
+}
+
+button:focus {
+    outline: none; /* 버튼 포커스 시 테두리 제거 */
+}
+
+/* 취소 및 뒤로가기 버튼 스타일 */
+button[type="button"] {
+    background-color: #333; /* 취소 버튼 기본 색상 설정 */
+}
+
+button[type="button"]:hover {
+    background-color: #0056b3; /* 취소 버튼 호버 시 배경색 설정 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    #update-form {
+        padding: 15px; /* 폼 패딩 조정 */
+    }
+
+    button {
+        width: 100%; /* 버튼 너비를 전체 너비로 설정 */
+        margin-bottom: 10px; /* 버튼 하단 여백 설정 */
+    }
+
+    button[type="button"] {
+        margin-right: 0; /* 취소 버튼 오른쪽 여백 제거 */
+    }
+}

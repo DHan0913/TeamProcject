@@ -3,7 +3,8 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #121212;
+    color: #fff;
 }
 
 /* 컨테이너 스타일 */
@@ -11,7 +12,7 @@ body {
     max-width: 1000px; /* 최대 너비를 줄임 */
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #121212;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -21,7 +22,7 @@ h1 {
     font-size: 26px; /* 제목 크기 줄임 */
     margin-bottom: 20px;
     text-align: center;
-    color: #FFFFFF;
+    color: #fff;
 }
 
 /* 테이블 스타일 */
@@ -38,8 +39,8 @@ th, td {
 }
 
 th {
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #121212;
+    color: #fff;
     font-weight: bold;
 }
 
@@ -74,28 +75,28 @@ button:hover {
 }
 
 .purchase-btn {
-    background-color: #28a745;
+    background-color: #0056b3;
 }
 
 .purchase-btn:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
 .login-btn {
-    background-color: #ffc107;
-    color: #333;
+    background-color: #121212;
+    color: #fff;
 }
 
 .login-btn:hover {
-    background-color: #e0a800;
+    background-color: #121212;
 }
 
 .home-btn {
-    background-color: #6c757d;
+    background-color: #0056b3;
 }
 
 .home-btn:hover {
-    background-color: #5a6268;
+    background-color: #0056b3;
 }
 
 /* 권한 없는 경우 메시지 스타일 */
