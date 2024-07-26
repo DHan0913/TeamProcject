@@ -11,6 +11,7 @@ body {
     justify-content: center; /* 수평 중앙 정렬 */
     align-items: center; /* 수직 중앙 정렬 */
     height: 100vh; /* 화면 높이 전체 사용 */
+    overflow: hidden; /* 스크롤 제거 */
 }
 
 /* 페이지 컨테이너 */
@@ -21,6 +22,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     width: 80%; /* 컨테이너 너비 설정 */
     max-width: 1000px; /* 최대 너비 설정 */
+    overflow: auto; /* 넘칠 경우 스크롤 표시 */
+    box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
 }
 
 /* 제목 스타일 */
@@ -67,8 +70,6 @@ table a:hover {
     text-decoration: underline; /* 링크 hover 시 밑줄 추가 */
 }
 
-
-
 /* 에러 메시지 스타일 */
 .error-message {
     padding: 10px; /* 내부 여백 설정 */
@@ -79,4 +80,22 @@ table a:hover {
     margin-top: 15px; /* 상단 여백 설정 */
 }
 
+/* 헤더 스타일 (추가) */
+header {
+    position: fixed; /* 헤더를 페이지 상단에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 페이지 너비 전체 사용 */
+    background-color: #1e1e1e; /* 배경 색상 설정 */
+    color: #fff; /* 텍스트 색상 설정 */
+    padding: 10px; /* 패딩 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    z-index: 1000; /* 다른 콘텐츠 위에 위치하도록 설정 */
+}
 
+/* 헤더의 제목 스타일 (추가) */
+header h1 {
+    margin: 0; /* 여백 제거 */
+    font-size: 1.5em; /* 헤더 제목 폰트 크기 설정 */
+    text-align: center; /* 중앙 정렬 */
+}
