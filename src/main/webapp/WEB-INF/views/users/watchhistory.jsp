@@ -17,7 +17,9 @@
             <c:forEach var="history" items="${watchHistory}">
                 <div class="product-card">
                     <div class="image-container">
-                        <img class="product-image" src="<c:url value='/upload-images/${history.IMG}' />" alt="${history.PRODUCTNAME}" />
+                        <a href="<c:url value='/products/detail?productNo=${history.PRODUCTNO}' />">
+                            <img class="product-image" src="<c:url value='/upload-images/${history.IMG}' />" alt="${history.PRODUCTNAME}" />
+                        </a>
                     </div>
                     <a class="product-link" href="<c:url value='/products/detail?productNo=${history.PRODUCTNO}' />">${history.PRODUCTNAME}</a>
                 </div>
