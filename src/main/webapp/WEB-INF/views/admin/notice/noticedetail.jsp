@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="<c:url value='/css/noticedetail.css' />" rel="stylesheet">
 <meta charset="UTF-8">
 <title>공지사항 상세조회</title>
 </head>

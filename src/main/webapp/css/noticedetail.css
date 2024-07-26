@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 
 /* 전체 페이지 기본 스타일 */
@@ -148,3 +149,4 @@ button:focus {
     text-align: center; /* 텍스트 중앙 정렬 */
     margin-top: 15px; /* 상단 여백 설정 */
 }
+

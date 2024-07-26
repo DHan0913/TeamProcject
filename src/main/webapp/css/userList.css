@@ -8,6 +8,13 @@ body {
     padding: 0;
 }
 
+/* 헤더와 내비게이션 바 스타일 */
+#header, #navigation {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 10px;
+}
+
 /* 콘텐츠 영역 스타일 */
 #content {
     padding: 120px;
