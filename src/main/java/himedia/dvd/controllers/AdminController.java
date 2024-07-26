@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.CouponVo;
 import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.ProductVo;
@@ -302,48 +303,58 @@ public class AdminController {
 		model.addAttribute("calculatedCouponCount", calculatedCouponCount); // 모델에 쿠폰 금액 추가
 		return "admin/total/totalrank";
 	}
-	
-	//공지사항 목록 이동
+
+	// 공지사항 목록 이동
 	@GetMapping("/notice")
-    public String getNoticeList(Model model) {
-        List<NoticeVo> notices = userService.getAllNotices();
-        model.addAttribute("notices", notices);
-        return "admin/notice/noticelist";
-    }
-	
-	//공지사항 추가
-    @GetMapping("/notice/add")
-    public String addNoticeForm() {
-        return "admin/notice/addnotice";
-    }
+	public String getNoticeList(Model model) {
+		List<NoticeVo> notices = userService.getAllNotices();
+		model.addAttribute("notices", notices);
+		return "admin/notice/noticelist";
+	}
 
-    //공지사항 추가
-    @PostMapping("/notice/add")
-    public String addNotice(@ModelAttribute NoticeVo notice, RedirectAttributes redirectAttributes) {
-        notice.setCreatedDate(new Date());
-        boolean success = userService.addNotice(notice);
-        if (success) {
-            redirectAttributes.addFlashAttribute("successMessage", "공지사항이 성공적으로 등록되었습니다.");
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "공지사항 등록에 실패했습니다.");
-        }
-        return "redirect:/admin/notice";
-    }
+	// 공지사항 추가
+	@GetMapping("/notice/add")
+	public String addNoticeForm() {
+		return "admin/notice/addnotice";
+	}
 
-    //공지사항 삭제
-    @PostMapping("/notice/{id}/delete")
-    public String deleteNoticeAction(@PathVariable("id") Long id) {
-        userService.deleteNotice(id);
-        return "redirect:/admin/notice";
-    }
-    
-    // 공지사항 상세조회
-    @GetMapping("/notice/{id}")
-    public String getNoticeDetail(@PathVariable("id") Long id, Model model) {
-        NoticeVo notice = userService.getNoticedetail(id);
-        model.addAttribute("notice", notice);
-        return "admin/notice/noticedetail";
-    }
-	
+	// 공지사항 추가
+	@PostMapping("/notice/add")
+	public String addNotice(@ModelAttribute NoticeVo notice, RedirectAttributes redirectAttributes) {
+		notice.setCreatedDate(new Date());
+		boolean success = userService.addNotice(notice);
+		if (success) {
+			redirectAttributes.addFlashAttribute("successMessage", "공지사항이 성공적으로 등록되었습니다.");
+		} else {
+			redirectAttributes.addFlashAttribute("errorMessage", "공지사항 등록에 실패했습니다.");
+		}
+		return "redirect:/admin/notice";
+	}
+
+	// 공지사항 삭제
+	@PostMapping("/notice/{id}/delete")
+	public String deleteNoticeAction(@PathVariable("id") Long id) {
+		userService.deleteNotice(id);
+		return "redirect:/admin/notice";
+	}
+
+	// 공지사항 상세조회
+	@GetMapping("/notice/{id}")
+	public String getNoticeDetail(@PathVariable("id") Long id, Model model) {
+		NoticeVo notice = userService.getNoticedetail(id);
+		model.addAttribute("notice", notice);
+		return "admin/notice/noticedetail";
+	}
+
+	// 회원별 댓글 정보
+	@GetMapping("/users/{userNo}/comments")
+	public String getComments(@PathVariable("userNo") Long userNo, Model model) {
+
+		List<CommentVo> comments = userService.getCommentFromAdmin(userNo);
+
+		model.addAttribute("comments", comments);
+
+		return "admin/users/commentdetail";
+	}
 
 }

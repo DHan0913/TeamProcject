@@ -47,4 +47,5 @@ public interface UserDao {
 	List<CommentVo> selectRepliesByCommentId(Long commentId);
 	CommentVo selectCommentById(Long id);
 	int updateReplies(Long commentId, List<CommentVo> replies);
+	List<CommentVo> selectCommentFromAdmin(Long userNo);
 }

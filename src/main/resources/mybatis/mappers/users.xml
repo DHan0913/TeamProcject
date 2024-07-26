@@ -304,5 +304,11 @@
         JOIN users u ON c.user_id = u.user_no
         WHERE c.id = #{id}
     </select>
+    
+    <select id="selectCommentFromAdmin" parameterType="long" resultType="CommentVo">
+    	SELECT content, created_date as createdDate, notice_id as noticeId, id, user_id as userId
+    	FROM comments
+    	WHERE user_id = #{userNo}
+    </select>
 	    
 </mapper>

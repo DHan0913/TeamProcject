@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사용자 관리</title>
-	<script src="<c:url value='/javascript/userlist.js' />" type="text/javascript"></script>
+<script src="<c:url value='/javascript/userlist.js' />"
+	type="text/javascript"></script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
@@ -31,6 +32,7 @@
 					<th>역할</th>
 					<th>관리</th>
 					<th>상태</th>
+					<th>댓글</th>
 				</tr>
 				<c:forEach var="user" items="${users}">
 					<tr>
@@ -78,8 +80,11 @@
 									<a href="<c:url value='/admin/users/${user.userNo}/delete' />">탈퇴</a>
 								</c:if>
 							</c:if></td>
-
+						<td><a
+							href="<c:url value='/admin/users/${user.userNo}/comments' />">작성한
+								댓글</a></td>
 					</tr>
+
 				</c:forEach>
 
 			</table>

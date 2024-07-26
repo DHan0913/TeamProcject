@@ -245,4 +245,9 @@ public class UserDaoImpl implements UserDao {
         params.put("replies", replies);
         return sqlSession.update("users.updateReplies", params);
     }
+
+	@Override
+	public List<CommentVo> selectCommentFromAdmin(Long userNo) {
+		return sqlSession.selectList("users.selectCommentFromAdmin", userNo);
+	}
 }
