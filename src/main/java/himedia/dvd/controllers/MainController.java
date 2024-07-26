@@ -1,7 +1,9 @@
 package himedia.dvd.controllers;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -114,8 +116,8 @@ public class MainController {
             commentVo.setNoticeId(noticeId);
             commentVo.setUserId(authUser.getUserNo());
             commentVo.setContent(comment);
-            commentVo.setSecret(secret); // secret 값을 설정
-            commentVo.setCreatedDate(new Date());  // createdDate 설정
+            commentVo.setSecret(secret); 
+            commentVo.setCreatedDate(new Date());  
             userService.addComment(commentVo);
         }
         return "redirect:/board/noticelist/" + noticeId;
@@ -141,4 +143,66 @@ public class MainController {
         }
         return "redirect:/board/noticelist/" + noticeId;
     }
+    
+    // 댓글 수정
+    @PostMapping("/board/noticelist/updateComment")
+    public String updateComment(@RequestParam("id") Long id,
+                                @RequestParam("content") String content,
+                                @RequestParam("secret") String secret,
+                                HttpSession session) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        if (authUser != null) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            params.put("content", content);
+            params.put("secret", secret);
+            userService.updateComment(params);
+        }
+        return "redirect:/board/noticelist/" + id;
+    }
+    
+    //대댓글 수정
+    @PostMapping("/board/noticelist/updateReply")
+    public String updateReply(@RequestParam("id") Long id,
+                              @RequestParam("content") String content,
+                              @RequestParam("secret") String secret,
+                              HttpSession session) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        if (authUser != null) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            params.put("content", content);
+            params.put("secret", secret);
+            userService.updateReply(params);
+        }
+        return "redirect:/board/noticelist/" + id;
+    }
+    
+    // 댓글 삭제
+    @PostMapping("/board/noticelist/deleteComment")
+    public String deleteComment(@RequestParam("id") Long id, HttpSession session) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        if (authUser != null) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            params.put("secret", "D");
+            userService.updateComment(params);
+        }
+        return "redirect:/board/noticelist/" + id;
+    }
+
+    // 대댓글 삭제
+    @PostMapping("/board/noticelist/deleteReply")
+    public String deleteReply(@RequestParam("id") Long id, HttpSession session) {
+        UserVo authUser = (UserVo) session.getAttribute("authUser");
+        if (authUser != null) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            params.put("secret", "D");
+            userService.updateReply(params);
+        }
+        return "redirect:/board/noticelist/" + id;
+    }
+   
 }
+    
