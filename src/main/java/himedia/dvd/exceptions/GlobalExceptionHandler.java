@@ -11,7 +11,7 @@ public class GlobalExceptionHandler {
     public ModelAndView handleException(Exception ex) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("errorMessage", ex.getMessage());
-        mav.setViewName("error");  // error.jsp 혹은 error.html로 매핑
+        mav.setViewName("error");  
         return mav;
     }
 }
