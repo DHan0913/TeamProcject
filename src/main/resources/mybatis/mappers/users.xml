@@ -323,7 +323,7 @@
      <!-- 댓글 삭제 -->
 	<update id="deleteComment" parameterType="map">
 	    UPDATE comments
-	    SET content = '삭제된 댓글입니다', secret = 'D'
+	    SET  secret = 'D'
 	    WHERE id = #{id}
 	</update>
     
@@ -338,7 +338,7 @@
     <!-- 대댓글 삭제  -->
     <update id="deleteReply" parameterType="map">
         UPDATE comments
-	    SET content = '삭제된 댓글입니다', secret = 'D'
+	    SET secret = 'D'
 	    WHERE id = #{id}
     </update>
 
