@@ -1,48 +1,55 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/header.css' />">
-<div id="header">
-	<c:if test="${not empty errorMsg }">
-		<h5>${errorMsg }</h5>
-	</c:if>
-	<h1>DVD</h1>
-	<c:choose>
-		<c:when test="${not empty authUser }">
-		<div id="search-bar">
-            <c:url var="searchUrl" value="/products/search" />
-            <form action="${searchUrl}" method="GET">
-                <select name="filter">
-                    <option value="productName">상품이름</option>
-                    <option value="genre">장르</option>
-                </select>
-                <input type="text" name="keyword" placeholder="검색">
-                <button type="submit">검색</button>
-            </form>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헤더</title>
+    <link href="<c:url value='/css/userheader.css' />" rel="stylesheet">
+</head>
+<body>
+    <header id="header">
+        <div class="headerContainer">
+            <h1 class="site-title"><a href="<c:url value='/' />">VOD</a></h1>
+            <div class="header-actions">
+                <c:choose>
+                    <c:when test="${not empty authUser}">
+                        <nav>
+                            <ul class="nav-list">
+                                <li class="nav-item">
+                                    <a href="<c:url value='/users/logout' />" class="nav-link">로그아웃</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<c:url value='/users/${authUser.email}/userinfo' />" class="nav-link user-welcome">${authUser.username}님 [마이페이지]</a>
+                                </li>
+                                <c:if test="${empty authAdmin}">
+                                    <li class="nav-item">
+                                        <a href="<c:url value='/users/requestcash' />" class="nav-link">캐시 충전</a>
+                                    </li>
+                                    <li class="nav-item cash-item">
+                                        <span class="cash-balance">잔액: </span>
+                                        <a href="<c:url value='/users/cashhistory' />" class="nav-link cash-amount">${sessionScope.approvedCashAmount}</a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="button-group">
+                            <button onclick="location.href='<c:url value="/users/login" />'" class="btn btn-login" style="background-color:#121212;">로그인</button>
+                            <button onclick="location.href='<c:url value="/users/join" />'" class="btn btn-signup" style="background-color:#121212;">회원가입</button>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${not empty latestNotice}">
+                    <div class="notice">
+                        <a href="<c:url value='/board/noticelist' />">공지사항</a>
+                    </div>
+                </c:if>
+            </div>
         </div>
-			<ul>
-				<li><a href='<c:url value="/users/logout" />'>로그아웃</a></li>
-				<li>${authUser.username }님환영합니다</li>
-			</ul>
-		</c:when>
-		<c:otherwise>
-	<div id="search-bar">
-            <c:url var="searchUrl" value="/products/search" />
-            <form action="${searchUrl}" method="GET">
-                <select name="filter">
-                    <option value="productName">상품이름</option>
-                    <option value="genre">장르</option>
-                </select>
-                <input type="text" name="keyword" placeholder="검색">
-                <button type="submit">검색</button>
-            </form>
-        </div>
-			<div class="button">
-				<button onclick="location.href='<c:url value="/users/login" />'">로그인</button>
-				<button onclick="location.href='<c:url value="/users/join" />'">회원가입</button>
-			</div>
-		</c:otherwise>
-	</c:choose>
-</div>
+    </header>
+</body>
+</html>

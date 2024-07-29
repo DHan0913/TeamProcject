@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+    background-color: #121212; /* 전체 페이지 배경 색상 설정 */
+    color: #fff; /* 기본 텍스트 색상 설정 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    display: flex; /* 화면 중앙에 내용 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    height: 100vh; /* 화면 높이 전체 사용 */
+}
+
+/* 컨테이너 스타일 */
+.container {
+    background-color: #1e1e1e; /* 컨테이너 배경 색상 설정 */
+    padding: 20px; /* 내부 여백 설정 */
+    border-radius: 8px; /* 모서리 둥글게 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+    width: 100%; /* 컨테이너 너비 설정 */
+    max-width: 400px; /* 최대 너비 설정 */
+}
+
+/* 제목 스타일 */
+h2 {
+    text-align: center; /* 제목 중앙 정렬 */
+    margin-bottom: 20px; /* 제목 하단 여백 설정 */
+    color: #fff; /* 제목 텍스트 색상 설정 */
+}
+
+/* 메시지 스타일 */
+.message, .error-message {
+    padding: 10px; /* 내부 여백 설정 */
+    margin-bottom: 15px; /* 하단 여백 설정 */
+    border-radius: 4px; /* 모서리 둥글게 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.message {
+    background-color: #28a745; /* 성공 메시지 배경 색상 설정 */
+    color: #fff; /* 성공 메시지 텍스트 색상 설정 */
+}
+
+.error-message {
+    background-color: #dc3545; /* 에러 메시지 배경 색상 설정 */
+    color: #fff; /* 에러 메시지 텍스트 색상 설정 */
+}
+
+/* 폼 스타일 */
+form {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: flex-start; /* 폼 요소 왼쪽 정렬 */
+}
+
+form div {
+    width: 100%; /* 각 폼 요소 너비 전체 사용 */
+    margin-bottom: 15px; /* 각 폼 요소 하단 여백 설정 */
+}
+
+/* 입력 필드와 라벨 스타일 */
+label {
+    margin-bottom: 5px; /* 라벨 하단 여백 설정 */
+    color: #fff; /* 라벨 텍스트 색상 설정 */
+    display: block; /* 라벨 블록 요소로 설정 */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="hidden"] {
+    width: 100%; /* 입력 필드 너비 전체 사용 */
+    padding: 10px; /* 내부 여백 설정 */
+    border: 1px solid #444; /* 입력 필드 테두리 색상 설정 */
+    border-radius: 4px; /* 모서리 둥글게 설정 */
+    box-sizing: border-box; /* 박스 사이징 설정 */
+    color: #fff; /* 입력 필드 텍스트 색상 설정 */
+    background-color: #555; /* 입력 필드 배경 색상 설정 */
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #333; /* 버튼 배경 색상 설정 */
+    color: #ffffff; /* 버튼 텍스트 색상 설정 */
+    border: none; /* 버튼 테두리 제거 */
+    padding: 12px 20px; /* 버튼 내부 여백 설정 */
+    font-size: 16px; /* 버튼 폰트 크기 설정 */
+    cursor: pointer; /* 버튼 클릭 시 포인터 설정 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 설정 */
+    transition: background-color 0.3s, transform 0.3s; /* 호버와 클릭 시 애니메이션 설정 */
+    margin-bottom: 10px; /* 버튼 하단 여백 설정 */
+}
+
+/* 뒤로가기 버튼 스타일 */
+button[type="button"] {
+    background-color: #333; /* 취소 버튼 배경 색상 설정 */
+    display: block; /* 블록 요소로 설정하여 가운데 정렬 가능 */
+    margin: 20px auto 10px; /* 버튼 위쪽 여백, 중앙 정렬, 하단 여백 설정 */
+}
+
+/* 버튼 호버 및 포커스 상태 */
+button:hover {
+    background-color: #0056b3; /* 버튼 호버 시 배경 색상 설정 */
+    transform: translateY(-2px); /* 버튼 호버 시 약간 위로 이동 */
+}
+
+button:focus {
+    outline: none; /* 버튼 포커스 시 아웃라인 제거 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px; /* 모바일에서 컨테이너 내부 여백 설정 */
+    }
+
+    button {
+        width: 100%; /* 모바일에서 버튼 너비 전체 사용 */
+    }
+
+    button[type="button"] {
+        margin-right: 0; /* 취소 버튼 오른쪽 여백 제거 */
+    }
+}

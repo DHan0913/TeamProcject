@@ -9,34 +9,62 @@ import himedia.dvd.repositories.vo.ProductVo;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductDao productDao;
+	@Autowired
+	private ProductDao productDao;
 
-    @Override
-    public List<ProductVo> getAllProducts() {
-        List<ProductVo> list = productDao.selectAllProducts();
-        return list;
-    }
+	@Override
+	public List<ProductVo> getAllProducts() {
+		List<ProductVo> list = productDao.selectAllProducts();
+		return list;
+	}
+
 	@Override
 	public boolean add(ProductVo productVo) {
 		int insertedCount = productDao.insertProduct(productVo);
-        return insertedCount == 1;
+		return insertedCount == 1;
+	}
+
+	@Override
+	public ProductVo getProductdetail(Long productNo) {
+		ProductVo productVo = productDao.getProductdetail(productNo);
+		return productVo;
+	}
+
+	@Override
+	public List<ProductVo> searchProductsByName(String keyword) {
+		return productDao.selectProductsByName(keyword);
+	}
+
+	@Override
+	public List<ProductVo> searchProductsByGenre(String keyword) {
+		return productDao.selectProductsByGenre(keyword);
+	}
+
+	@Override
+	public boolean deleteProduct(Long productNo) {
+		int deletedCount = productDao.delete(productNo);
+		return deletedCount == 1;
+	}
+
+	@Override
+	public ProductVo modifyProduct(Long productNo) {
+		return productDao.modifyproduct(productNo);
+	}
+
+	@Override
+	public boolean modify(ProductVo productVo) {
+		int modifyCount = productDao.modify(productVo);
+		return modifyCount == 1;
 	}
 
     @Override
-    public ProductVo getProductdetail(Long productNo) {
-        ProductVo productVo = productDao.getProductdetail(productNo);
-        return productVo;
+    public List<ProductVo> getProductsByPage(int start, int end) {
+        return productDao.selectProductsByPage(start, end);
     }
 
     @Override
-    public List<ProductVo> searchProductsByName(String keyword) {
-        return productDao.selectProductsByName(keyword);
-    }
-
-    @Override
-    public List<ProductVo> searchProductsByGenre(String keyword) {
-        return productDao.selectProductsByGenre(keyword);
+    public int getProductCount() {
+        return productDao.countProducts();
     }
 
 }

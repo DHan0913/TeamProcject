@@ -1,0 +1,118 @@
+/* 전체 페이지 기본 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #fff;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    max-width: 1000px; /* 최대 너비를 줄임 */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #121212;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+h1 {
+    font-size: 26px; /* 제목 크기 줄임 */
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #121212;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* 이미지 컨테이너 스타일 */
+.img-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.img-container img {
+    max-width: 60%;  /* 이미지 크기를 더 줄임 */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 14px; /* 버튼 폰트 크기 줄임 */
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.purchase-btn {
+    background-color: #0056b3;
+}
+
+.purchase-btn:hover {
+    background-color: #0056b3;
+}
+
+.login-btn {
+    background-color: #121212;
+    color: #fff;
+}
+
+.login-btn:hover {
+    background-color: #121212;
+}
+
+.home-btn {
+    background-color: #0056b3;
+}
+
+.home-btn:hover {
+    background-color: #0056b3;
+}
+
+/* 권한 없는 경우 메시지 스타일 */
+p {
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* 비디오 iframe 스타일 */
+iframe {
+    width: 100%;
+    max-width: 560px;
+    height: 315px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

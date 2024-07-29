@@ -2,7 +2,6 @@ function checkEmail(event) {
 	//	이벤트 발생 객체 
 	const obj = event.target;	//	button#check-email
 	const target = obj.getAttribute("data-target");	//	API 호출 위치
-	console.log(target);
 	const frm = obj.form;	//	폼 
 
 	const email = frm.email.value.trim();
@@ -11,18 +10,24 @@ function checkEmail(event) {
 		alert("이메일을 입력하세요!");
 		return;
 	}
-
+   
+   // 이메일 형식 검증
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailPattern.test(email)) {
+        alert("올바른 이메일 형식을 입력하십시오.");
+        return;
+    }
+   
 	//	fetch
 	console.log(`${target}?email=${email}`);
 	fetch(`${target}?email=${email}`)
-	.then(response => {
-		console.log(response);
+	.then(response => {;
 		return response.json();
 	})
 	.then(json => {
 		console.log(json);
 		//	중복 여부
-		if (json.exist) {
+		if (json.exists) {
 			alert('이미 사용중인 이메일입니다.')
 			throw new Error('중복된 이메일입니다.');
 		} else {
@@ -39,3 +44,4 @@ window.addEventListener("load", event => {
 		.addEventListener("click", checkEmail);
 		
 	});	
+	

@@ -1,45 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>DVD 회원 가입</title>
-<script src="<c:url value="/javascript/user.js" />"></script>
+    <meta charset="UTF-8">
+    <title>VOD 회원 가입</title>
+    <link href="<c:url value='/css/joinform.css' />" rel="stylesheet">
+    <script src="<c:url value='/javascript/user.js' />"></script>
 </head>
 <body>
-	<h1>회원 가입</h1>
-	<form id="join-form" name="registerForm" method="POST" action="<c:url value='/users/join' />">
-		
-		<label class="block-label" for="name">이름</label>
-		<input id="name" name="username" type="text" placeholder="이름을 입력하십시오" value=""><br>
+    <div class="container form-container">
+        <h1 class="form-title">회원 가입</h1>
 
-		<label class="block-label">비밀번호</label> 
-		<input name="password" type="password" placeholder="비밀번호를 입력하십시오" value=""><br>
+        <form:form modelAttribute="userVo" id="join-form" name="registerForm"
+            action="${pageContext.servletContext.contextPath}/users/join" method="POST">
+            
+            <div class="form-group">
+                <label for="username">이름</label>
+                <form:input path="username" class="form-control" placeholder="이름을 입력하십시오" />
+                <form:errors path="username" cssClass="error" />
+            </div>
 
-		<label class="block-label">비밀번호 확인</label> 
-		<input name="password_confirm" type="password" placeholder="비밀번호를 입력하십시오" value=""><br>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <form:input path="password" type="password" class="form-control" placeholder="비밀번호를 입력하십시오" />
+                <form:errors path="password" cssClass="error" />
+            </div>
 
-		<label class="block-label">이메일</label> 
-		<input name="email" type="email" placeholder="이메일을 입력하십시오">
-		<input type="button" id="check-email"
-			data-target="<c:url value="/users/checkEmail" />"
-			value="이메일 중복체크" /><br>	
-		<input type="hidden" name="emailCheck" value="n" />
+            <div class="form-group">
+                <label for="passwordConfirm">비밀번호 확인</label>
+                <form:input path="passwordConfirm" type="password" class="form-control" placeholder="비밀번호를 다시 입력하세요" />
+                <form:errors path="passwordConfirm" cssClass="error" />
+            </div>
 
-		<label class="block-label">생년월일</label>
-	  	<input name="birth" type="date" id="birthInput"><br>
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <form:input path="email" type="email" class="form-control" placeholder="이메일을 입력하십시오" />
+                <input type="button" id="check-email" class="btn btn-secondary mt-2"
+                    data-target="<c:url value='/users/checkEmail' />" value="이메일 중복체크" />
+                <input type="hidden" name="emailCheck" value="n" />
+                <form:errors path="email" cssClass="error" />
+            </div>
 
-		<label for="agree">약관동의</label>
-		<input type="checkbox" id="agree" name="agree" value="n" /><br>
+            <div class="form-group">
+                <label for="birth">생년월일</label>
+                <input name="birth" type="date" id="birthInput" class="form-control">
+                <form:errors path="birth" cssClass="error" />
+            </div>
 
-		<input type="submit" value="가입하기" />
-		<input type="reset" value="다시 작성" />
+            <div class="form-group form-check">
+                <form:checkbox path="agree" id="agree" class="form-check-input" />
+                <label class="form-check-label" for="agree">약관동의</label>
+                <form:errors path="agree" cssClass="error" />
+            </div>
 
-	</form>
-    
+            <button type="submit" class="btn btn-warning btn-block">가입하기</button>
+            <button type="reset" class="btn btn-warning btn-block">다시 작성</button>
+	        <button type="button" class="btn btn-warning btn-block" onclick="location.href='<c:url value="/" />'">홈으로</button>
+
+        </form:form>
+    </div>
 </body>
 </html>

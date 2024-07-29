@@ -3,17 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<settings>
-		<setting name="cacheEnabled" value="true" />
-	</settings>
-	
-	<typeAliases>
-		<typeAlias type="himedia.dvd.repositories.vo.UserVo" alias="UserVo" />
-		<typeAlias type="himedia.dvd.repositories.vo.ProductVo" alias="ProductVo" />
-	</typeAliases>
-	
-	<mappers>
-		<mapper resource="mybatis/mappers/users.xml" />
-		<mapper resource="mybatis/mappers/products.xml" />
-	</mappers>
+
+    <settings>
+        <setting name="cacheEnabled" value="true" />
+    </settings>
+    
+    <typeAliases>
+        <typeAlias type="himedia.dvd.repositories.vo.UserVo" alias="UserVo" />
+        <typeAlias type="himedia.dvd.repositories.vo.ProductVo" alias="ProductVo" />
+        <typeAlias type="himedia.dvd.repositories.vo.AccessAttemptVo" alias="AccessAttemptVo" />
+        <typeAlias type="himedia.dvd.repositories.vo.BlockedIpVo" alias="BlockedIpVo" />
+      	<typeAlias type="himedia.dvd.repositories.vo.CashVo" alias="CashVo" />
+      	<typeAlias type="himedia.dvd.repositories.vo.CashVo" alias="CouponVo" />
+      	<typeAlias type="himedia.dvd.repositories.vo.TotalVo" alias="TotalVo" />
+      	<typeAlias type="himedia.dvd.repositories.vo.NoticeVo" alias="NoticeVo" />
+      	<typeAlias type="himedia.dvd.repositories.vo.CommentVo" alias="CommentVo" />
+    </typeAliases>
+    
+    <mappers>
+        <mapper resource="mybatis/mappers/users.xml" />
+        <mapper resource="mybatis/mappers/products.xml" />
+        <mapper resource="mybatis/mappers/AccessAttempt.xml" />
+        <mapper resource="mybatis/mappers/BlockedIp.xml" />
+        <mapper resource="mybatis/mappers/coupons.xml" />
+        <mapper resource="mybatis/mappers/total.xml" />
+    </mappers>
+
 </configuration>
