@@ -54,7 +54,7 @@
                 </c:forEach>
             </table>
             <p>총 충전 완료 금액: ${totalAmount} 원</p>
-            <a href="<c:url value="/admin/home"/>">홈</a>
+            <a href="<c:url value="/admin/users"/>">홈</a>
         </div>
     </div>
     
