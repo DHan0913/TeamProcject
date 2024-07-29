@@ -6,25 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>쿠폰 생성</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/addcoupon.css' />">
 </head>
 <body>
-	<h1>쿠폰 생성</h1>
-	<form action="<c:url value='/admin/coupons/add' />" method="post">
-        <label for="couponCode">쿠폰 코드:</label>
-        <input type="text" id="couponCode" name="couponCode" required><br><br>
-        
-        <label for="expiryDate">만료일:</label>
-        <input type="date" id="expiryDate" name="expiryDate" required><br><br>
-        
-        <button type="submit">쿠폰 생성</button>
-    </form>
+    <div class="container">
+        <h1>쿠폰 생성</h1>
+        <form action="<c:url value='/admin/coupons/add' />" method="post">
+            <label for="couponCode">쿠폰 코드:</label>
+            <input type="text" id="couponCode" name="couponCode" required><br><br>
+            
+            <label for="expiryDate">만료일:</label>
+            <input type="date" id="expiryDate" name="expiryDate" required><br><br>
+            
+            <button type="submit">쿠폰 생성</button>
+        </form>
+    </div>
 </body>
 </html>
 <script>
-
 if("${successMessage}" != ''){
-	alert("${successMessage}");
+    alert("${successMessage}");
 }
-
 </script>
-

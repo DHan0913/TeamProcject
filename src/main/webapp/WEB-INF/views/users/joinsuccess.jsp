@@ -14,7 +14,7 @@
             <div class="card-body text-center">
                 <h1 class="card-title">회원 가입 성공</h1>
                 <p class="card-text">회원 가입이 성공적으로 완료되었습니다.</p>
-                <a href="<c:url value='/users/login' />" class="btn btn-primary btn-custom"><i class="fas fa-sign-in-alt"></i> 로그인하기</a>
+                <a href="<c:url value='/users/login' />" class="btn btn-custom"><i class="fas fa-sign-in-alt"></i> 로그인하기</a>
             </div>
         </div>
     </div>
