@@ -55,7 +55,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    document.querySelector('#comment-' + commentId + ' .display-content p').innerText = '삭제된 댓글입니다';
+                    window.location.reload();
                 } else {
                     alert('댓글 삭제에 실패했습니다.');
                 }
@@ -113,7 +113,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    document.querySelector('#reply-' + replyId + ' .display-content p').innerText = '삭제된 댓글입니다';
+                    window.location.reload();
                 } else {
                     alert('댓글 삭제에 실패했습니다.');
                 }
@@ -286,11 +286,6 @@
                                     </c:choose>
                                 </div>
                             </c:if>
-                            <c:if test="${reply.secret == 'D'}">
-                                <div id="reply-${reply.id}" class="deleted">
-                                    <p>삭제된 댓글입니다</p>
-                                </div>
-                            </c:if>
                         </c:forEach>
 
                         <!-- 대댓글 입력 폼 -->
@@ -308,11 +303,6 @@
                                 <button type="button" onclick="hideReplyForm(${comment.id})">취소</button>
                             </form>
                         </div>
-                    </div>
-                </c:if>
-                <c:if test="${comment.secret == 'D'}">
-                    <div id="comment-${comment.id}" class="deleted">
-                        <p>삭제된 댓글입니다</p>
                     </div>
                 </c:if>
             </c:forEach>

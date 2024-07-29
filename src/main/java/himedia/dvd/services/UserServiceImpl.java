@@ -173,6 +173,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<NoticeVo> getAlladminNotices() {
+		return userDao.getAlladminNotice();
+	}
+
+	@Override
 	public NoticeVo getLatestNotice() {
 		return userDao.getLatestNotice();
 	}
@@ -243,6 +248,7 @@ public class UserServiceImpl implements UserService {
 		int result = userDao.deleteReply(params);
         return result > 0;
 	}
+
 
 	}
 

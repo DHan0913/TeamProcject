@@ -23,6 +23,7 @@
                     <th>제목</th>
                     <th>내용</th>
                     <th>작성일</th>
+                    <th>상태</th>
                     <th>삭제</th>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@
                         <td><a href="<c:url value='/admin/notice/${notice.id}' />">${notice.title}</a></td>
                         <td>${notice.content}</td>
                         <td>${notice.createdDate}</td>
+                        <td>${notice.status}</td>
                         <td>
                             <form action="<c:url value='/admin/notice/${notice.id}/delete' />" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                                 <button type="submit" class="delete-button">삭제</button>

@@ -307,7 +307,7 @@ public class AdminController {
 	// 공지사항 목록 이동
 	@GetMapping("/notice")
 	public String getNoticeList(Model model) {
-		List<NoticeVo> notices = userService.getAllNotices();
+		List<NoticeVo> notices = userService.getAlladminNotices();
 		model.addAttribute("notices", notices);
 		return "admin/notice/noticelist";
 	}
