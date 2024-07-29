@@ -235,37 +235,49 @@
 	</select>
 	
 	<!-- 공지사항 관련 쿼리 추가 -->
-    <insert id="insertNotice" parameterType="NoticeVo">
-        INSERT INTO notices (id, title, content, created_date)
-        VALUES (notices_seq.NEXTVAL, #{title}, #{content}, #{createdDate})
-    </insert>
-
+	<insert id="insertNotice" parameterType="NoticeVo">
+	    INSERT INTO notices (id, title, content, created_date, status)
+	    VALUES (notices_seq.NEXTVAL, #{title}, #{content}, #{createdDate}, '공지')
+	</insert>
+	
+	<!-- 관리자 공지사항 목록 -->
+	<select id="selectAlladminNotices" resultType="NoticeVo">
+	    SELECT id, title, content, created_date AS createdDate, status
+	    FROM notices
+	    ORDER BY created_date DESC
+	</select>
+	
+	
 	<!-- 공지사항 목록 -->
-    <select id="selectAllNotices" resultType="NoticeVo">
-        SELECT id, title, content, created_date AS createdDate
-        FROM notices
-        ORDER BY created_date DESC
-    </select>
-
+	<select id="selectAllNotices" resultType="NoticeVo">
+	    SELECT id, title, content, created_date AS createdDate, status
+	    FROM notices
+	    WHERE status = '공지'
+	    ORDER BY created_date DESC
+	</select>
+	
 	<!-- 최신 공지사항 한 개 조회 -->
-    <select id="selectLatestNotice" resultType="NoticeVo">
-        SELECT id, title, content, created_date AS createdDate
-        FROM notices
-        ORDER BY created_date DESC
-        FETCH FIRST 1 ROWS ONLY
-    </select>
-
-    <!-- 공지사항 삭제 -->
-    <delete id="deleteNotice" parameterType="long">
-        DELETE FROM notices WHERE id = #{id}
-    </delete>
-    
-    <!-- 공지사항 상세조회 -->
-    <select id="selectNoticedetail" parameterType="long" resultType="NoticeVo">
-        SELECT id, title, content, created_date AS createdDate
-        FROM notices
-        WHERE id = #{id}
-    </select>
+	<select id="selectLatestNotice" resultType="NoticeVo">
+	    SELECT id, title, content, created_date AS createdDate, status
+	    FROM notices
+	    WHERE status = '공지'
+	    ORDER BY created_date DESC
+	    FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<!-- 공지사항 삭제 -->
+	<update id="deleteNotice" parameterType="long">
+	    UPDATE notices
+	    SET status = '삭제'
+	    WHERE id = #{id}
+	</update>
+	
+	<!-- 공지사항 상세조회 -->
+	<select id="selectNoticedetail" parameterType="long" resultType="NoticeVo">
+	    SELECT id, title, content, created_date AS createdDate, status
+	    FROM notices
+	    WHERE id = #{id}
+	</select>
 
     <!-- 댓글 추가 -->
     <insert id="insertComment" parameterType="CommentVo">

@@ -197,6 +197,12 @@ public class UserDaoImpl implements UserDao {
 		List<NoticeVo> list = sqlSession.selectList("users.selectAllNotices");
 		return list;
 	}
+	
+	@Override
+	public List<NoticeVo> getAlladminNotice() {
+		List<NoticeVo> list = sqlSession.selectList("users.selectAlladminNotices");
+		return list;
+	}
 
 	@Override
 	public NoticeVo getLatestNotice() {
@@ -270,4 +276,5 @@ public class UserDaoImpl implements UserDao {
 	public int deleteReply(Map<String, Object> params) {
 		return sqlSession.delete("users.deleteComment", params);
 	}
+	
 }
