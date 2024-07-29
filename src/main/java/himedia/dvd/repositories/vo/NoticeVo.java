@@ -7,6 +7,7 @@ public class NoticeVo {
 	private String title;
 	private String content;
 	private Date createdDate;
+	private String Status;
 	
 	public NoticeVo() {
 		
@@ -44,12 +45,21 @@ public class NoticeVo {
 		this.createdDate = createdDate;
 	}
 
+	public String getStatus() {
+		return Status;
+	}
+
+	public void setStatus(String status) {
+		Status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "NoticeVo [id=" + id + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate
-				+ ", getId()=" + getId() + ", getTitle()=" + getTitle() + ", getContent()=" + getContent()
-				+ ", getCreatedDate()=" + getCreatedDate() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", Status=" + Status + ", getId()=" + getId() + ", getTitle()=" + getTitle() + ", getContent()="
+				+ getContent() + ", getCreatedDate()=" + getCreatedDate() + ", getStatus()=" + getStatus()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
-	
+
 }

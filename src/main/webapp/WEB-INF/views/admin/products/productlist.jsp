@@ -39,7 +39,7 @@
 				<tr>
 					<td colspan="5">
 						<a href="<c:url value='/admin/add'/>">상품등록</a>
-						<a href="<c:url value='/admin/home'/>">홈</a>
+						<a href="<c:url value='/admin/users'/>">홈</a>
 					</td>
 				</tr>
 			</table>
