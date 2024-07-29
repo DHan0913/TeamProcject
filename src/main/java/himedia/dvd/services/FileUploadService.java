@@ -9,7 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileUploadService {
-	private static String SAVE_PATH = "c:/uploads";
+//	private static String SAVE_PATH = "c:/uploads";
+	private static String SAVE_PATH = "/uploads";
 
 	// 멀티파트 파일을 실제 파일로 저장하는 메서드
 	public String store(MultipartFile multipartFile) {
