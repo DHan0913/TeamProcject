@@ -101,5 +101,5 @@
 
 	<!-- Resource Mapping -->
 	<mvc:resources mapping="/upload-images/**"
-		location="file:c:/uploads/" />
+		location="file:/uploads/" />
 </beans>
