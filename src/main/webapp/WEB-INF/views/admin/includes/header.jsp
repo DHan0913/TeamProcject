@@ -11,7 +11,7 @@
 </head>
 <body>
     <header id="header">
-        <h1 class="site-title"><a href="<c:url value='/' />">VOD</a></h1>
+        <h1 class="site-title"><a href="<c:url value='/' />">DIVIWIKI</a></h1>
         <div class="header-actions">
             <c:choose>
                 <c:when test="${not empty authUser}">
