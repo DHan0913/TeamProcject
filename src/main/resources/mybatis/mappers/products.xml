@@ -2,79 +2,93 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="products">
-	
-    <select id="selectAllProducts" resultType="ProductVo">
-        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
-               content, status, img, video_name AS video
-        FROM products
-        ORDER BY product_no ASC
-    </select>
-    
-    
-    <!-- 추가 -->
-    <insert id="insertProduct" parameterType="ProductVo">
-      	<selectKey keyProperty="productNo" resultType="long"
+<mapper namespace="products">
+
+	<select id="selectAllProducts" resultType="ProductVo">
+		SELECT product_no AS
+		productNo, productname, genre, release_date AS
+		releaseDate,
+		content,
+		status, img, video_name AS video
+		FROM products
+		ORDER BY product_no ASC
+	</select>
+
+	<insert id="insertProduct" parameterType="ProductVo">
+		<selectKey keyProperty="productNo" resultType="long"
 			order="BEFORE">
 			SELECT product_no_seq.nextval FROM dual
 		</selectKey>
-        INSERT INTO products (product_no ,productname, genre, release_date, content, status, img, video_name)
-        VALUES (#{productNo} ,#{productName}, #{genre}, #{releaseDate}, #{content}, #{status}, #{img}, #{video})
-    </insert>
-    
-    <!-- Select product by product number -->
-    <select id="getProductdetail" parameterType="long" resultType="ProductVo">
-        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
-               content, status, img, video_name AS video
-        FROM products
-        WHERE product_no = #{productNo}
-    </select>
-    
-    <!-- 삭제 -->
+		INSERT INTO products (product_no, productname, genre, release_date,
+		content, status, img, video_name)
+		VALUES (#{productNo}, #{productName},
+		#{genre}, #{releaseDate}, #{content},
+		#{status}, #{img}, #{video})
+	</insert>
+
+	<select id="getProductdetail" parameterType="long"
+		resultType="ProductVo">
+		SELECT product_no AS productNo, productname, genre,
+		release_date AS
+		releaseDate,
+		content, status, img, video_name AS video
+		FROM products
+		WHERE product_no = #{productNo}
+	</select>
+
 	<delete id="deleteProduct" parameterType="long">
-	    DELETE FROM products
-	    WHERE product_no = #{productNo}
+		DELETE FROM products
+		WHERE product_no = #{productNo}
 	</delete>
-		
-	<!-- 수정 -->
+
 	<update id="modifyProduct" parameterType="ProductVo">
-		 UPDATE products
-		 SET 
-		   productname = #{productName},
-		   genre = #{genre},
-		   content = #{content},
-		   img =#{img},
-		   video_name = #{video}
-		 WHERE product_no = #{productNo}
+		UPDATE products
+		SET
+		productname = #{productName}, genre = #{genre}, content = #{content},
+		img = #{img}, video_name = #{video}
+		WHERE product_no = #{productNo}
 	</update>
 
+	<select id="selectProductsByName" parameterType="string"
+		resultType="ProductVo">
+		SELECT product_no AS productNo, productname, genre,
+		release_date AS
+		releaseDate,
+		content, status, img, video_name AS video
+		FROM products
+		WHERE LOWER(productname) LIKE '%' || LOWER(#{value}) ||
+		'%'
+	</select>
 
-    <!-- 제품 검색 -->
-    <select id="selectProductsByName" parameterType="string" resultType="ProductVo">
-        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
-               content, status, img, video_name AS video
-        FROM products
-        WHERE LOWER(productname) LIKE '%' || LOWER(#{value}) || '%'
+	<select id="selectProductsByGenre" parameterType="string"
+		resultType="ProductVo">
+		SELECT product_no AS productNo, productname, genre,
+		release_date AS
+		releaseDate,
+		content, status, img, video_name AS video
+		FROM products
+		WHERE LOWER(genre) LIKE '%' || LOWER(#{value}) || '%'
+	</select>
+
+    <select id="selectProductsByPage" parameterType="map" resultType="ProductVo">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT a.*, ROWNUM rnum FROM (
+                SELECT product_no AS productNo, productname, genre, release_date AS releaseDate,
+                       content, status, img, video_name AS video
+                FROM products
+                ORDER BY product_no ASC
+            ) a
+            WHERE ROWNUM <= #{end}
+        )
+        WHERE rnum >= #{start}
+        ]]>
     </select>
 
-    <select id="selectProductsByGenre" parameterType="string" resultType="ProductVo">
-        SELECT product_no AS productNo, productname, genre, release_date AS releaseDate, 
-               content, status, img, video_name AS video
-        FROM products
-        WHERE LOWER(genre) LIKE '%' || LOWER(#{value}) || '%'
-    </select>
 
-    <!-- Rent a product -->
-    <update id="rentProduct">
-        UPDATE products
-        SET status = '대여중'
-        WHERE product_no = #{productNo}
-    </update>
+	<select id="countProducts" resultType="int">
+		SELECT COUNT(*) FROM
+		products
+	</select>
 
-    <!-- Return a product -->
-    <update id="returnProduct">
-        UPDATE products
-        SET status = '대여가능'
-        WHERE product_no = #{productNo}
-    </update>
 </mapper>

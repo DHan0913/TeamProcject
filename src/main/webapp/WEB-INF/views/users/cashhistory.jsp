@@ -6,24 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>충전 내역</title>
+<link href="<c:url value='/css/cashhistory.css' />" rel="stylesheet">
 </head>
 <body>
-    <h1>충전 내역</h1>
-    <table border="1">
-        <tr>
-            <th>승인 날짜</th>
-            <th>금액</th>
-            <th>상태</th>
-        </tr>
-        <c:forEach var="cash" items="${cashList}">
+    <div class="container">
+        <h1>충전 내역</h1>
+        <table>
             <tr>
-                <td>${cash.approveDate}</td>
-                <td>${cash.amount}</td>
-                <td>${cash.status}</td>
+                <th>승인 날짜</th>
+                <th>금액</th>
+                <th>상태</th>
             </tr>
-        </c:forEach>
-    </table>
-    <h3>총 충전금액: ${totalAmount}</h3>
-    <button onclick="location.href='<c:url value="/" />'">홈으로</button>
+            <c:forEach var="cash" items="${cashList}">
+                <c:if test="${cash.amount > 0}">
+                    <tr>
+                        <td>${cash.approveDate}</td>
+                        <td>${cash.amount}</td>
+                        <td>${cash.status}</td>
+                    </tr>
+                </c:if>
+            </c:forEach>
+        </table>
+        <button onclick="location.href='<c:url value="/" />'">홈으로</button>
+    </div>
 </body>
 </html>

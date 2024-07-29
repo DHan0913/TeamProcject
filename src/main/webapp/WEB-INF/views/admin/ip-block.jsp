@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="<c:url value='/css/ip-block.css' />" rel="stylesheet">
 <meta charset="UTF-8">
 <title>IP 관리</title>
 </head>
@@ -78,6 +79,7 @@
                 <input type="text" id="adminId" name="adminId" required />
                 <button type="submit">차단</button>
             </form>
+            
         </div>
     </div>
 </body>

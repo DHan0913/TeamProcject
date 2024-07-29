@@ -1,0 +1,103 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+}
+
+/* 헤더 스타일 */
+#header {
+    background-color: #121212;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+#header h1 {
+    margin: 0;
+}
+
+/* 오류 메시지 스타일 */
+#errorMsg {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 주요 콘텐츠 스타일 */
+#main-content {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #121212;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+/* 폼 그룹 스타일 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* 라벨 스타일 */
+.block-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* 버튼 그룹 스타일 */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #333;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* 취소 및 뒤로가기 버튼 스타일 */
+button[type="button"] {
+    background-color: #333;
+}
+
+button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    #update-form {
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    button[type="button"] {
+        margin-right: 0;
+    }
+}

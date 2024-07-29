@@ -8,9 +8,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import himedia.dvd.repositories.dao.UserDao;
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.CouponVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +25,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    private ObjectMapper objectMapper = new ObjectMapper();	
+    
     @Override
     public boolean join(UserVo vo) {
         if (userDao.selectUserByEmail(vo.getEmail()) != null) {
@@ -101,6 +108,7 @@ public class UserServiceImpl implements UserService {
         return userDao.rejectCashRequest(cashVo);
     }
 
+    //	유저 비밀번호 초기화
     @Override
     public boolean resetPassword(Long userNo) {
         return userDao.reset(userNo);
@@ -124,7 +132,7 @@ public class UserServiceImpl implements UserService {
         CashVo cashVo = userDao.insertCash(requestId);
         return cashVo != null;
     }
-
+    // 유저 삭제
     @Override
     public void deleteUser(Long userNo) {
         userDao.delete(userNo);
@@ -132,22 +140,109 @@ public class UserServiceImpl implements UserService {
 
     // 쿠폰 코드의 유효성 검사 메서드
     @Override
-    public boolean isCouponValid(String couponCode, String expiryYn) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("couponCode", couponCode);
-        params.put("expiryYn", expiryYn);
-
-        CouponVo coupon = userDao.getCouponByCodeAndStatus(params);
-        if (coupon != null && coupon.getExpiryYn().equals("N") && coupon.getExpiryDate().compareTo(new java.util.Date()) >= 0) {
-            return true;
-        }
-        return false;
+    public long getCouponCountByCodeAndStatus(String couponCode) {
+        return userDao.getCouponCountByCodeAndStatus(couponCode);
     }
 
-    // 쿠폰 코드 중복 여부 확인 메서드
+    // 사용한 쿠폰 삭제
     @Override
-    public boolean checkCouponExistence(String couponCode) {
-        CouponVo coupon = userDao.getCouponByCode(couponCode);
-        return coupon != null;
+    public void expiryCouponByCouponCode(String couponCode) {
+        userDao.expiryCouponByCouponCode(couponCode);
     }
-}
+    
+    //	캐시 충전
+    @Override
+    public void chargeCashByCoupon(CashVo cashVo) {
+        userDao.chargeCashByCoupon(cashVo);
+    }
+
+    // 시청 내역 조회
+    @Override
+    public List<Map<String, Object>> getWatchHistory(Long userNo) {
+        return userDao.getWatchHistory(userNo);
+    }
+
+	@Override
+	public boolean addNotice(NoticeVo notice) {
+		return userDao.insertNotice(notice) > 0;
+	}
+
+	@Override
+	public List<NoticeVo> getAllNotices() {
+		return userDao.getAllNotices();
+	}
+
+	@Override
+	public NoticeVo getLatestNotice() {
+		return userDao.getLatestNotice();
+	}
+
+	@Override
+	public boolean deleteNotice(Long id) {
+		return userDao.deleteNotice(id) > 0;
+	}
+
+	@Override
+	public NoticeVo getNoticedetail(Long id) {
+		return userDao.selectNoticeById(id);
+	}
+	
+	//댓글 보기
+	@Override
+	public List<CommentVo> getComment(Long id) {
+	   return userDao.selectCommentsByNoticeId(id);
+	 }
+	
+	//댓글 달기
+	@Override
+	public boolean addComment(CommentVo commentVo) {
+	   return userDao.insertComment(commentVo) > 0;
+	}
+
+	@Override
+    public boolean addReply(CommentVo commentVo) {
+        return userDao.insertReply(commentVo) > 0;
+    }
+	
+	@Override
+	public List<CommentVo> getReplies(Long commentId) {
+		return userDao.selectRepliesByCommentId(commentId);
+	}
+	
+	 @Override
+	 public boolean updateReplies(Long commentId, List<CommentVo> replies) {
+	        return userDao.updateReplies(commentId, replies) > 0;
+	    }
+
+
+	@Override
+	public List<CommentVo> getCommentFromAdmin(Long userNo) {
+		return userDao.selectCommentFromAdmin(userNo);
+	}
+
+	 @Override
+	    public boolean updateComment(Map<String, Object> params) {
+	        int result = userDao.updateComment(params);
+	        return result > 0;
+	    }
+	 
+	 @Override
+	    public boolean updateReply(Map<String, Object> params) {
+	        int result = userDao.updateReply(params);
+	        return result > 0;
+	    }
+
+	@Override
+	public boolean deleteComment(Map<String, Object> params) {
+		int result = userDao.deleteComment(params);
+        return result > 0;
+	}
+
+	@Override
+	public boolean deleteReply(Map<String, Object> params) {
+		int result = userDao.deleteReply(params);
+        return result > 0;
+	}
+
+	}
+

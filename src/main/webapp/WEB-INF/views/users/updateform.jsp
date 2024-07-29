@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 정보 수정</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/updateform.css' />">
 </head>
 <body>
 
@@ -23,9 +24,12 @@
         <label class="block-label">비밀번호</label>
         <input name="password" type="password" placeholder="비밀번호 입력">
     </div>
-    <button type="submit">수정</button>
+    <button type="form-group">수정</button>
     <button type="button" onclick="window.location.href='<c:url value="/" />'">취소</button>
+    <button type="button" onclick="window.history.back();">뒤로가기</button>
+
 </form>
 
+<script src="<c:url value='/javascript/updateform.js' />"></script>
 </body>
 </html>

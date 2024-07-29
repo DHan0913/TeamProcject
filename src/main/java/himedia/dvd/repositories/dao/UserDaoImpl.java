@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import himedia.dvd.repositories.vo.CashVo;
+import himedia.dvd.repositories.vo.CommentVo;
 import himedia.dvd.repositories.vo.CouponVo;
+import himedia.dvd.repositories.vo.NoticeVo;
 import himedia.dvd.repositories.vo.UserVo;
 
 @Repository("userDao")
@@ -152,18 +154,120 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    
+
+    //	쿠폰 코드와 상태로 쿠폰 수 조회
     @Override
-    public CouponVo getCouponByCode(String couponCode) {
-        return sqlSession.selectOne("coupons.getCouponByCode", couponCode);
+    public long getCouponCountByCodeAndStatus(String couponCode) {
+        return sqlSession.selectOne("users.getCouponCountByCodeAndStatus", couponCode);
     }
 
+    // 사용한 쿠폰 만료
     @Override
-    public CouponVo getCouponByCodeAndStatus(Map<String, Object> params) {
-        return sqlSession.selectOne("coupons.getCouponByCodeAndStatus", params);
+    public void expiryCouponByCouponCode(String couponCode) {
+        sqlSession.update("users.expiryCouponByCouponCode", couponCode);
     }
 
+    //  캐시 충전
     @Override
-    public void delete(Long userNo) {
-        sqlSession.delete("users.setdeleteUser", userNo);
+    public void chargeCashByCoupon(CashVo cashVo) {
+        sqlSession.insert("users.chargeCashByCoupon", cashVo);
     }
+
+    // 탈퇴 시 회원정보 가림 처리
+	@Override
+	public void delete(Long userNo) {
+		sqlSession.update("users.setdeleteUser", userNo);
+		
+	}
+
+	@Override
+	public List<Map<String, Object>> getWatchHistory(Long userNo) {
+		 return sqlSession.selectList("users.watchhistory", userNo);
+	}
+
+	@Override
+	public int insertNotice(NoticeVo notice) {
+		int result = sqlSession.insert("users.insertNotice", notice);
+		return result;
+	}
+
+	@Override
+	public List<NoticeVo> getAllNotices() {
+		List<NoticeVo> list = sqlSession.selectList("users.selectAllNotices");
+		return list;
+	}
+
+	@Override
+	public NoticeVo getLatestNotice() {
+		return sqlSession.selectOne("users.selectLatestNotice");
+	}
+
+	@Override
+	public int deleteNotice(Long id) {
+		return sqlSession.delete("users.deleteNotice",id);
+	}
+
+	@Override
+	public NoticeVo selectNoticeById(Long id) {
+		return sqlSession.selectOne("users.selectNoticedetail", id);
+	}
+
+	@Override
+	public List<CommentVo> selectCommentsByNoticeId(Long id) {
+		return sqlSession.selectList("users.selectCommentsByNoticeId",id);
+	}
+
+	@Override
+	public int insertComment(CommentVo commentVo) {
+		return sqlSession.insert("users.insertComment", commentVo);
+	}
+
+	@Override
+	public int insertReply(CommentVo commentVo) {
+		return sqlSession.insert("users.insertReply", commentVo);
+	}
+
+	@Override
+	public List<CommentVo> selectRepliesByCommentId(Long commentId) {
+		return sqlSession.selectList("users.selectRepliesByCommentId",commentId);
+	}
+	
+	@Override
+    public CommentVo selectCommentById(Long id) {
+        return sqlSession.selectOne("users.selectCommentById", id);
+    }
+	
+	@Override
+    public int updateReplies(Long commentId, List<CommentVo> replies) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commentId", commentId);
+        params.put("replies", replies);
+        return sqlSession.update("users.updateReplies", params);
+    }
+
+	@Override
+	public List<CommentVo> selectCommentFromAdmin(Long userNo) {
+		return sqlSession.selectList("users.selectCommentFromAdmin", userNo);
+	}
+	
+	@Override
+	public int updateComment(Map<String, Object> params) {
+	    return sqlSession.update("users.updateComment", params);
+	}
+
+	@Override
+	public int updateReply(Map<String, Object> params) {
+		return sqlSession.update("users.updateReply", params);
+	}
+
+	@Override
+	public int deleteComment(Map<String, Object> params) {
+		return sqlSession.delete("users.deleteComment", params);
+	}
+
+	@Override
+	public int deleteReply(Map<String, Object> params) {
+		return sqlSession.delete("users.deleteComment", params);
+	}
 }

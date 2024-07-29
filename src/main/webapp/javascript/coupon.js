@@ -1,51 +1,44 @@
+// 쿠폰 유효성 검사 함수
 function validateCoupon(event) {
-    event.preventDefault();
-    const frm = document.getElementById("couponForm");
-	
-    const couponCode = frm.querySelector("[name='couponCode']").value.trim();
-	const expiryYn = frm.querySelector("[name='expiryYn']").value.trim();
+	const obj = event.target; // button#validate-coupon
+	const target = obj.getAttribute("data-target"); // API 호출 위치
+	const frm = obj.form; // 폼
 
-    if (couponCode.length === 0) {
-        alert("쿠폰 코드를 입력하세요!");
-        return;
-    }
+	const couponCode = frm.couponCode.value.trim();
 
-    const requestData = {
-        couponCode: couponCode
-    };
+	if (couponCode.length === 0) {
+		alert("쿠폰 코드를 입력하세요!");
+		return;
+	}
 
-    const target = frm.getAttribute("action"); // Get action URL from form
-
-    console.log(`${target}`, requestData);
-    fetch(target, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(json => {
-        console.log(json);
-        if (json.errors) {
-            alert('쿠폰 검증 중 오류가 발생했습니다.');
-            console.error(json.errors);
-        } else if (json.isValid) {
-            alert('유효한 쿠폰입니다.');
-        } else {
-            alert('유효하지 않은 쿠폰입니다.');
-        }
-    })
-    .catch(error => console.error(error));
+	fetch(`${target}?couponCode=${couponCode}`)
+		.then(response => response.json())
+		.then(json => {
+			if (json.result === 'success') {
+				if (json.exists) {
+					alert('유효한 쿠폰 코드입니다.');
+					frm.couponCheck.value = "y";
+				} else {
+					alert('유효하지 않은 쿠폰 코드입니다.');
+					frm.couponCheck.value = "n";
+				}
+			} else {
+				alert('쿠폰 코드 확인 중 오류가 발생했습니다.');
+				throw new Error(json.message);
+			}
+		})
+		.catch(error => console.error(error));
 }
 
-window.addEventListener("load", event => {
-    document.getElementById("validate-coupon")
-    
-        .addEventListener("click", validateCoupon);
-});
+// 쿠폰 유효성 검사 전 폼 제출 체크 함수
+function checkCouponBeforeSubmit(event) {
+	const couponCheck = document.getElementById('couponCheck').value;
+	if (couponCheck === "n") {
+		alert('먼저 쿠폰을 등록해 주세요.');
+		event.preventDefault(); // 폼 제출 막기
+	}
+}
+
+// 이벤트 리스너 추가
+document.getElementById('validate-coupon').addEventListener('click', validateCoupon);
+document.getElementById('couponForm').addEventListener('submit', checkCouponBeforeSubmit);
